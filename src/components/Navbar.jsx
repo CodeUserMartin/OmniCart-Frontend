@@ -1,4 +1,5 @@
 import { Bell, ShoppingCart, Search } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -7,7 +8,7 @@ const Navbar = () => {
 
             {/* Logo */}
             <div>
-                <h2 className="text-2xl font-bold">OmniCart</h2>
+                <Link to="/" className="text-2xl font-bold">OmniCart</Link>
             </div>
 
             {/* Search Bar */}
@@ -22,8 +23,13 @@ const Navbar = () => {
 
             {/* Notification and Cart Icons */}
             <div className="flex items-center gap-4">
-                <div><Bell size={34} /></div>
-                <div><ShoppingCart size={34} /></div>
+                <Link to="/notifications">
+                    <Bell size={34} />
+                </Link>
+                <Link
+                    to="/cart">
+                    <ShoppingCart size={34} />
+                </Link>
             </div>
         </nav>
     )

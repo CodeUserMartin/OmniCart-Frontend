@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar.jsx'
 import HeroBanner from '../components/HeroBanner.jsx'
 import HeroText from '../components/HeroText.jsx'
 import CategoryOption from '../components/CategoryOption.jsx'
+import Footer from '../components/Footer.jsx'
 
 // Hero Banner Image
 import HomeBanner from '../assets/OmniCart-Home-banner.png'
@@ -15,6 +16,9 @@ const Home = () => {
             <HeroText />
 
             <CategoryOption />
+
+            {/* Footer */ }
+            <Footer />
         </div>
     )
 }
