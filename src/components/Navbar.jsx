@@ -31,6 +31,18 @@ const Navbar = () => {
                     <ShoppingCart size={34} />
                 </Link>
             </div>
+
+            <div>
+                <Link to="/seller-page">
+                    <button className='bg-(--accent-color) px-5 py-2'>Seller Page</button>
+                </Link>
+            </div>
+
+            <div>
+                <Link to="/seller-dashboard">
+                    <button className='bg-(--accent-color) px-5 py-2'>Seller Dashboard</button>
+                </Link>
+            </div>
         </nav>
     )
 }

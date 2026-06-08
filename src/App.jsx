@@ -5,6 +5,16 @@ import Groceries from "./pages/Groceries.jsx"
 import Electronics from "./pages/Electronic.jsx"
 import CartPage from "./pages/CartPage.jsx"
 import ProductResultPage from "./pages/ProductResultPage.jsx"
+import SellerPage from "./pages/SellerPage.jsx"
+import SellerDashboardPage from "./pages/SellerDashboardPage.jsx"
+
+// Seller Dashboard Subpages
+import AddProduct from "./pages/seller-dashboard/AddProduct.jsx"
+import UpdateProduct from "./pages/seller-dashboard/UpdateProduct.jsx"
+import DeleteProduct from "./pages/seller-dashboard/DeleteProduct.jsx"
+import NewOrders from "./pages/seller-dashboard/NewOrder.jsx"
+import CancelledOrders from "./pages/seller-dashboard/CancelledOrders.jsx"
+import MyProducts from "./pages/seller-dashboard/MyProducts.jsx"
 
 function App() {
 
@@ -14,6 +24,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/notifications" element={<ProductResultPage />} />
         <Route path="/cart" element={<CartPage />} />
+        
+        <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
+
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="update-product" element={<UpdateProduct />} />
+          <Route path="delete-product" element={<DeleteProduct />} />
+          <Route path="new-orders" element={<NewOrders />} />
+          <Route path="cancelled-orders" element={<CancelledOrders />} />
+          <Route path="my-products" element={<MyProducts />} />
+
+        </Route>
+
         <Route path="/clothing" element={<Clothing />} />
         <Route path="/groceries" element={<Groceries />} />
         <Route path="/electronics" element={<Electronics />} />
