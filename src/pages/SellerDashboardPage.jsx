@@ -13,13 +13,26 @@ const SellerDashboardPage = () => {
             <div className="flex">
 
                 {/* Left Panel */}
-               <LeftPanel />
+                <LeftPanel />
 
                 {/* Right Panel */}
-                <div className="bg-white p-4 flex-1">
-                    <h1 className="text-2xl font-bold mb-4">Seller Dashboard</h1>
-                    <p>Welcome to your dashboard! Here you can manage your products, view orders, and track your sales.</p>
-                    <Outlet />
+                {/* Wrapper */}
+                <div className="bg-white p-2 flex-1">
+
+                    <div className="flex items-center justify-center mb-4 bg-(--accent-color-2) rounded-xl h-full">
+
+                        {/* Main Content Container */}
+                        <div className="bg-(--primary-color) p-4 rounded-xl w-3xl">
+
+                            {/* Outlet for nested routes */}
+                            <Outlet />
+
+                        </div>
+
+
+                    </div>
+
+
                 </div>
 
             </div>
