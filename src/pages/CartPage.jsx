@@ -20,7 +20,7 @@ const CartPage = () => {
           {/* Cart items */}
           <CardItemCard />
           <CardItemCard />
-          <CardItemCard />
+          <CardItemCard />s
 
         </div>
 
