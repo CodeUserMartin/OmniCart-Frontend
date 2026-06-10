@@ -1,86 +1,55 @@
+import ResultProductCard from "../../components/ResultProductCard.jsx";
 import SearchBar from "../../components/SearchBar.jsx";
 
 const UpdateProduct = () => {
     return (
         <>
+
+            {/* Search Bar */}
             <div>
-
-                {/* Search Bar */}
                 <SearchBar />
+            </div>
 
-                {/* Update Product Form Container */}
-                <div className="bg-white p-6 rounded shadow-md mt-6">
+            {/* Update Product Form Container */}
+            <div className="bg-white p-6 rounded shadow-md mt-6">
 
-                    {/* Result Display */}
-                    <div className="flex items-center gap-4">
+                {/* Result Display */}
+                <ResultProductCard />
 
-                        {/* Product Image */}
-                        <div className="w-28 h-28 bg-gray-200">
-                            <img src="data:image/jpeg;base64,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" alt="Product" className="w-full h-full object-cover" />
-                        </div>
+                {/* Update Form */}
+                <div>
 
-                        {/* Product Details */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+
+                        {/* Product Name */}
                         <div>
+                            <label htmlFor="productName" className="block text-sm font-medium text-gray-700">Product Name</label>
+                            <input type="text" id="productName" className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        </div>
 
-                            {/* Product Name */}
-                            <div>
-                                <h2 className="text-lg font-bold">Product Name</h2>
-                            </div>
+                        {/* Product Stock */}
+                        <div>
+                            <label htmlFor="productStock" className="block text-sm font-medium text-gray-700">Product Stock</label>
 
-                            {/* Product Description */}
-                            <div>
-                                <p>Product Description</p>
-                            </div>
-
-                            {/* Product Price */}
-                            <div>
-                                <p className="text-xl font-bold">$99.99</p>
-                            </div>
-
-                            {/* Product Stock */}
-                            <div>
-                                <p>Stock: 100</p>
-                            </div>
-
+                            <input type="number" id="productStock" className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                         </div>
 
                     </div>
 
-                    {/* Update Form */}
-                    <div>
+                    {/* Product Description */}
+                    <div className="mt-4">
+                        <label htmlFor="productDescription" className="block text-sm font-medium text-gray-700">Product Description</label>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-
-                            {/* Product Name */}
-                            <div>
-                                <label htmlFor="productName" className="block text-sm font-medium text-gray-700">Product Name</label>
-                                <input type="text" id="productName" className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                            </div>
-
-                            {/* Product Stock */}
-                            <div>
-                                <label htmlFor="productStock" className="block text-sm font-medium text-gray-700">Product Stock</label>
-
-                                <input type="number" id="productStock" className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                            </div>
-
-                        </div>
-
-                        {/* Product Description */}
-                        <div className="mt-4">
-                            <label htmlFor="productDescription" className="block text-sm font-medium text-gray-700">Product Description</label>
-
-                            <textarea id="productDescription" rows={3} className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        </div>
-
-                    </div>
-
-                    {/* Update Button */}
-                    <div className="bg-(--accent-color) text-white p-2 rounded mt-4 text-center cursor-pointer uppercase font-bold">
-                        <button>Update Product</button>
+                        <textarea id="productDescription" rows={3} className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-(--box-shadow) focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                     </div>
 
                 </div>
+
+                {/* Update Button */}
+                <div className="bg-(--accent-color) text-white p-2 rounded mt-4 text-center cursor-pointer uppercase font-bold">
+                    <button>Update Product</button>
+                </div>
+
             </div>
         </>
     );

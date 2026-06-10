@@ -19,19 +19,12 @@ const SellerDashboardPage = () => {
                 {/* Wrapper */}
                 <div className="bg-white p-2 flex-1">
 
-                    <div className="flex items-center justify-center mb-4 bg-(--accent-color-2) rounded-xl h-full">
+                    <div className="bg-(--accent-color-2) p-4 rounded-xl w-full h-full flex flex-col justify-center">
 
-                        {/* Main Content Container */}
-                        <div className="bg-(--primary-color) p-4 rounded-xl w-3xl">
-
-                            {/* Outlet for nested routes */}
-                            <Outlet />
-
-                        </div>
-
+                        {/* Outlet for nested routes */}
+                        <Outlet />
 
                     </div>
-
 
                 </div>
 
