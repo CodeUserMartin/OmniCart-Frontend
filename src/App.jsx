@@ -15,6 +15,7 @@ import DeleteProduct from "./pages/seller-dashboard/DeleteProduct.jsx"
 import NewOrders from "./pages/seller-dashboard/NewOrder.jsx"
 import CancelledOrders from "./pages/seller-dashboard/CancelledOrders.jsx"
 import MyProducts from "./pages/seller-dashboard/MyProducts.jsx"
+import ReStockProducts from "./pages/seller-dashboard/ReStockProducts.jsx"
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/notifications" element={<ProductResultPage />} />
         <Route path="/cart" element={<CartPage />} />
-        
+
         <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
 
           <Route path="add-product" element={<AddProduct />} />
@@ -33,6 +34,7 @@ function App() {
           <Route path="new-orders" element={<NewOrders />} />
           <Route path="cancelled-orders" element={<CancelledOrders />} />
           <Route path="my-products" element={<MyProducts />} />
+          <Route path="re-stock-products" element={<ReStockProducts />} />
 
         </Route>
 
