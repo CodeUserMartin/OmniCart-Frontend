@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 // Icons
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 
 const LeftPanel = () => {
@@ -18,7 +18,7 @@ const LeftPanel = () => {
 
             <div className="p-4 rounded shadow flex flex-col w-full">
 
-                <li
+                <button
                     onClick={() => setProductManagementOpen(!productManagementOpen)}
                     className="cursor-pointer font-semibold text-white bg-black p-2 list-none"
                 >
@@ -27,9 +27,13 @@ const LeftPanel = () => {
                         <span>
                             Product Management
                         </span>
-                        <ChevronDown />
+                        {
+                            productManagementOpen
+                                ? <ChevronUp />
+                                : <ChevronDown />
+                        }
                     </div>
-                </li>
+                </button>
 
                 {
                     productManagementOpen && (
@@ -58,15 +62,19 @@ const LeftPanel = () => {
                     )
                 }
 
-                <li onClick={() => setOrderManagementOpen(!orderManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none">
+                <button onClick={() => setOrderManagementOpen(!orderManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none">
 
                     <div className="flex items-center gap-2 justify-center cursor-pointer p-2 text-white bg-black rounded">
                         <span>
                             Order Management
                         </span>
-                        <ChevronDown />
+                        {
+                            orderManagementOpen
+                                ? <ChevronUp />
+                                : <ChevronDown />
+                        }
                     </div>
-                </li>
+                </button>
 
                 {
                     orderManagementOpen && (
@@ -88,15 +96,20 @@ const LeftPanel = () => {
                     )
                 }
 
-                <li onClick={() => setInventoryManagementOpen(!inventoryManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none ">
+                <button onClick={() => setInventoryManagementOpen(!inventoryManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none ">
 
                     <div className="flex items-center gap-2 justify-center cursor-pointer text-white bg-black rounded">
                         <span>
                             Inventory Management
                         </span>
-                        <ChevronDown />
+                        {
+                            inventoryManagementOpen
+                                ? <ChevronUp />
+                                : <ChevronDown />
+
+                        }
                     </div>
-                </li>
+                </button>
 
                 {
                     inventoryManagementOpen && (
@@ -107,6 +120,12 @@ const LeftPanel = () => {
                             >
                                 My Products
 
+                            </Link>
+                            <Link
+                                to="/seller-dashboard/re-stock-products"
+                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                            >
+                                Re-Stock Products
                             </Link>
                         </div>
                     )
