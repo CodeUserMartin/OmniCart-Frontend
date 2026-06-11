@@ -10,7 +10,7 @@ const CancelledOrders = () => {
                     <h1 className="font-bold text-3xl text-white" >Cancelled Orders</h1>
 
                     {/* Products */}s
-                    <div className="flex flex-col gap-4 mt-3 overflow-auto h-152.5 p-3">
+                    <div className="flex flex-col gap-4 mt-3 overflow-auto h-140 p-3">
 
                         {/* Product Wrapper */}
                         <ResultProductCard />
