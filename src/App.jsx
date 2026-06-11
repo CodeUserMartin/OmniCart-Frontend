@@ -1,3 +1,7 @@
+
+
+import { Toaster } from "react-hot-toast"
+
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home.jsx"
 import Clothing from "./pages/Clothing.jsx"
@@ -7,6 +11,8 @@ import CartPage from "./pages/CartPage.jsx"
 import ProductResultPage from "./pages/ProductResultPage.jsx"
 import SellerPage from "./pages/SellerPage.jsx"
 import SellerDashboardPage from "./pages/SellerDashboardPage.jsx"
+import SignUpPage from "./pages/Auth/SignUpPage.jsx"
+import LoginInPage from "./pages/Auth/LoginInPage.jsx"
 
 // Seller Dashboard Subpages
 import AddProduct from "./pages/seller-dashboard/AddProduct.jsx"
@@ -20,29 +26,39 @@ import ReStockProducts from "./pages/seller-dashboard/ReStockProducts.jsx"
 function App() {
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/notifications" element={<ProductResultPage />} />
-        <Route path="/cart" element={<CartPage />} />
+    <>
+      <Toaster />
 
-        <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="update-product" element={<UpdateProduct />} />
-          <Route path="delete-product" element={<DeleteProduct />} />
-          <Route path="new-orders" element={<NewOrders />} />
-          <Route path="cancelled-orders" element={<CancelledOrders />} />
-          <Route path="my-products" element={<MyProducts />} />
-          <Route path="re-stock-products" element={<ReStockProducts />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginInPage />} />
+          <Route path="/logout" element={<LoginInPage />} />
 
-        </Route>
+          <Route path="/notifications" element={<ProductResultPage />} />
+          <Route path="/cart" element={<CartPage />} />
 
-        <Route path="/clothing" element={<Clothing />} />
-        <Route path="/groceries" element={<Groceries />} />
-        <Route path="/electronics" element={<Electronics />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
+
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="update-product" element={<UpdateProduct />} />
+            <Route path="delete-product" element={<DeleteProduct />} />
+            <Route path="new-orders" element={<NewOrders />} />
+            <Route path="cancelled-orders" element={<CancelledOrders />} />
+            <Route path="my-products" element={<MyProducts />} />
+            <Route path="re-stock-products" element={<ReStockProducts />} />
+
+          </Route>
+
+          <Route path="/clothing" element={<Clothing />} />
+          <Route path="/groceries" element={<Groceries />} />
+          <Route path="/electronics" element={<Electronics />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+
   )
 }
 
