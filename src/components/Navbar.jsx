@@ -10,6 +10,8 @@ const Navbar = () => {
 
     const navigate = useNavigate();
 
+
+   // Logout Handler
     const handleLogout = async () => {
 
         try {
@@ -21,6 +23,7 @@ const Navbar = () => {
         }
     };
 
+    
 
     return (
 
@@ -32,7 +35,7 @@ const Navbar = () => {
             </div>
 
             {/* Search Bar */}
-            <SearchBar />
+            <SearchBar  />
 
             {/* Notification and Cart Icons */}
             <div className="flex items-center gap-4">
