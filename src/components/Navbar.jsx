@@ -55,12 +55,6 @@ const Navbar = () => {
             </div>
 
             <div>
-                <Link to="/seller-dashboard">
-                    <button className='bg-(--accent-color) px-5 py-2'>Seller Dashboard</button>
-                </Link>
-            </div>
-
-            <div>
                 <Link to="/signup">
                     <button className='bg-(--accent-color) px-5 py-2'>Sign Up</button>
                 </Link>

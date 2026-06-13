@@ -2,8 +2,10 @@ import HeroBanner from "../components/HeroBanner.jsx"
 import Navbar from "../components/Navbar.jsx"
 import QACards from "../components/QACards.jsx"
 
-import { Link } from "react-router-dom"
+import { Link, } from "react-router-dom"
 import toast from "react-hot-toast"
+
+import { useNavigate } from "react-router-dom"
 
 // Icons
 import { Lock, ChartNoAxesCombined, ChartNoAxesColumnIncreasing, Package } from 'lucide-react'
@@ -20,6 +22,7 @@ const SellerPage = () => {
 
     const [user, setUser] = useState(null);
     const isLoggedIn = !!user;
+    const navigate = useNavigate();
 
     const [SellerFormData, setSellerFormData] = useState({
         storeName: "",
@@ -36,8 +39,6 @@ const SellerPage = () => {
 
         const { name, value } = e.target;
 
-        //  console.log(name, value);
-
         setSellerFormData({
             ...SellerFormData,
             [name]: value
@@ -53,7 +54,8 @@ const SellerPage = () => {
 
                 const response = await getCurrentUser();
 
-                setUser(response.data.data);
+                setUser(response.data.data.user);
+                // console.log("setUser: ", response.data.data.user);
 
             } catch (error) {
 
@@ -200,151 +202,187 @@ const SellerPage = () => {
                 {/* Container */}
                 <div className="flex items-center justify-center mt-5">
 
-                    {/* Form */}
-                    <form onSubmit={handleSellerApplication}
-                        className="w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 ">
+                    {
+                        user?.role === "seller" ?
+                        
+                   (
 
-                        {!isLoggedIn && (
-                            <div className="mb-4">
-                                <p className="text-red-500 font-semibold">
-                                    Please login or sign up to become a seller.
-                                </p>
+                                <div className="w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 text-center">
 
-                                <div className="flex gap-3 mt-2">
-                                    <Link
-                                        to="/login"
-                                        className="px-4 py-2 bg-black text-white rounded"
+                                    <h2 className="text-3xl font-bold text-green-600">
+                                        You are already a seller!
+                                    </h2>
+
+                                    <p className="mt-3 text-gray-600">
+                                        Your seller account is active and ready to sell on OmniCart.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => navigate("/seller-dashboard")}
+                                        className="mt-5 bg-(--accent-color) text-white px-6 py-3 rounded-md"
                                     >
-                                        Login
-                                    </Link>
-
-                                    <Link
-                                        to="/signup"
-                                        className="px-4 py-2 bg-(--accent-color) text-white rounded"
-                                    >
-                                        Sign Up
-                                    </Link>
-                                </div>
-                            </div>
-                        )}
-
-                        <fieldset disabled={!isLoggedIn}
-                            className={!isLoggedIn ? "opacity-50" : ""}>
-
-                            <div className="flex gap-5">
-
-                                <div>
-
-                                    {/* Store Name */}
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="storeName" className="font-medium">
-                                            Store Name
-                                        </label>
-                                        <input type="text" name="storeName"
-                                            value={SellerFormData.storeName}
-                                            onChange={handleInputChange}
-                                            id="storeName" className="shadow-(--box-shadow) rounded-md p-2" />
-                                    </div>
-
-                                    {/* Contact Information */}
-                                    <div className="flex flex-col gap-2 mt-5">
-                                        <label htmlFor="contactNumber" className="font-medium">
-                                            Contact Information
-                                        </label>
-                                        <input type="text" name="contactNumber"
-                                            value={SellerFormData.contactNumber}
-                                            onChange={handleInputChange}
-                                            id="contactInfo" className="shadow-(--box-shadow) rounded-md p-2" />
-                                    </div>
+                                        Open Seller Dashboard
+                                    </button>
 
                                 </div>
 
-                                <div className="flex flex-col gap-5 w-full">
+                            ) : (
 
-                                    {/* Store Address */}
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="addressLine" className="font-medium">
-                                            Store Address
-                                        </label>
-                                        <textarea
-                                            name="addressLine"
-                                            id="addressLine"
-                                            rows="5"
-                                            className="shadow-(--box-shadow) rounded-md p-2"
-                                            value={SellerFormData.addressLine}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
+                                <form
+                                    onSubmit={handleSellerApplication}
+                                    className="w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5"
+                                >
 
-                                </div>
+                                    {!isLoggedIn && (
+                                        <div className="mb-4">
+                                            <p className="text-red-500 font-semibold">
+                                                Please login or sign up to become a seller.
+                                            </p>
 
-                            </div>
+                                            <div className="flex gap-3 mt-2">
+                                                <Link
+                                                    to="/login"
+                                                    className="px-4 py-2 bg-black text-white rounded"
+                                                >
+                                                    Login
+                                                </Link>
 
-                            {/* Store Address Container */}
-                            <div className="flex items-center gap-5 mt-5">
+                                                <Link
+                                                    to="/signup"
+                                                    className="px-4 py-2 bg-(--accent-color) text-white rounded"
+                                                >
+                                                    Sign Up
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    )}
 
-                                {/* City */}
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="city" className="font-medium">
-                                        City
-                                    </label>
-                                    <input type="text" name="city" id="city" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.city} onChange={handleInputChange} />
-                                </div>
+                                    <fieldset disabled={!isLoggedIn}
+                                        className={!isLoggedIn ? "opacity-50" : ""}>
 
-                                {/* State */}
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="state" className="font-medium">
-                                        State
-                                    </label>
-                                    <input type="text" name="state" id="state" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.state} onChange={handleInputChange} />
-                                </div>
+                                        <div className="flex gap-5">
 
-                                {/* Country */}
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="country" className="font-medium">
-                                        Country
-                                    </label>
-                                    <input type="text" name="country" id="country" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.country} onChange={handleInputChange} />
-                                </div>
+                                            <div>
 
-                                {/* pin Code */}
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="pinCode" className="font-medium">
-                                        Zip Code
-                                    </label>
-                                    <input type="text" name="pinCode" id="pinCode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
-                                </div>
+                                                {/* Store Name */}
+                                                <div className="flex flex-col gap-2">
+                                                    <label htmlFor="storeName" className="font-medium">
+                                                        Store Name
+                                                    </label>
+                                                    <input type="text" name="storeName"
+                                                        value={SellerFormData.storeName}
+                                                        onChange={handleInputChange}
+                                                        id="storeName" className="shadow-(--box-shadow) rounded-md p-2" />
+                                                </div>
 
-                            </div>
+                                                {/* Contact Information */}
+                                                <div className="flex flex-col gap-2 mt-5">
+                                                    <label htmlFor="contactNumber" className="font-medium">
+                                                        Contact Information
+                                                    </label>
+                                                    <input type="text" name="contactNumber"
+                                                        value={SellerFormData.contactNumber}
+                                                        onChange={handleInputChange}
+                                                        id="contactInfo" className="shadow-(--box-shadow) rounded-md p-2" />
+                                                </div>
 
-                            {/* Address Proof */}
-                            <div className="flex flex-col gap-2 mt-5">
-                                <label htmlFor="addressProof" className="font-medium">
-                                    Address Proof
-                                </label>
-                                <input type="file" name="addressProof" id="addressProof" className="shadow-(--box-shadow) rounded-md p-2" onChange={(e) => {
-                                    console.log(e.target.files[0]);
+                                            </div>
 
-                                    setSellerFormData({
-                                        ...SellerFormData,
-                                        addressProof: e.target.files[0]
-                                    });
-                                }} />
-                            </div>
+                                            <div className="flex flex-col gap-5 w-full">
 
-                            {/* Submit Button */}
-                            <div className="mt-5">
-                                <button type="submit"
-                                    disabled={!isLoggedIn}
-                                    className="bg-(--accent-color-2) w-full text-white py-2 px-4 rounded-md">
-                                    Submit Application
-                                </button>
-                            </div>
+                                                {/* Store Address */}
+                                                <div className="flex flex-col gap-2">
+                                                    <label htmlFor="addressLine" className="font-medium">
+                                                        Store Address
+                                                    </label>
+                                                    <textarea
+                                                        name="addressLine"
+                                                        id="addressLine"
+                                                        rows="5"
+                                                        className="shadow-(--box-shadow) rounded-md p-2"
+                                                        value={SellerFormData.addressLine}
+                                                        onChange={handleInputChange}
+                                                    />
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        {/* Store Address Container */}
+                                        <div className="flex items-center gap-5 mt-5">
+
+                                            {/* City */}
+                                            <div className="flex flex-col gap-2">
+                                                <label htmlFor="city" className="font-medium">
+                                                    City
+                                                </label>
+                                                <input type="text" name="city" id="city" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.city} onChange={handleInputChange} />
+                                            </div>
+
+                                            {/* State */}
+                                            <div className="flex flex-col gap-2">
+                                                <label htmlFor="state" className="font-medium">
+                                                    State
+                                                </label>
+                                                <input type="text" name="state" id="state" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.state} onChange={handleInputChange} />
+                                            </div>
+
+                                            {/* Country */}
+                                            <div className="flex flex-col gap-2">
+                                                <label htmlFor="country" className="font-medium">
+                                                    Country
+                                                </label>
+                                                <input type="text" name="country" id="country" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.country} onChange={handleInputChange} />
+                                            </div>
+
+                                            {/* pin Code */}
+                                            <div className="flex flex-col gap-2">
+                                                <label htmlFor="pinCode" className="font-medium">
+                                                    Zip Code
+                                                </label>
+                                                <input type="text" name="pinCode" id="pinCode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
+                                            </div>
+
+                                        </div>
+
+                                        {/* Address Proof */}
+                                        <div className="flex flex-col gap-2 mt-5">
+                                            <label htmlFor="addressProof" className="font-medium">
+                                                Address Proof
+                                            </label>
+                                            <input type="file" name="addressProof" id="addressProof" className="shadow-(--box-shadow) rounded-md p-2" onChange={(e) => {
+                                                console.log(e.target.files[0]);
+
+                                                setSellerFormData({
+                                                    ...SellerFormData,
+                                                    addressProof: e.target.files[0]
+                                                });
+                                            }} />
+                                        </div>
+
+                                        {/* Submit Button */}
+                                        <div className="mt-5">
+                                            <button type="submit"
+                                                disabled={!isLoggedIn}
+                                                className="bg-(--accent-color-2) w-full text-white py-2 px-4 rounded-md">
+                                                Submit Application
+                                            </button>
+                                        </div>
 
 
-                        </fieldset>
+                                    </fieldset>
 
-                    </form>
+                                </form>
+
+                            )
+                    }
+
+
+
+
+
 
                 </div>
 
