@@ -14,6 +14,11 @@ import SellerDashboardPage from "./pages/SellerDashboardPage.jsx"
 import SignUpPage from "./pages/Auth/SignUpPage.jsx"
 import LoginInPage from "./pages/Auth/LoginInPage.jsx"
 
+import CheckoutPage from "./pages/CheckoutPage.jsx"
+import ViewProduct from "./components/ViewProduct.jsx"
+
+import DashboardAnalysis from "./pages/Seller-Dashboard/DashboardAnalysis.jsx"
+
 // Seller Dashboard Subpages
 import AddProduct from "./pages/seller-dashboard/AddProduct.jsx"
 import UpdateProduct from "./pages/seller-dashboard/UpdateProduct.jsx"
@@ -40,11 +45,15 @@ function App() {
           <Route path="/search" element={<ProductResultPage />} />
           {/* <Route path="/notifications" element={<ProductResultPage />} /> */}
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+
+          <Route path="/product/:id" element={<ViewProduct />} />
 
           <Route path="/seller-page" element={<SellerPage />} />
 
           <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
 
+            <Route path="dashboard" element={<DashboardAnalysis />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="update-product" element={<UpdateProduct />} />
             <Route path="delete-product" element={<DeleteProduct />} />

@@ -21,6 +21,9 @@ import { useEffect, useState } from "react";
 
 import { apiClient } from "../api/axios.js";
 
+import { addToCart } from "../api/cartApi.js"
+import { useAddToCart } from "../hooks/useAddToCart.js"
+
 const Clothing = () => {
 
     const [products, setProducts] = useState([]);
@@ -50,6 +53,9 @@ const Clothing = () => {
         setProducts(response.data.data.products);
     };
 
+    {/* Add To Cart Logic */ }
+        const handleAddToCart = useAddToCart();
+
     return (
         <>
             <Navbar />
@@ -66,7 +72,8 @@ const Clothing = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
                     {products.map((product) => (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard key={product._id} product={product}
+                        onAddToCart={handleAddToCart} />
                     ))}
                 </div>
 

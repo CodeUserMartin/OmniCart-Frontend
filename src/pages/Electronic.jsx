@@ -8,6 +8,8 @@ import CategoryCard from "../components/CategoryCard.jsx"
 import ProductCard from "../components/ProductCard.jsx"
 
 
+
+
 // Category Images
 import LaptopImg from "../assets/Electronics-category-imgs/Laptop-img.jfif"
 import SmartphoneImg from "../assets/Electronics-category-imgs/Smartphone-img.jfif"
@@ -21,6 +23,9 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { apiClient } from "../api/axios.js";
+
+import { addToCart } from "../api/cartApi.js"
+import { useAddToCart } from "../hooks/useAddToCart.js"
 
 const Electronics = () => {
 
@@ -55,6 +60,11 @@ const Electronics = () => {
         setProducts(response.data.data.products);
     };
 
+
+    {/* Add To Cart Logic */ }
+
+    {/* Add To Cart Logic */ }
+        const handleAddToCart = useAddToCart();
     return (
         <>
             <Navbar />
@@ -70,8 +80,10 @@ const Electronics = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
+                    {/* Product Card */}
                     {products.map((product) => (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard key={product._id} product={product}
+                            onAddToCart={handleAddToCart} />
                     ))}
                 </div>
 

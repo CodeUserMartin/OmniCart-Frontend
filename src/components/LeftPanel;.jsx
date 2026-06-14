@@ -18,6 +18,15 @@ const LeftPanel = () => {
 
             <div className="p-4 rounded shadow flex flex-col w-full">
 
+                <div>
+                    <Link
+                        to="/seller-dashboard/dashboard"
+                        className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                    >
+                        Dashboard
+                    </Link>
+                </div>
+
                 <button
                     onClick={() => setProductManagementOpen(!productManagementOpen)}
                     className="cursor-pointer font-semibold text-white bg-black p-2 list-none"

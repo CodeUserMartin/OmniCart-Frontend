@@ -1,7 +1,14 @@
-const ProductCard = ({ product }) => {
+import { useNavigate } from "react-router-dom";
+
+const ProductCard = ({ product, onAddToCart }) => {
+
+    const navigate = useNavigate();
+
     return (
         <>
-            <div className="bg-white shadow-(--box-shadow) rounded-lg p-4">
+            <div
+                onClick={() => navigate(`/product/${product._id}`)}
+                className="bg-white shadow-(--box-shadow) rounded-lg p-4">
 
                 {/* Product Image */}
                 <div className="h-54 w-full bg-amber-100">
@@ -26,7 +33,12 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button className="bg-(--accent-color) uppercase w-full text-white p-4 text-center">Add to Cart</button>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToCart(product._id);
+                    }}
+                    className="bg-(--accent-color) uppercase w-full text-white p-4 text-center">Add to Cart</button>
 
             </div>
         </>
