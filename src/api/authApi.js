@@ -17,6 +17,10 @@ export const becomeSeller = (formData) => {
     return apiClient.post("/auth/become-seller", formData);
 }
 
+export const getUserAddresses = () => {
+    return apiClient.get("/auth/address");
+}
+
 export const logoutUser = () => {
     return apiClient.post("/auth/logout");
 }

@@ -12,3 +12,8 @@ export const getSellerProducts = () => {
     return apiClient.get('/product/my-products')
 }
 
+export const getProductById = (id) => {
+    return apiClient.get(`/product/${id}`);
+}
+
+
