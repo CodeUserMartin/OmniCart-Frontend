@@ -3,23 +3,23 @@ import CartItemCard from "../components/CartItemCard.jsx";
 
 import { useState, useEffect } from "react";
 
-import { getUserCart } from "../api/cartApi.js"
+import { getUserCart, deleteCartItem } from "../api/cartApi.js"
+
+import { toast } from "react-hot-toast"
 
 import { Link } from "react-router-dom";
 
 const CartPage = () => {
 
   const [cartItems, setCartItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
 
     const fetchCart = async () => {
 
       const response =
-        await getUserCart();
-
-      // console.log(response.data.data.finalCartItems);
-
+        await getUserCart(selectedCategory);
 
       setCartItems(
         response.data.data.finalCartItems
@@ -28,7 +28,68 @@ const CartPage = () => {
 
     fetchCart();
 
-  }, []);
+  }, [selectedCategory]);
+
+  // Remove item from cart
+  const handleDeleteItem = async (productId) => {
+    try {
+
+      await deleteCartItem(productId);
+
+      setCartItems((prev) =>
+        prev.filter(
+          item => item.productId !== productId
+        )
+      );
+
+      toast.success("Item removed from cart");
+
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to remove item");
+    }
+  };
+
+
+  {/* Increase item quantity in cart */ }
+  const handleIncreaseQty = async (productId) => {
+    try {
+
+      // API call later
+
+      setCartItems((prev) =>
+        prev.map((item) =>
+          item.productId === productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  {/* Decrease item quantity in cart */ }
+  const handleDecreaseQty = async (productId) => {
+    try {
+
+      setCartItems((prev) =>
+        prev.map((item) =>
+          item.productId === productId
+            ? {
+              ...item,
+              quantity: Math.max(1, item.quantity - 1)
+            }
+            : item
+        )
+      );
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Calculate total amount
   const totalAmount = cartItems.reduce((acc, item) => {
@@ -47,30 +108,55 @@ const CartPage = () => {
         {/* Cart Content */}
         <div className=" mx-auto w-full rounded-lg text-white">
 
-          {/* Cart title */}
-          <h1 className="text-3xl font-bold text-black">My Shopping Cart</h1>
+          <div className="flex justify-between items-center">
+
+            <h1 className="text-3xl font-bold text-black">
+              My Shopping Cart
+            </h1>
+
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="border rounded-lg px-4 py-2 bg-white text-gray-700"
+            >
+              <option value="">All Products</option>
+              <option value="clothing">Clothing</option>
+              <option value="electronics">Electronics</option>
+              <option value="groceries">Groceries</option>
+            </select>
+
+          </div>
+
 
           {/* Cart items */}
 
           {cartItems.length === 0 && (
-            <p className="text-center text-gray-500 mt-4">
+            <p className="text-center text-gray-500 mt-4 relative">
               No items in your cart. Start shopping something you’ll love 🛍️
             </p>
           )}
-          {
-            cartItems.map((item) => (
 
-              <CartItemCard
-                key={item.productId}
-                name={item.name}
-                description={item.description}
-                price={item.price}
-                quantity={item.quantity}
-                image={item.productImg}
-              />
+          <div className="p-2 m-2 h-110 overflow-y-auto rounded-lg">
 
-            ))
-          }
+            {
+              cartItems.map((item) => (
+
+                <CartItemCard
+                  key={item.productId}
+                  productId={item.productId}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                  quantity={item.quantity}
+                  image={item.productImg}
+                  onIncrease={handleIncreaseQty}
+                  onDecrease={handleDecreaseQty}
+                  onDelete={handleDeleteItem}
+                />
+
+              ))
+            }
+          </div>
 
         </div>
 
@@ -91,14 +177,24 @@ const CartPage = () => {
             </div>
 
             {/* Checkout Button */}
-            <Link to="/checkout" className="w-full">
-              <button className={` text-white font-bold uppercase py-6 w-full rounded-md ${cartItems.length === 0
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-(--accent-color) text-white"
-                }`}>
-                Proceed to Checkout
-              </button>
-            </Link>
+            {
+              cartItems.length === 0 ? (
+                <button
+                  disabled
+                  className="bg-gray-400 cursor-not-allowed text-white font-bold uppercase py-6 w-full rounded-md"
+                >
+                  Proceed to Checkout
+                </button>
+              ) : (
+                <Link to="/checkout" className="w-full">
+                  <button
+                    className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md"
+                  >
+                    Proceed to Checkout
+                  </button>
+                </Link>
+              )
+            }
           </div>
 
         </div>

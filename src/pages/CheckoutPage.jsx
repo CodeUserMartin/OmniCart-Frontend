@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast"
 
 import { useNavigate } from "react-router-dom";
 
-import CartItemCard from "../components/CartItemCard.jsx";
+import OrderSummaryItem from "../components/OrderSummaryItem.jsx";
 
 const CheckoutPage = () => {
 
@@ -141,7 +141,7 @@ const CheckoutPage = () => {
                     {
                         cartItems.map((item) => (
 
-                            <CartItemCard
+                            <OrderSummaryItem
                                 key={item.productId}
                                 name={item.name}
                                 description={item.description}

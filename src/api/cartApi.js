@@ -4,6 +4,15 @@ export const addToCart = (productId, quantity) => {
     return apiClient.post(`/cart`, { productId, quantity })
 }
 
-export const getUserCart = () => {
-    return apiClient.get("/cart");
-};
+export const deleteCartItem = (productId) => {
+    return apiClient.delete(`/cart/${productId}`);
+}
+
+export const getUserCart = (category = "") => {
+    return apiClient.get("/cart", {
+        params: {
+            category
+        }
+    });
+}
+
