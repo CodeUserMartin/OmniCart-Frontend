@@ -14,6 +14,7 @@ import SellerDashboardPage from "./pages/SellerDashboardPage.jsx"
 import SignUpPage from "./pages/Auth/SignUpPage.jsx"
 import LoginInPage from "./pages/Auth/LoginInPage.jsx"
 
+import MyOrderPage from "./pages/MyOrderPage.jsx"
 import CheckoutPage from "./pages/CheckoutPage.jsx"
 import ViewProduct from "./components/ViewProduct.jsx"
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/search" element={<ProductResultPage />} />
           {/* <Route path="/notifications" element={<ProductResultPage />} /> */}
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<MyOrderPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
 
           <Route path="/product/:id" element={<ViewProduct />} />
