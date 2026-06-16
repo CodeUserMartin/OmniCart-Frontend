@@ -1,45 +1,77 @@
+import { Trash } from "lucide-react";
+
 const CartItemCard = ({
+    productId,
     name,
     description,
     price,
     quantity,
-    image
+    image,
+    onIncrease,
+    onDecrease,
+    onDelete,
 }) => {
+
 
     return (
 
-        <div className="bg-(--primary-color) shadow-(--box-shadow) mt-6 p-4 rounded-lg flex items-center gap-4">
+        <div className="bg-(--primary-color)  mt-6 p-4 rounded-lg flex items-center gap-4">
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 w-full justify-between">
 
-                {/* Item Image */}
-                <div className="w-24 h-24 rounded-md overflow-hidden">
-                    <img
-                        src={image}
-                        alt="Product-img"
-                        className="w-full h-full object-cover"
-                    />
+                <div className="flex items-center  gap-4">
+
+                    {/* Item Image */}
+                    <div className="w-24 h-24 rounded-md overflow-hidden">
+                        <img
+                            src={image}
+                            alt="Product-img"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    {/* Item Details */}
+                    <div className="text-black">
+
+                        <h2 className="text-xl font-semibold">
+                            {name}
+                        </h2>
+
+                        <p className="text-gray-400">
+                            {description}
+                        </p>
+
+                        <p className="text-lg font-bold">
+                            ₹{price}
+                        </p>
+
+                        <button
+                            onClick={() => onDecrease(productId)}
+                            className="bg-gray-200 text-gray-700 px-3 py-1 rounded-md mr-2"
+                        >
+                            -
+                        </button>
+
+                        <span className=" text-gray-700 px-3 py-1 rounded-md font-bold text-lg">
+                            {quantity}
+                        </span>
+
+                        <button
+                            onClick={() => onIncrease(productId)}
+                            className="bg-gray-200 text-gray-700 px-3 py-1 rounded-md ml-2"
+
+                        >
+                            +
+                        </button>
+
+                    </div>
                 </div>
 
-                {/* Item Details */}
-                <div className="text-black">
 
-                    <h2 className="text-xl font-semibold">
-                        {name}
-                    </h2>
-
-                    <p className="text-gray-400">
-                        {description}
-                    </p>
-
-                    <p className="text-lg font-bold">
-                        ₹{price}
-                    </p>
-
-                    <p className="text-lg font-bold">
-                        Quantity: {quantity}
-                    </p>
-
+                {/* Remove Item Button */}
+                <div>
+                    <Trash color="black" size={34}
+                        onClick={() => onDelete(productId)} />
                 </div>
 
             </div>
