@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+
+import { useAddToCart } from "../hooks/useAddToCart.js";
+
 import Navbar from "./Navbar.jsx";
 
 import { getProductById } from "../api/productApi";
@@ -38,28 +41,7 @@ export default function ViewProduct() {
 
     }, [id]);
 
-    const handleAddToCart = async () => {
-        try {
-
-            if (!product || adding) return;
-
-            setAdding(true);
-
-            await apiClient.post("/cart/add", {
-                productId: product._id,
-                quantity: 1
-            });
-
-            toast.success("Added to cart!");
-
-        } catch (error) {
-            console.log(error);
-            toast.error("Failed to add to cart");
-
-        } finally {
-            setAdding(false);
-        }
-    };
+    const addToCartHandler = useAddToCart();
 
     if (loading) {
         return <p className="p-4 text-gray-500">Loading product details...</p>;
@@ -113,11 +95,10 @@ export default function ViewProduct() {
                         <div className="flex gap-4 mt-4">
 
                             <button
-                                onClick={handleAddToCart}
-                                disabled={adding}
-                                className="bg-blue-600 text-white px-6 py-3 rounded-lg disabled:opacity-50"
+                                onClick={() => addToCartHandler(product._id, 1)}
+                                className="bg-blue-600 text-white px-6 py-3 rounded-lg"
                             >
-                                {adding ? "Adding..." : "Add to Cart"}
+                                Add to Cart
                             </button>
 
                             <button className="bg-green-600 text-white px-6 py-3 rounded-lg">
