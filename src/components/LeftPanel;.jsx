@@ -96,6 +96,25 @@ const LeftPanel = () => {
                             </Link>
 
                             <Link
+                                to="/seller-dashboard/confirmed-orders"
+                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                            >
+                                Confirmed Orders
+                            </Link>
+
+                            <Link
+                                to="/seller-dashboard/shipped-orders"
+                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                            >
+                                Shipped Orders
+                            </Link>
+                            <Link
+                                to="/seller-dashboard/delivered-orders"
+                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                            >
+                                Delivered Orders
+                            </Link>
+                            <Link
                                 to="/seller-dashboard/cancelled-orders"
                                 className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
                             >
