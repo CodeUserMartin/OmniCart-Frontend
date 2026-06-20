@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+import { useNavigate } from "react-router-dom";
 
 import { useAddToCart } from "../hooks/useAddToCart.js";
 
@@ -9,13 +10,19 @@ import Navbar from "./Navbar.jsx";
 
 import { getProductById } from "../api/productApi";
 
+import { useBuyNow } from "../hooks/useBuyNow";
+
 export default function ViewProduct() {
+
+    const buyNow = useBuyNow();
 
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [adding, setAdding] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -28,6 +35,9 @@ export default function ViewProduct() {
                 console.log("Fetched product:", res.data.data.product); // Log the fetched product data
 
                 setProduct(res.data.data.product); // adjust if backend differs
+
+                console.log(res.data.data.product);
+
 
             } catch (error) {
                 console.log("Error fetching product:", error);
@@ -101,7 +111,10 @@ export default function ViewProduct() {
                                 Add to Cart
                             </button>
 
-                            <button className="bg-green-600 text-white px-6 py-3 rounded-lg">
+                            <button
+                                onClick={() => buyNow(product._id)}
+                                className="bg-green-600 text-white px-6 py-3 rounded-lg"
+                            >
                                 Buy Now
                             </button>
 

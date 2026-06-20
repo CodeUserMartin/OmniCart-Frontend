@@ -1,27 +1,40 @@
 import { addToCart } from "../api/cartApi";
-
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast";
+import { getCurrentUser } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
 
 export const useAddToCart = () => {
+    const navigate = useNavigate();
 
-    const handleAddToCart = async (productId, quantity) => {
-
+    const handleAddToCart = async (productId, quantity = 1) => {
         try {
+            // CHECK USER FROM BACKEND
+            const userRes = await getCurrentUser();
 
-            await addToCart(productId, quantity = 1);
+            if (!userRes?.data?.data) {
+                toast.error("Please login to add items to cart");
+                navigate("/login");
+                return;
+            }
 
-            toast.success(
-                "Added To Cart"
-            );
+            await addToCart(productId, quantity);
+
+            toast.success("Added To Cart");
 
         } catch (error) {
+            console.log(error);
+
+            // If token expired / unauthorized
+            if (error.response?.status === 401) {
+                toast.error("Please login to continue");
+                navigate("/login");
+                return;
+            }
 
             toast.error(
-                "Failed To Add"
+                error.response?.data?.message || "Failed To Add"
             );
-
         }
-
     };
 
     return handleAddToCart;
