@@ -4,6 +4,14 @@ export const placeOrder = async (data) => {
   return await apiClient.post("/order/checkout", data);
 };
 
+// Buy Now (direct product purchase)
+export const buyProduct = (productId, data) => {
+  return apiClient.post(
+    `/order/buy-now/${productId}`,
+    data
+  );
+};
+
 export const getUserOrders = async () => {
   return await apiClient.get("/order");
 }
@@ -41,9 +49,9 @@ export const getSellerShippedOrders = () => {
 }
 
 export const deliverOrder = (itemId) => {
-    return apiClient.put(
-        `/order/seller/deliver/${itemId}`
-    );
+  return apiClient.put(
+    `/order/seller/deliver/${itemId}`
+  );
 };
 
 export const getSellerDeliveredOrders = () => {
@@ -53,15 +61,15 @@ export const getSellerDeliveredOrders = () => {
 };
 
 export const cancelOrder = (itemId) => {
-    return apiClient.put(`/order/cancel/${itemId}`);
+  return apiClient.put(`/order/cancel/${itemId}`);
 };
 
 export const getSellerCancelledOrders = () => {
-    return apiClient.get("/order/seller/cancelled");
+  return apiClient.get("/order/seller/cancelled");
 };
 
 export const getSellerDashboard = () => {
-    return apiClient.get(
-        "/order/seller/dashboard"
-    );
+  return apiClient.get(
+    "/order/seller/dashboard"
+  );
 };
