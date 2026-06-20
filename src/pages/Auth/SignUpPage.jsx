@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
 
+    const [errors, setErrors] = useState({});
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -33,8 +35,17 @@ const SignUpPage = () => {
 
         }
         catch (error) {
-            console.error("Signup failed:", error);
-            toast.error(error.response?.data?.message || "Signup failed");
+            const backendErrors =
+                error.response?.data?.errors || [];
+
+            const formattedErrors = {};
+
+            backendErrors.forEach(err => {
+                const field = Object.keys(err)[0];
+                formattedErrors[field] = err[field];
+            });
+
+            setErrors(formattedErrors);
         }
 
     }
@@ -83,6 +94,11 @@ const SignUpPage = () => {
 
                                     className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
+                            {errors.firstName && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.firstName}
+                                </p>
+                            )}
 
                             {/* Last Name */}
                             <div className="mb-4">
@@ -92,6 +108,11 @@ const SignUpPage = () => {
                                     type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange}
                                     className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
+                            {errors.lastName && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.lastName}
+                                </p>
+                            )}
 
                             {/* Email */}
                             <div className="mb-4">
@@ -100,6 +121,11 @@ const SignUpPage = () => {
                                     required
                                     type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
+                            {errors.email && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.email}
+                                </p>
+                            )}
 
                             {/* Password */}
                             <div className="mb-4">
@@ -108,6 +134,11 @@ const SignUpPage = () => {
                                     required
                                     type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
+                            {errors.password && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.password}
+                                </p>
+                            )}
 
                             {/* Link to Login Page */}
                             <div className="mt-4">

@@ -29,7 +29,22 @@ const LoginInPage = () => {
 
         }
         catch (error) {
-            toast.error(error.response?.data?.message || "Login failed");
+            const errorData = error.response?.data;
+
+            if (errorData?.errors?.length > 0) {
+
+                const firstError =
+                    Object.values(errorData.errors[0])[0];
+
+                toast.error(firstError);
+
+            } else {
+
+                toast.error(
+                    errorData?.message || "Something went wrong"
+                );
+
+            }
         }
     }
 
