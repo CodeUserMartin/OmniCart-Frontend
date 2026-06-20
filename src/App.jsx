@@ -17,6 +17,7 @@ import LoginInPage from "./pages/Auth/LoginInPage.jsx"
 import MyOrderPage from "./pages/MyOrderPage.jsx"
 import CheckoutPage from "./pages/CheckoutPage.jsx"
 import ViewProduct from "./components/ViewProduct.jsx"
+import BuyNowPage from "./pages/BuyNowPage.jsx"
 
 import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage.jsx"
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage.jsx"
@@ -58,6 +59,8 @@ function App() {
           <Route path="/orders" element={<MyOrderPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
 
+          <Route path="/buy-now/:productId" element={<BuyNowPage />} />
+
           <Route path="/product/:id" element={<ViewProduct />} />
 
           <Route path="/seller-page" element={<SellerPage />} />
@@ -70,8 +73,8 @@ function App() {
             <Route path="delete-product" element={<DeleteProduct />} />
             <Route path="new-orders" element={<NewOrders />} />
             <Route path="confirmed-orders" element={<ConfirmedOrders />} />
-            <Route path="shipped-orders" element={<ShippedOrders />}/>
-            <Route path="delivered-orders" element={<DeliveredOrders />}/>
+            <Route path="shipped-orders" element={<ShippedOrders />} />
+            <Route path="delivered-orders" element={<DeliveredOrders />} />
             <Route path="cancelled-orders" element={<CancelledOrders />} />
             <Route path="my-products" element={<MyProducts />} />
             <Route path="re-stock-products" element={<ReStockProducts />} />
