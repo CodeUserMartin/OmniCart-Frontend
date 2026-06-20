@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ product, onAddToCart }) => {
+import { useAddToCart } from "../hooks/useAddToCart.js";
+
+const ProductCard = ({ product }) => {
+
+     const addToCartHandler = useAddToCart();
 
     const navigate = useNavigate();
 
@@ -36,9 +40,12 @@ const ProductCard = ({ product, onAddToCart }) => {
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
-                        onAddToCart(product._id);
+                        addToCartHandler(product._id);
                     }}
-                    className="bg-(--accent-color) uppercase w-full text-white p-4 text-center">Add to Cart</button>
+                    className="bg-(--accent-color) uppercase w-full text-white p-4 text-center"
+                >
+                    Add to Cart
+                </button>
 
             </div>
         </>
