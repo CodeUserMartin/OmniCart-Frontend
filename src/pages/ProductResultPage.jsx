@@ -7,6 +7,8 @@ import { useSearchParams } from "react-router-dom"
 
 import { searchProducts } from "../api/productApi.js";
 
+import { useAddToCart } from "../hooks/useAddToCart.js";
+
 
 const ProductResultPage = () => {
 
@@ -15,6 +17,7 @@ const ProductResultPage = () => {
 
     const [products, setProducts] = useState([]);
 
+    const addToCartHandler = useAddToCart();
 
     // Fetch Products when Search Query changes
     useEffect(() => {

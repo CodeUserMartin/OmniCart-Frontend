@@ -1,70 +1,43 @@
-import SearchBar from "../../components/SearchBar.jsx";
+import { useSellerProducts } from "../../hooks/useSellerProducts.js";
+import SellerSearchBar from "../../components/SellerPageSearchBar.jsx";
 import ResultProductCard from "../../components/ResultProductCard.jsx";
-import { getSellerProducts } from "../../api/productApi"
-
-import { useState, useEffect } from "react"
 
 const MyProducts = () => {
 
+    const {
+        products,
+        loading
+    } = useSellerProducts();
 
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-
-        const fetchProducts = async () => {
-
-            try {
-
-                const response =
-                    await getSellerProducts();
-
-                setProducts(response.data.data.products);
-
-            } catch (error) {
-
-                console.log(error);
-
-            }
-
-        };
-
-        fetchProducts();
-
-    }, []);
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <>
+            <h1 className="font-bold text-3xl m-4 text-white">
+                My Products
+            </h1>
 
-            {/* <div className="bg-(--accent-color-2) p-4 rounded-xl w-full h-full flex flex-col justify-center"> */}
+            <SellerSearchBar />
 
-            {/* Title */}
-            <h1 className="font-bold text-3xl m-4 text-white" >My Products</h1>
-
-            {/* Search Bar */}
-            <SearchBar />
-
-            {/* Product List */}
             <div className="flex flex-col gap-4 mt-3 overflow-auto h-130">
 
-                {
-                    products.map((product) => (
-                        <ResultProductCard
-                            key={product._id}
-                            name={product.name}
-                            img={product.images[0]}
-                            price={product.price}
-                            stock={product.stock}
-                            description={product.description}
-                        />
-                    ))
-                }
+                {products.map((product) => (
 
+                    <ResultProductCard
+                        key={product._id}
+                        name={product.name}
+                        img={product.images[0]}
+                        price={product.price}
+                        stock={product.stock}
+                        description={product.description}
+                        category={product.category}
+                    />
+
+                ))}
 
             </div>
-
-            {/* </div> */}
-
-
         </>
     );
 };
