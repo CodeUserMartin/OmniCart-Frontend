@@ -1,6 +1,22 @@
 import SellerPieChart from "../../components/SellerPieChart";
+import { useSellerDashboard }
+    from "../../hooks/useSellerDashboard.js";
 
 const DashboardAnalysis = () => {
+
+    const {
+        dashboard,
+        loading
+    } = useSellerDashboard();
+
+    if (loading) {
+        return (
+            <div>
+                Loading Dashboard...
+            </div>
+        );
+    }
+
     return (
         <>
 
@@ -12,14 +28,22 @@ const DashboardAnalysis = () => {
 
                     {/* Seller Name */}
                     <div>
-                        <span className="text-2xl font-bold">Seller Name</span>
+                        <span className="text-2xl font-bold">{dashboard?.sellerName}</span>
                     </div>
 
                     {/* Seller Description */}
                     <div>
-                        <p className="text-gray-600">Store Name</p>
-                        <p className="text-gray-600">Store Addresss</p>
-                        <p className="text-gray-600">Store Contact</p>
+                        <p className="text-gray-600">
+                            {dashboard?.storeName}
+                        </p>
+
+                        <p className="text-gray-600">
+                            {dashboard?.storeAddress}
+                        </p>
+
+                        <p className="text-gray-600">
+                            {dashboard?.storeContact || "Not Provided"}
+                        </p>
                     </div>
 
                 </div>
@@ -38,7 +62,8 @@ const DashboardAnalysis = () => {
 
                             </div> */}
 
-                            <SellerPieChart />
+                            <SellerPieChart
+                                dashboard={dashboard} />
 
 
                         </div>
@@ -46,10 +71,35 @@ const DashboardAnalysis = () => {
                         {/* Pie Chart Data Container */}
                         <div className=" flex flex-col items-center p-4 rounded shadow  bg-amber-200 text-right">
 
-                            <p>🔵 Shipped Orders: 6</p>
-                            <p>🟡 Pending Orders: 12</p>
-                            <p>🔴 Cancelled Orders: 3</p>
-                            <p>🟢 Delivered Orders: 25</p>
+                            <p>
+                                🔵 Shipped Orders:
+                                {" "}
+                                {dashboard?.shippedOrders}
+                            </p>
+
+                            <p>
+                                🟡 Pending Orders:
+                                {" "}
+                                {dashboard?.pendingOrders}
+                            </p>
+
+                            <p>
+                                🟠 Confirmed Orders:
+                                {" "}
+                                {dashboard?.confirmedOrders}
+                            </p>
+
+                            <p>
+                                🔴 Cancelled Orders:
+                                {" "}
+                                {dashboard?.cancelledOrders}
+                            </p>
+
+                            <p>
+                                🟢 Delivered Orders:
+                                {" "}
+                                {dashboard?.deliveredOrders}
+                            </p>
 
 
                         </div>
@@ -63,9 +113,23 @@ const DashboardAnalysis = () => {
                         </div>
 
                         <div>
-                            <p>Product Registered: X</p>
-                            <p>Product Delivered: X</p>
-                            <p>Product Cancelled: X</p>
+                            <p>
+                                Products Registered:
+                                {" "}
+                                {dashboard?.totalProducts}
+                            </p>
+
+                            <p>
+                                Products Delivered:
+                                {" "}
+                                {dashboard?.totalDeliveredProducts}
+                            </p>
+
+                            <p>
+                                Products Cancelled:
+                                {" "}
+                                {dashboard?.totalCancelledProducts}
+                            </p>
                         </div>
                     </div>
 
@@ -76,13 +140,28 @@ const DashboardAnalysis = () => {
 
                     {/* Current Date */}
                     <div>
-                        <p className="text-gray-600">Current Date</p>
+
+                        <p className="text-gray-600">
+                            Current Date
+                        </p>
+
+                        <p className="font-semibold">
+                            {new Date().toLocaleDateString()}
+                        </p>
+
                     </div>
 
                     {/* Total Revenue */}
                     <div>
-                        <p className="text-gray-600">Total Revenue</p>
-                        <span>₹X,XXX</span>
+
+                        <p className="text-gray-600">
+                            Total Revenue
+                        </p>
+
+                        <span className="text-2xl font-bold text-green-600">
+                            ₹{dashboard?.totalRevenue}
+                        </span>
+
                     </div>
 
                 </div>
