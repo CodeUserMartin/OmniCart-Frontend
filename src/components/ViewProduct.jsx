@@ -95,7 +95,7 @@ export default function ViewProduct() {
                         <div className="flex gap-4 mt-4">
 
                             <button
-                                onClick={() => addToCartHandler(product._id, 1)}
+                                onClick={() => addToCartHandler(product._id)}
                                 className="bg-blue-600 text-white px-6 py-3 rounded-lg"
                             >
                                 Add to Cart
