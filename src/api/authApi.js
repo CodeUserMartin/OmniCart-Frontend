@@ -21,6 +21,22 @@ export const getUserAddresses = () => {
     return apiClient.get("/auth/address");
 }
 
+export const forgetPassword = (email) => {
+    return apiClient.post(
+        "/auth/forget-password",
+        { email }
+    );
+}
+
+export const resetPassword = (resetToken, newPassword) => {
+    return apiClient.post(
+        `/auth/reset-password/${resetToken}`,
+        { newPassword }
+    );
+};
+
+
+
 export const logoutUser = () => {
     return apiClient.post("/auth/logout");
 }
