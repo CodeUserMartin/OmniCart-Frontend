@@ -1,40 +1,64 @@
-const ResultProductCard = ({ img, name, description, price, stock }) => {
+const ResultProductCard = ({
+    img,
+    name,
+    description,
+    price,
+    stock,
+    category
+}) => {
     return (
-        <div className="flex items-center gap-4 bg-(--primary-color) p-4">
+
+        <div className="bg-white rounded-lg shadow p-4 flex gap-4">
 
             {/* Product Image */}
-            <div className="w-28 h-28 bg-gray-200">
-                <img src={img} alt="Product Image" />
+            <div className="w-32 h-32 shrink-0 rounded-lg overflow-hidden bg-gray-100">
+
+                <img
+                    src={img}
+                    alt={name}
+                    className="w-full h-full object-cover"
+                />
+
             </div>
 
             {/* Product Details */}
-            <div>
+            <div className="flex flex-col justify-between flex-1">
 
-                {/* Product Name */}
                 <div>
-                    <h2 className="text-lg font-bold">{name}</h2>
+
+                    <h2 className="text-xl font-bold text-gray-800">
+                        {name}
+                    </h2>
+
+                    <p className="text-gray-500 mt-1 line-clamp-2">
+                        {description}
+                    </p>
+
                 </div>
 
-                {/* Product Description */}
-                <div>
-                    <p>{description}</p>
-                </div>
+                <div className="flex items-center gap-6 mt-4">
 
-                {/* Product Price */}
-                <div>
-                    <p className="text-xl font-bold">${price.toFixed(2)}</p>
-                </div>
+                    <p className="text-2xl font-bold text-green-600">
+                        ₹{price}
+                    </p>
 
-                {/* Product Stock */}
-                <div>
-                    <p>Stock: {stock}</p>
+                    <p className="font-medium text-gray-700">
+                        Stock: {stock}
+                    </p>
+
+                    {category && (
+                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                            {category}
+                        </span>
+                    )}
+
                 </div>
 
             </div>
 
         </div>
-    )
-}
 
+    );
+};
 
 export default ResultProductCard;
