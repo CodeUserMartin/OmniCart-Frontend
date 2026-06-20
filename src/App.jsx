@@ -18,6 +18,9 @@ import MyOrderPage from "./pages/MyOrderPage.jsx"
 import CheckoutPage from "./pages/CheckoutPage.jsx"
 import ViewProduct from "./components/ViewProduct.jsx"
 
+import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage.jsx"
+import ResetPasswordPage from "./pages/Auth/ResetPasswordPage.jsx"
+
 import DashboardAnalysis from "./pages/Seller-Dashboard/DashboardAnalysis.jsx"
 
 // Seller Dashboard Subpages
@@ -28,6 +31,9 @@ import NewOrders from "./pages/seller-dashboard/NewOrder.jsx"
 import CancelledOrders from "./pages/seller-dashboard/CancelledOrders.jsx"
 import MyProducts from "./pages/seller-dashboard/MyProducts.jsx"
 import ReStockProducts from "./pages/seller-dashboard/ReStockProducts.jsx"
+import ConfirmedOrders from "./pages/Seller-Dashboard/ConfirmedOrders.jsx"
+import ShippedOrders from "./pages/Seller-Dashboard/ShippedOrders.jsx"
+import DeliveredOrders from "./pages/Seller-Dashboard/DeliveredOrders.jsx"
 
 function App() {
 
@@ -42,6 +48,9 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginInPage />} />
           <Route path="/logout" element={<LoginInPage />} />
+
+          <Route path="/forgot-password" element={<ForgetPasswordPage />} />
+          <Route path="/reset-password/:resetToken" element={<ResetPasswordPage />} />
 
           <Route path="/search" element={<ProductResultPage />} />
           {/* <Route path="/notifications" element={<ProductResultPage />} /> */}
@@ -60,6 +69,9 @@ function App() {
             <Route path="update-product" element={<UpdateProduct />} />
             <Route path="delete-product" element={<DeleteProduct />} />
             <Route path="new-orders" element={<NewOrders />} />
+            <Route path="confirmed-orders" element={<ConfirmedOrders />} />
+            <Route path="shipped-orders" element={<ShippedOrders />}/>
+            <Route path="delivered-orders" element={<DeliveredOrders />}/>
             <Route path="cancelled-orders" element={<CancelledOrders />} />
             <Route path="my-products" element={<MyProducts />} />
             <Route path="re-stock-products" element={<ReStockProducts />} />
