@@ -19,6 +19,7 @@ import CheckoutPage from "./pages/CheckoutPage.jsx"
 import ViewProduct from "./components/ViewProduct.jsx"
 import BuyNowPage from "./pages/BuyNowPage.jsx"
 
+import VerifyEmailPage from "./pages/VerifyEmailPage.jsx"
 import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage.jsx"
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage.jsx"
 
@@ -49,6 +50,8 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginInPage />} />
           <Route path="/logout" element={<LoginInPage />} />
+
+          <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
 
           <Route path="/forgot-password" element={<ForgetPasswordPage />} />
           <Route path="/reset-password/:resetToken" element={<ResetPasswordPage />} />

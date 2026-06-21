@@ -14,9 +14,9 @@ const LeftPanel = () => {
 
 
     return (
-        <div className="w-1/5 p-4 h-[calc(100vh-88px)] bg-(--secondary-color)">
+        <div className="w-1/5 p-4 min-h-[calc(100vh-88px)] bg-(--secondary-color)">
 
-            <div className="p-4 rounded shadow flex flex-col w-full">
+            <div className="p-4 rounded shadow flex flex-col w-full h-full">
 
                 <div>
                     <Link
