@@ -1,15 +1,10 @@
 import SellerSearchBar from "../../components/SellerPageSearchBar.jsx";
 import { toast } from "react-hot-toast";
-
 import { deleteProduct } from "../../api/productApi.js";
 import { useSellerProducts } from "../../hooks/useSellerProducts.js";
-
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const DeleteProduct = () => {
-
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedProductId, setSelectedProductId] = useState(null);
 
     const {
         products,
@@ -17,24 +12,49 @@ const DeleteProduct = () => {
         loading
     } = useSellerProducts();
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState(null);
+
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
 
+    // Get unique categories
+    const categories = useMemo(() => {
+        return [...new Set(products?.map(p => p.category) || [])];
+    }, [products]);
+
+    // Filter products
+    const filteredProducts = useMemo(() => {
+        return products?.filter((product) => {
+
+            const matchesSearch =
+                product.name.toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+
+            const matchesCategory =
+                selectedCategory === "" ||
+                product.category === selectedCategory;
+
+            return matchesSearch && matchesCategory;
+        });
+    }, [products, searchTerm, selectedCategory]);
+
+    // Delete handler
     const handleDeleteProduct = async (productId) => {
-
 
         try {
 
             await deleteProduct(productId);
 
             setProducts((prev) =>
-                prev.filter(
-                    (product) => product._id !== productId
-                )
+                prev.filter((product) => product._id !== productId)
             );
 
-            toast.success(
-                "Product deleted successfully!"
-            );
+            // CLOSE MODAL (FIXED)
+            setShowDeleteModal(false);
+            setSelectedProductId(null);
+
+            toast.success("Product deleted successfully!");
 
         } catch (error) {
 
@@ -47,136 +67,157 @@ const DeleteProduct = () => {
         }
     };
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="space-y-6">
 
             {/* Search Bar */}
             <div>
-                <SellerSearchBar />
+                <SellerSearchBar
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            {/* Category Dropdown */}
+            <div>
+                <select
+                    className="p-2 border rounded bg-white"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="">All Categories</option>
+
+                    {categories.map((cat, i) => (
+                        <option key={i} value={cat}>
+                            {cat}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             {/* Product List */}
             <div className="space-y-4">
 
-                {products.map((product) => (
+                {filteredProducts?.length === 0 ? (
+                    <p className="text-gray-500 text-center">
+                        No products found
+                    </p>
+                ) : (
 
-                    <div
-                        key={product._id}
-                        className="bg-white rounded-lg shadow p-4 flex justify-between items-center"
-                    >
+                    filteredProducts.map((product) => (
+                        <div
+                            key={product._id}
+                            className="bg-white rounded-lg shadow p-4 flex justify-between items-center"
+                        >
 
-                        {/* Left Side */}
-                        <div className="flex gap-4">
+                            {/* Left Side */}
+                            <div className="flex gap-4">
 
-                            {/* Image */}
-                            <div className="w-32 h-32 bg-gray-100 rounded-md overflow-hidden">
-                                <img
-                                    src={product.images}
-                                    alt={product.name}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-
-                            {/* Product Info */}
-                            <div className="flex flex-col justify-between">
-
-                                <div>
-                                    <h2 className="text-xl font-bold">
-                                        {product.name}
-                                    </h2>
-
-                                    <p className="text-gray-500 mt-1">
-                                        {product.description}
-                                    </p>
+                                {/* Image */}
+                                <div className="w-32 h-32 bg-gray-100 rounded-md overflow-hidden">
+                                    <img
+                                        src={product.images?.[0]}
+                                        alt={product.name}
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
 
-                                <div className="mt-3 space-y-1">
+                                {/* Info */}
+                                <div className="flex flex-col justify-between">
 
-                                    <p className="font-semibold text-green-600">
-                                        ₹{product.price}
-                                    </p>
+                                    <div>
+                                        <h2 className="text-xl font-bold">
+                                            {product.name}
+                                        </h2>
 
-                                    <p>
-                                        Stock:
-                                        <span className="font-medium ml-1">
-                                            {product.stock}
+                                        <p className="text-gray-500 mt-1">
+                                            {product.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-3 space-y-1">
+
+                                        <p className="font-semibold text-green-600">
+                                            ₹{product.price}
+                                        </p>
+
+                                        <p>
+                                            Stock:
+                                            <span className="font-medium ml-1">
+                                                {product.stock}
+                                            </span>
+                                        </p>
+
+                                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                                            {product.category}
                                         </span>
-                                    </p>
 
-                                    <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                                        {product.category}
-                                    </span>
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                        </div>
-
-                        {/* Delete Button */}
-                        <div>
-
-                            <button className="bg-(--accent-color) text-white px-4 py-3 uppercase hover:cursor-pointer "
+                            {/* Delete Button */}
+                            <button
+                                className="bg-red-600 text-white px-4 py-3 uppercase hover:cursor-pointer"
                                 onClick={() => {
                                     setSelectedProductId(product._id);
                                     setShowDeleteModal(true);
                                 }}
                             >
-                                Delete Product
+                                Delete
+                            </button>
+
+                        </div>
+                    ))
+                )}
+            </div>
+
+            {/* MODAL */}
+            {showDeleteModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+                    <div className="bg-white rounded-xl p-6 w-96 shadow-lg">
+
+                        <h2 className="text-xl font-bold mb-3">
+                            Delete Product
+                        </h2>
+
+                        <p className="text-gray-600">
+                            Are you sure you want to delete this product?
+                        </p>
+
+                        <div className="flex justify-end gap-3 mt-6">
+
+                            <button
+                                onClick={() => {
+                                    setShowDeleteModal(false);
+                                    setSelectedProductId(null);
+                                }}
+                                className="border px-4 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                onClick={() =>
+                                    handleDeleteProduct(selectedProductId)
+                                }
+                                className="bg-red-600 text-white px-4 py-2 rounded-lg"
+                            >
+                                Delete
                             </button>
 
                         </div>
 
                     </div>
-
-                ))}
-
-            </div>
-
-            {
-                showDeleteModal && (
-
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-
-                        <div className="bg-white rounded-xl p-6 w-96 shadow-lg">
-
-                            <h2 className="text-xl font-bold mb-3">
-                                Delete Product
-                            </h2>
-
-                            <p className="text-gray-600">
-                                Are you sure you want to delete this product?
-                            </p>
-
-                            <div className="flex justify-end gap-3 mt-6">
-
-                                <button
-                                    onClick={() => {
-                                        setShowDeleteModal(false);
-                                        setSelectedProductId(null);
-                                    }}
-                                    className="border px-4 py-2 rounded-lg"
-                                >
-                                    Cancel
-                                </button>
-
-                                <button
-                                    onClick={() =>
-                                        handleDeleteProduct(selectedProductId)
-                                    }
-                                    className="bg-red-600 text-white px-4 py-2 rounded-lg"
-                                >
-                                    Delete
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                )
-            }
+                </div>
+            )}
 
         </div>
     );
