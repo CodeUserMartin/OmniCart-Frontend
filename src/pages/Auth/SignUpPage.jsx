@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
 
+    const [isRegistered, setIsRegistered] = useState(false);
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -27,16 +28,15 @@ const SignUpPage = () => {
         try {
             const response = await signupUser(formData);
 
-            // console.log("Signup successful:", response.data);
-            toast.success(response.data.message || "Signup successful");
+            toast.success(
+                response.data.message ||
+                "Signup successful! Please verify your email."
+            );
 
-            // Redirect to login page after successful signup
-            navigate("/login");
+            setIsRegistered(true); 
 
-        }
-        catch (error) {
-            const backendErrors =
-                error.response?.data?.errors || [];
+        } catch (error) {
+            const backendErrors = error.response?.data?.errors || [];
 
             const formattedErrors = {};
 
@@ -47,7 +47,6 @@ const SignUpPage = () => {
 
             setErrors(formattedErrors);
         }
-
     }
 
     const handleInputChange = (e) => {
@@ -55,6 +54,33 @@ const SignUpPage = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
+    }
+
+
+    if (isRegistered) {
+        return (
+            <div className="flex items-center justify-center h-screen bg-gray-100">
+                <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md">
+
+                    <h2 className="text-2xl font-bold text-green-600">
+                        Account Created Successfully
+                    </h2>
+
+                    <p className="mt-3 text-gray-600">
+                        We have sent a verification email to your inbox.
+                    </p>
+
+                    <p className="mt-2 text-sm text-gray-500">
+                        Please verify your email to continue.
+                    </p>
+
+                    <div className="mt-6 text-blue-600 font-medium">
+                        You can now close this page or check your email 📩
+                    </div>
+
+                </div>
+            </div>
+        );
     }
 
     return (
