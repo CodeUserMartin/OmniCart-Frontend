@@ -12,8 +12,16 @@ export const buyProduct = (productId, data) => {
   );
 };
 
-export const getUserOrders = async () => {
-  return await apiClient.get("/order");
+// export const getUserOrders = async () => {
+//   return await apiClient.get("/order");
+// }
+
+export const getUserOrders = (category = "") => {
+    return apiClient.get("/order", {
+        params: {
+            category
+        }
+    });
 }
 
 // GET Pending Orders

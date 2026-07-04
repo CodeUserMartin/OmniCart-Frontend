@@ -4,6 +4,19 @@ export const searchProducts = (query) => {
     return apiClient.get(`/product?search=${encodeURIComponent(query)}`);
 }
 
+export const searchProductByCategoryOrBySearch = (search, category) => {
+
+    if (search && category) {
+        return apiClient.get(`/product?category=${category}&search=${search}`)
+    } else {
+        return apiClient.get(`/product?category=${category}`)
+    }
+}
+
+// export const renderCategoryProducts = (category) => {
+//     return apiClient.get(`/product?category=${category}`)
+// }
+
 export const addProduct = (formData) => {
     return apiClient.post('/product', formData)
 }
