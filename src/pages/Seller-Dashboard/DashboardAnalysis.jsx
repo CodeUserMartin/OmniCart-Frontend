@@ -24,16 +24,16 @@ const DashboardAnalysis = () => {
             <div className="flex flex-col gap-4 p-4 w-full">
 
                 {/* Seller Info Container */}
-                <div className="flex items-center justify-between gap-2 p-4 rounded shadow w-full bg-amber-200">
+                <div className="flex items-center justify-between gap-2 p-4 rounded shadow w-full bg-(--primary-color)">
 
                     {/* Seller Name */}
                     <div>
-                        <span className="text-2xl font-bold">{dashboard?.sellerName}</span>
+                        <span className="text-2xl font-bold uppercase">{dashboard?.sellerName}</span>
                     </div>
 
                     {/* Seller Description */}
                     <div>
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 uppercase">
                             {dashboard?.storeName}
                         </p>
 
@@ -49,13 +49,13 @@ const DashboardAnalysis = () => {
                 </div>
 
                 {/* Seller Analysis Data Container */}
-                <div className="flex gap-4 p-4 rounded shadow w-full bg-(--secondary-color)">
+                <div className="flex gap-4 p-4 rounded shadow w-full bg-(--primary-color) ">
 
                     {/* Seller Pie Chart & Data */}
                     <div className="flex  gap-4 p-4 rounded w-3/4">
 
                         {/* Pie Chart Container */}
-                        <div className="flex justify-center items-center rounded h-full p-2">
+                        <div className="flex justify-center items-center rounded h-full p-2 shadow-(--box-shadow)">
 
 
                             {/* <div className="w-88 h-88 bg-gray-200 rounded-full flex items-center justify-center">
@@ -69,7 +69,7 @@ const DashboardAnalysis = () => {
                         </div>
 
                         {/* Pie Chart Data Container */}
-                        <div className=" flex flex-col items-center p-4 rounded shadow  bg-amber-200 text-right">
+                        <div className=" flex flex-col items-start p-4 rounded shadow-(--box-shadow)  bg-(--primary-color) text-right">
 
                             <p>
                                 🔵 Shipped Orders:
@@ -83,17 +83,6 @@ const DashboardAnalysis = () => {
                                 {dashboard?.pendingOrders}
                             </p>
 
-                            <p>
-                                🟠 Confirmed Orders:
-                                {" "}
-                                {dashboard?.confirmedOrders}
-                            </p>
-
-                            <p>
-                                🔴 Cancelled Orders:
-                                {" "}
-                                {dashboard?.cancelledOrders}
-                            </p>
 
                             <p>
                                 🟢 Delivered Orders:
@@ -101,13 +90,22 @@ const DashboardAnalysis = () => {
                                 {dashboard?.deliveredOrders}
                             </p>
 
-
+                            <p>
+                                🔴 Cancelled Orders:
+                                {" "}
+                                {dashboard?.cancelledOrders}
+                            </p>
+                            <p>
+                                🟠 Confirmed Orders:
+                                {" "}
+                                {dashboard?.confirmedOrders}
+                            </p>
                         </div>
 
                     </div>
 
                     {/* Seller Inventory Data */}
-                    <div className="flex flex-col gap-2 p-4 rounded shadow bg-amber-200 text-center">
+                    <div className="flex flex-col gap-2 p-4 rounded shadow-(--box-shadow) bg-(--primary-color) items-start">
                         <div>
                             <h2 className="text-lg font-bold">Inventory</h2>
                         </div>
@@ -136,16 +134,16 @@ const DashboardAnalysis = () => {
                 </div>
 
                 {/* Seller Revenue Data Container */}
-                <div className="flex justify-between items-center gap-4 p-4 rounded shadow w-full bg-amber-200">
+                <div className="flex justify-between items-center gap-4 p-4 rounded  w-full bg-(--primary-color)">
 
                     {/* Current Date */}
                     <div>
 
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 uppercase">
                             Current Date
                         </p>
 
-                        <p className="font-semibold">
+                        <p className="font-semibold text-xl">
                             {new Date().toLocaleDateString()}
                         </p>
 
@@ -154,11 +152,11 @@ const DashboardAnalysis = () => {
                     {/* Total Revenue */}
                     <div>
 
-                        <p className="text-gray-600">
+                        <p className="text-gray-600 uppercase">
                             Total Revenue
                         </p>
 
-                        <span className="text-2xl font-bold text-green-600">
+                        <span className="text-3xl font-bold text-green-600">
                             ₹{dashboard?.totalRevenue}
                         </span>
 
