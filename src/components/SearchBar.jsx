@@ -16,6 +16,8 @@ const SearchBar = () => {
 
         if (location.pathname === "/") {
             navigate(`/search?search=${encodeURIComponent(searchQuery)}`);
+            console.log("Yes, correct");
+            
         } else {
             navigate(
                 `${location.pathname}?search=${encodeURIComponent(searchQuery)}`
