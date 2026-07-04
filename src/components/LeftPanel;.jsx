@@ -14,14 +14,14 @@ const LeftPanel = () => {
 
 
     return (
-        <div className="w-1/5 p-4 min-h-[calc(100vh-88px)] bg-(--secondary-color)">
+        <div className="w-1/5 min-h-[calc(100vh-88px)] bg-(--secondary-color)">
 
             <div className="p-4 rounded shadow flex flex-col w-full h-full">
 
-                <div>
+                <div className="w-full">
                     <Link
                         to="/seller-dashboard/dashboard"
-                        className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                        className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer"
                     >
                         Dashboard
                     </Link>
@@ -29,10 +29,10 @@ const LeftPanel = () => {
 
                 <button
                     onClick={() => setProductManagementOpen(!productManagementOpen)}
-                    className="cursor-pointer font-semibold text-white bg-black p-2 list-none"
+                    className="cursor-pointer font-semibold mt-4 text-white  p-2 list-none w-full hover:bg-gray-800 "
                 >
 
-                    <div className="flex items-center gap-2 justify-center">
+                    <div className="flex items-center gap-2 justify-around">
                         <span>
                             Product Management
                         </span>
@@ -46,24 +46,24 @@ const LeftPanel = () => {
 
                 {
                     productManagementOpen && (
-                        <div className="flex flex-col gap-2 mt-3 bg-(--shade-color) p-2 rounded-xl">
+                        <div className="flex flex-col gap-4 mt-3 w-full">
                             <Link
                                 to="/seller-dashboard/add-product"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Add Product
                             </Link>
 
                             <Link
                                 to="/seller-dashboard/update-product"
-                                className="pl-4 text-white  py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white  py-3 px-2  hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Update Product
                             </Link>
 
                             <Link
                                 to="/seller-dashboard/delete-product"
-                                className="pl-4 text-white  py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white  py-3 px-2  hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Delete Product
                             </Link>
@@ -71,9 +71,9 @@ const LeftPanel = () => {
                     )
                 }
 
-                <button onClick={() => setOrderManagementOpen(!orderManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none">
+                <button onClick={() => setOrderManagementOpen(!orderManagementOpen)} className="cursor-pointer font-semibold text-white rounded mt-4 list-none">
 
-                    <div className="flex items-center gap-2 justify-center cursor-pointer p-2 text-white bg-black rounded">
+                    <div className="flex items-center gap-2 justify-around cursor-pointer p-2 text-white hover:bg-gray-800">
                         <span>
                             Order Management
                         </span>
@@ -87,36 +87,36 @@ const LeftPanel = () => {
 
                 {
                     orderManagementOpen && (
-                        <div className="flex flex-col gap-2 mt-3 bg-(--shade-color) p-2 rounded-xl">
+                        <div className="flex flex-col gap-4 mt-3 ">
                             <Link
                                 to="/seller-dashboard/new-orders"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 New Orders
                             </Link>
 
                             <Link
                                 to="/seller-dashboard/confirmed-orders"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Confirmed Orders
                             </Link>
 
                             <Link
                                 to="/seller-dashboard/shipped-orders"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Shipped Orders
                             </Link>
                             <Link
                                 to="/seller-dashboard/delivered-orders"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Delivered Orders
                             </Link>
                             <Link
                                 to="/seller-dashboard/cancelled-orders"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Cancelled Orders
                             </Link>
@@ -124,9 +124,9 @@ const LeftPanel = () => {
                     )
                 }
 
-                <button onClick={() => setInventoryManagementOpen(!inventoryManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-4 list-none ">
+                <button onClick={() => setInventoryManagementOpen(!inventoryManagementOpen)} className="cursor-pointer font-semibold text-white bg-[--secondary-color] p-2 rounded mt-2 list-none ">
 
-                    <div className="flex items-center gap-2 justify-center cursor-pointer text-white bg-black rounded">
+                    <div className="flex items-center gap-2 p-2 justify-around cursor-pointer text-white hover:bg-gray-800">
                         <span>
                             Inventory Management
                         </span>
@@ -141,17 +141,17 @@ const LeftPanel = () => {
 
                 {
                     inventoryManagementOpen && (
-                        <div className="flex flex-col gap-2 mt-3 bg-(--shade-color) p-2 rounded-xl">
+                        <div className="flex flex-col gap-4 mt-3">
                             <Link
                                 to="/seller-dashboard/my-products"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 My Products
 
                             </Link>
                             <Link
                                 to="/seller-dashboard/re-stock-products"
-                                className="pl-4 text-white py-3 px-2 bg-black rounded-xl"
+                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
                             >
                                 Re-Stock Products
                             </Link>
