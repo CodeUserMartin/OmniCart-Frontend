@@ -38,7 +38,7 @@ const Navbar = () => {
                 const res = await getCurrentUser();
 
                 setUser(res.data.data.user);
-                console.log("Current user:", res.data.data.user);
+                // console.log("Current user:", res.data.data.user);
 
             } catch (error) {
 
@@ -78,7 +78,7 @@ const Navbar = () => {
                         res.data.data.notifications
                     );
 
-                    console.log(res.data.data.notifications)
+                    // console.log(res.data.data.notifications)
 
                 } catch (error) {
 
@@ -98,8 +98,8 @@ const Navbar = () => {
                 !notification.isRead
         ).length;
 
-    console.log("Notifications:", notifications);
-    console.log("Unread Count:", unreadCount);
+    // console.log("Notifications:", notifications);
+    // console.log("Unread Count:", unreadCount);
 
     const handleNotificationClick = async () => {
 

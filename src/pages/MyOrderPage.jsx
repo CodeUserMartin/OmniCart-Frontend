@@ -11,40 +11,60 @@ const MyOrderPage = () => {
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
 
     useEffect(() => {
 
-        const fetchOrders = async () => {
+        const fetchOrder = async () => {
 
             try {
 
-                const res = await getUserOrders();
+                const response =
+                    await getUserOrders(selectedCategory);
 
-                console.log(res.data.data.finalOrder);
-
-                setOrders(
-                    res.data.data.finalOrder
-                );
+                console.log(response.data.data.finalOrder);
+                setOrders(response.data.data.finalOrder);
 
             } catch (error) {
-
-                console.log(
-                    "Failed to fetch orders",
-                    error
-                );
+                console.log("Failed to fetch orders", error);
 
             } finally {
-
                 setLoading(false);
-
             }
 
         };
 
-        fetchOrders();
+        fetchOrder();
 
-    }, []);
+    }, [selectedCategory]);
+
+    // const fetchUserOrders = async () => {
+
+    //     try {
+
+    //         const res = await getUserOrders();
+
+    //         
+
+    //         setOrders(
+    //             res.data.data.finalOrder
+    //         );
+
+    //     } catch (error) {
+
+    //         console.log(
+    //             "Failed to fetch orders",
+    //             error
+    //         );
+
+    //     } finally {
+
+    //         setLoading(false);
+
+    //     }
+
+    // };
 
     const getStatusStyle = (status) => {
 
@@ -133,16 +153,42 @@ const MyOrderPage = () => {
         }
     };
 
+    // Formating Date
+    const formatDate = (date) => {
+        return new Intl.DateTimeFormat("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        }).format(new Date(date));
+    };
+
+
     return (
         <>
             <Navbar />
 
             <div className="max-w-7xl mx-auto p-4">
 
+            <div className="flex justify-between items-center gap-4">
+
                 {/* Title */}
-                <h1 className="text-3xl font-bold mb-6">
+                <h1 className="text-3xl font-bold mb-4">
                     My Orders
                 </h1>
+
+                <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="border rounded-lg px-4 py-2 bg-white text-gray-700"
+                >
+                    <option value="">All Products</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="groceries">Groceries</option>
+                </select>
+
+            </div>
+
 
                 {/* Orders */}
                 <div className="flex flex-col gap-4 shadow">
@@ -193,6 +239,8 @@ const MyOrderPage = () => {
 
                             <div className="flex flex-col gap-2 items-end">
 
+
+
                                 <span
                                     className={`px-4 py-2 rounded-full font-medium ${getStatusStyle(order.status)}`}
                                 >
@@ -218,7 +266,12 @@ const MyOrderPage = () => {
                                     </button>
                                 )}
 
+                                <div>
+                                    <span>Ordered on : {formatDate(order.createdAt)}</span>
+                                </div>
+
                             </div>
+
 
                         </div>
 

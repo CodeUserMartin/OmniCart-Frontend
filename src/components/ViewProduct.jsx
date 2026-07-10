@@ -12,7 +12,10 @@ import { getProductById } from "../api/productApi";
 
 import { useBuyNow } from "../hooks/useBuyNow";
 
+import { getCurrentUser } from "../api/authApi.js";
+
 export default function ViewProduct() {
+
 
     const buyNow = useBuyNow();
 
@@ -21,8 +24,29 @@ export default function ViewProduct() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [adding, setAdding] = useState(false);
+    const [LoggedInUser, setLoggedInUser] = useState("");
+
+    // Check for Addby Id of the Seller
+    const SellerId = product?.addedBy?._id;
+
+    // Checking if Login User and Product Seller Same.
+    const isOwner = SellerId === LoggedInUser;
+
 
     const navigate = useNavigate();
+
+    // Check current LoggedInUser;
+    const currentLoggedInUser = async () => {
+
+        try {
+
+            const LoggedInUser = await getCurrentUser();
+            setLoggedInUser(LoggedInUser.data.data.user._id);
+
+        } catch (error) {
+            console.error('Something went Wrong', error);
+        }
+    }
 
     useEffect(() => {
 
@@ -32,12 +56,13 @@ export default function ViewProduct() {
 
                 const res = await getProductById(id);
 
-                console.log("Fetched product:", res.data.data.product); // Log the fetched product data
-
                 setProduct(res.data.data.product); // adjust if backend differs
 
+<<<<<<< HEAD
                 console.log("product" ,res.data.data.product);
 
+=======
+>>>>>>> f60a9dae4b0205d9b21f4b52b5ed467c2cdea66e
 
             } catch (error) {
                 console.log("Error fetching product:", error);
@@ -53,13 +78,16 @@ export default function ViewProduct() {
 
     const addToCartHandler = useAddToCart();
 
-    if (loading) {
-        return <p className="p-4 text-gray-500">Loading product details...</p>;
-    }
+    currentLoggedInUser();
 
-    if (!product) {
-        return <p className="p-4 text-gray-500">Product not found</p>;
-    }
+
+
+
+    if (loading) return <p className="p-4 text-gray-500">Loading product details...</p>;
+
+
+    if (!product) return <p className="p-4 text-gray-500">Product not found</p>;
+
 
     return (
         <>
@@ -97,28 +125,40 @@ export default function ViewProduct() {
                         <p className="text-sm text-gray-600">
                             Sold by:{" "}
                             <span className="font-semibold">
-                                {product.seller?.storeName || product.seller || "Temp Seller"}
+                                {product.addedBy.sellerInfo.storeName || "Temp Seller"}
                             </span>
                         </p>
 
-                        {/* BUTTONS */}
-                        <div className="flex gap-4 mt-4">
 
-                            <button
-                                onClick={() => addToCartHandler(product._id)}
-                                className="bg-blue-600 text-white px-6 py-3 rounded-lg"
-                            >
-                                Add to Cart
-                            </button>
+                        {!isOwner && (
+                            //  BUTTONS 
+                            <div>
+                                <div className="flex gap-4 mt-4">
 
-                            <button
-                                onClick={() => buyNow(product._id)}
-                                className="bg-green-600 text-white px-6 py-3 rounded-lg"
-                            >
-                                Buy Now
-                            </button>
+                                    <button
+                                        onClick={() => addToCartHandler(product._id)}
+                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+                                    >
+                                        Add to Cart
+                                    </button>
 
+                                    <button
+                                        onClick={() => buyNow(product._id)}
+                                        className="bg-green-600 text-white px-6 py-3 rounded-lg"
+                                    >
+                                        Buy Now
+                                    </button>
+
+                                </div>
+                            </div>
+                        )
+
+                        }
+
+                        <div>
+                            <p className="text-red-500 bold text-2xl">Cannot Purchase your own product!</p>
                         </div>
+
 
                     </div>
                 </div>
