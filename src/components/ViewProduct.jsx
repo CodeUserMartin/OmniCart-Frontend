@@ -36,7 +36,7 @@ export default function ViewProduct() {
 
                 setProduct(res.data.data.product); // adjust if backend differs
 
-                console.log(res.data.data.product);
+                console.log("product" ,res.data.data.product);
 
 
             } catch (error) {
