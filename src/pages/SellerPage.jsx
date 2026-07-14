@@ -128,6 +128,8 @@ const SellerPage = () => {
                 "Seller Registration Successful!"
             );
 
+            navigate("/seller-dashboard/dashboard")
+
         }
         catch (error) {
 

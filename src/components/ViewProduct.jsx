@@ -58,6 +58,11 @@ export default function ViewProduct() {
 
                 setProduct(res.data.data.product); // adjust if backend differs
 
+<<<<<<< HEAD
+                console.log("product" ,res.data.data.product);
+
+=======
+>>>>>>> f60a9dae4b0205d9b21f4b52b5ed467c2cdea66e
 
             } catch (error) {
                 console.log("Error fetching product:", error);
