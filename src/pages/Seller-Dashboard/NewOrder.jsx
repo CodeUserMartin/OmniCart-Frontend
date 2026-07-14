@@ -92,7 +92,7 @@ const NewOrder = () => {
                                     {/* Product Details */}
                                     <div>
 
-                                        <h2 className="text-xl font-bold">
+                                        <h2 className="lg:text-xl font-bold">
                                             {order.productName}
                                         </h2>
 
@@ -104,7 +104,7 @@ const NewOrder = () => {
                                             Price: ₹{order.price}
                                         </p>
 
-                                        <p className="text-yellow-600 font-semibold">
+                                        <p className="text-yellow-600 font-semibold uppercase">
                                             {order.status}
                                         </p>
 
@@ -117,7 +117,7 @@ const NewOrder = () => {
                                             handleAcceptOrder(order.itemId)
                                         }
                                         className="
-                                                  mt-3 bg-green-600  hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold "
+                                                  mt-3 bg-green-600  hover:bg-green-700 text-white px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold "
                                     >
                                         Accept Order
                                     </button>

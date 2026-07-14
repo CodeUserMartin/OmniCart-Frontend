@@ -176,7 +176,7 @@ const SellerPage = () => {
 
             {/* Hero Text */}
             <div className="m-5 text-center">
-                <h1 className="font-bold text-4xl uppercase">Why Sell on OmniCart</h1>
+                <h1 className="font-bold text-2xl lg:text-4xl uppercase">Why Sell on OmniCart</h1>
             </div>
 
             {/* Cards */}
@@ -196,7 +196,7 @@ const SellerPage = () => {
             <div>
 
                 <div>
-                    <h1 className="font-bold text-4xl uppercase text-center">Apply to Become a Seller</h1>
+                    <h1 className="font-bold text-2xl lg:text-4xl uppercase text-center">Apply to Become a Seller</h1>
                 </div>
 
                 {/* Container */}
@@ -207,7 +207,7 @@ const SellerPage = () => {
                         
                    (
 
-                                <div className="w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 text-center">
+                                <div className="w-100 lg:w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 text-center">
 
                                     <h2 className="text-3xl font-bold text-green-600">
                                         You are already a seller!
@@ -231,7 +231,7 @@ const SellerPage = () => {
 
                                 <form
                                     onSubmit={handleSellerApplication}
-                                    className="w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5"
+                                    className="w-xs lg:w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 "
                                 >
 
                                     {!isLoggedIn && (
@@ -261,7 +261,7 @@ const SellerPage = () => {
                                     <fieldset disabled={!isLoggedIn}
                                         className={!isLoggedIn ? "opacity-50" : ""}>
 
-                                        <div className="flex gap-5">
+                                        <div className="flex flex-col lg:flex-row gap-5 lg:w-full">
 
                                             <div>
 
@@ -289,7 +289,7 @@ const SellerPage = () => {
 
                                             </div>
 
-                                            <div className="flex flex-col gap-5 w-full">
+                                            <div className="flex flex-col gap-5 lg:w-full">
 
                                                 {/* Store Address */}
                                                 <div className="flex flex-col gap-2">
@@ -311,7 +311,7 @@ const SellerPage = () => {
                                         </div>
 
                                         {/* Store Address Container */}
-                                        <div className="flex items-center gap-5 mt-5">
+                                        <div className="flex flex-col lg:flex-row lg:items-center gap-5 mt-5">
 
                                             {/* City */}
                                             <div className="flex flex-col gap-2">

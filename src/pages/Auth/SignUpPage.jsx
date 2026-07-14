@@ -84,14 +84,16 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="flex flex-row items-center justify-center lg:h-screen bg-gray-100 p-2">
 
             {/* Sign Up Container */}
-            <div className="flex md:flex-row shadow-(--box-shadow) rounded-lg overflow-hidden w-4xl h-[80vh]">
+            <div className="lg:flex shadow-(--box-shadow) rounded-lg overflow-hidden lg:w-4xl lg:h-[80vh] w-md">
 
                 {/* Left-side Banner */}
-                <div className=" h-full bg-gray-200">
-                    <img src={AuthBanner} alt="Sign Up Banner" className="w-full h-full object-contain" />
+                <div className="h-full bg-gray-200">
+                    <img src={AuthBanner} alt="Sign Up Banner" className="
+                    w-full h-120
+                    lg:w-full lg:h-full lg:object-contain" />
                 </div>
 
                 {/* Right-side Container */}

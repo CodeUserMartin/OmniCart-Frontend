@@ -2,19 +2,61 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 // Icons
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 
 
-const LeftPanel = () => {
+const LeftPanel = ({
+    isSidebarOpen,
+    setIsSidebarOpen
+}) => {
 
 
     const [productManagementOpen, setProductManagementOpen] = useState(false);
     const [orderManagementOpen, setOrderManagementOpen] = useState(false);
     const [inventoryManagementOpen, setInventoryManagementOpen] = useState(false);
 
+    // console.log(isSidebarOpen);
+
 
     return (
-        <div className="w-1/5 min-h-[calc(100vh-88px)] bg-(--secondary-color)">
+        <div className={`
+        fixed
+        top-0
+        left-0
+        h-screen
+        w-72
+        bg-(--secondary-color)
+        z-50
+        transform
+        transition-transform
+        duration-300
+
+        ${isSidebarOpen
+                ? "translate-x-0"
+                : "-translate-x-full"
+            }
+
+        lg:static
+        lg:translate-x-0
+        lg:w-1/5
+        lg:min-h-[calc(100vh-88px)]
+    `}>
+
+            {/* Mobile Close Navigation Button */}
+            <div className="lg:hidden p-3 border-b border-gray-700">
+                <button
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="w-full flex items-center justify-between rounded-lg bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 transition-colors"
+                >
+                    <span className="flex items-center gap-2">
+                        <span className="text-xl">←</span>
+                        <span className="font-semibold">
+                            Close Menu
+                        </span>
+                    </span>
+
+                </button>
+            </div>
 
             <div className="p-4 rounded shadow flex flex-col w-full h-full">
 

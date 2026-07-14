@@ -118,7 +118,7 @@ const DeleteProduct = () => {
                             <div className="flex gap-4">
 
                                 {/* Image */}
-                                <div className="w-32 h-32 bg-gray-100 rounded-md overflow-hidden">
+                                <div className="w-45 h-32 bg-gray-100 rounded-md overflow-hidden">
                                     <img
                                         src={product.images?.[0]}
                                         alt={product.name}
@@ -130,11 +130,11 @@ const DeleteProduct = () => {
                                 <div className="flex flex-col justify-between">
 
                                     <div>
-                                        <h2 className="text-xl font-bold">
+                                        <h2 className="lg:text-xl font-bold">
                                             {product.name}
                                         </h2>
 
-                                        <p className="text-gray-500 mt-1">
+                                        <p className="text-gray-500 mt-1 text-xs lg:text-md">
                                             {product.description}
                                         </p>
                                     </div>
@@ -147,12 +147,12 @@ const DeleteProduct = () => {
 
                                         <p>
                                             Stock:
-                                            <span className="font-medium ml-1">
+                                            <span className="font-medium ml-1 text-xs lg:text-md">
                                                 {product.stock}
                                             </span>
                                         </p>
 
-                                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium uppercase">
                                             {product.category}
                                         </span>
 
@@ -164,7 +164,7 @@ const DeleteProduct = () => {
 
                             {/* Delete Button */}
                             <button
-                                className="bg-red-600 text-white px-4 py-3 uppercase hover:cursor-pointer"
+                                className="bg-red-600 text-white px-3 py-2 lg:px-4 lg:py-3 uppercase hover:cursor-pointer rounded-lg"
                                 onClick={() => {
                                     setSelectedProductId(product._id);
                                     setShowDeleteModal(true);

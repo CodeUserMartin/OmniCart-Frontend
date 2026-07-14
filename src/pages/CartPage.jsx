@@ -23,7 +23,7 @@ const CartPage = () => {
 
       setCartItems(
         response.data.data.finalCartItems
-      );
+      );      
     };
 
     fetchCart();
@@ -110,7 +110,7 @@ const CartPage = () => {
 
           <div className="flex justify-between items-center">
 
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className=" text-xl lg:text-3xl font-bold text-black">
               My Shopping Cart
             </h1>
 
@@ -131,7 +131,7 @@ const CartPage = () => {
           {/* Cart items */}
 
           {cartItems.length === 0 && (
-            <p className="text-center text-gray-500 mt-4 relative">
+            <p className="text-center text-gray-500 mt-7 relative text-xl ">
               No items in your cart. Start shopping something you’ll love 🛍️
             </p>
           )}
@@ -144,7 +144,7 @@ const CartPage = () => {
                 <CartItemCard
                   key={item.productId}
                   productId={item.productId}
-                  name={item.name}
+                  name={item.productName}
                   description={item.description}
                   price={item.price}
                   quantity={item.quantity}

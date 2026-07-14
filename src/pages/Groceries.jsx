@@ -131,7 +131,7 @@ const Groceries = () => {
                     <div>
                         <HeroBanner img={GroceriesBanner} size="23" />
                         <div>
-                            <div className="flex flex-wrap justify-center gap-6 p-6">
+                            <div className="flex flex-wrap justify-center lg:gap-6 lg:p-3 p-2">
                                 {categories.map((category, index) => (
                                     <CategoryCard key={index} name={category.name} img={category.img} />
                                 ))}

@@ -124,7 +124,7 @@ const Clothing = () => {
 
                     <div>
 
-                        <div className="flex flex-wrap justify-center gap-6 p-6">
+                        <div className="flex flex-wrap justify-center lg:gap-6 lg:p-6">
                             {categories.map((category, index) => (
                                 <CategoryCard key={index} name={category.name} img={category.img} />
                             ))}

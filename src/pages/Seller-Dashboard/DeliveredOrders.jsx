@@ -61,7 +61,7 @@ const DeliveredOrders = () => {
                                     {/* Product Details */}
                                     <div>
 
-                                        <h2 className="text-xl font-bold">
+                                        <h2 className="lg:text-xl font-bold">
                                             {order.productName}
                                         </h2>
 
@@ -73,7 +73,7 @@ const DeliveredOrders = () => {
                                             Price: ₹{order.price}
                                         </p>
 
-                                        <p className="text-green-600 font-semibold">
+                                        <p className="text-green-600 font-semibold uppercase">
                                             {order.status}
                                         </p>
 

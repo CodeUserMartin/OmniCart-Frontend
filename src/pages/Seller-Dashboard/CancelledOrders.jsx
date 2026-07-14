@@ -22,7 +22,7 @@ const CancelledOrders = () => {
             </h1>
 
             {/* Products */}
-            <div className="flex flex-col gap-4 mt-3 overflow-auto h-140 p-3">
+            <div className="flex flex-col gap-4 mt-3 overflow-auto h-140 lg:p-3">
 
                 {orders.length === 0 ? (
                     <p className="text-white">
@@ -32,11 +32,11 @@ const CancelledOrders = () => {
                     orders.map((order) => (
                         <ResultProductCard
                             key={order.itemId}
-                           img={order.productImage}
-                           name={order.productName}
-                           description={order.productDescription}
-                           price={order.price}
-                           stock={order.quantity}
+                            img={order.productImage}
+                            name={order.productName}
+                            description={order.description}
+                            price={order.price}
+                            stock={order.quantity}
                         />
                     ))
                 )}

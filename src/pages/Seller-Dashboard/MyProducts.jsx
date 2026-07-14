@@ -11,7 +11,6 @@ const MyProducts = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
 
-    // ✅ MUST be before return
     const categories = [...new Set(products?.map(p => p.category) || [])];
 
     const filteredProducts = useMemo(() => {
@@ -39,7 +38,7 @@ const MyProducts = () => {
 
     return (
         <>
-            <h1 className="font-bold text-3xl m-4 text-white">
+            <h1 className="font-bold text-xl lg:text-3xl lg:m-4 text-white">
                 My Products
             </h1>
 

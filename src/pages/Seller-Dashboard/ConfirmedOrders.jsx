@@ -93,7 +93,7 @@ const ConfirmedOrders = () => {
                                     {/* Product Details */}
                                     <div>
 
-                                        <h2 className="text-xl font-bold">
+                                        <h2 className="lg:text-xl font-bold">
                                             {order.productName}
                                         </h2>
 
@@ -105,7 +105,7 @@ const ConfirmedOrders = () => {
                                             Price: ₹{order.price}
                                         </p>
 
-                                        <p className="text-green-600 font-semibold">
+                                        <p className="text-green-600 font-semibold uppercase">
                                             {order.status}
                                         </p>
 
@@ -117,7 +117,7 @@ const ConfirmedOrders = () => {
                                     onClick={() =>
                                         handleShipOrder(order.itemId)
                                     }
-                                    className="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold"
+                                    className="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold"
                                 >
                                     Ship Order
                                 </button>

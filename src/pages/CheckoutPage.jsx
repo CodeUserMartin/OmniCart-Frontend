@@ -34,7 +34,6 @@ const CheckoutPage = () => {
 
             // console.log(response.data.data.finalCartItems);
 
-
             setCartItems(
                 response.data.data.finalCartItems
             );
@@ -98,7 +97,7 @@ const CheckoutPage = () => {
             const response = await placeOrder(payload);
             toast.success("Order placed successfully!");
 
-            // ✅ STEP 1: clear frontend cart immediately
+            // STEP 1: clear frontend cart immediately
             setCartItems([]);
 
             // optional (safe cleanup)
@@ -129,7 +128,7 @@ const CheckoutPage = () => {
 
                 {/* Title */}
                 <div>
-                    <h1 className="text-3xl font-bold text-center">Checkout Page</h1>
+                    <h1 className="text-xl lg:text-3xl font-bold text-center">Checkout Page</h1>
                 </div>
 
                 {/* Order Summary Container */}
@@ -143,7 +142,7 @@ const CheckoutPage = () => {
 
                             <OrderSummaryItem
                                 key={item.productId}
-                                name={item.name}
+                                name={item.productName}
                                 description={item.description}
                                 price={item.price}
                                 quantity={item.quantity}

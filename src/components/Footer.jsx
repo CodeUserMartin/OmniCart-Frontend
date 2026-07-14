@@ -67,11 +67,11 @@ const Footer = () => {
             </div>
 
             {/* Wrapper: Contact, Copyright, Social Media */}
-            <div className="flex justify-between items-end md:flex-row gap-8 md:gap-16 mt-8">
+            <div className="lg:flex lg:justify-between lg:items-end gap-8 md:gap-16 mt-8 ">
 
                 {/* Contact Information */}
-                <div>
-                    <p className="font-bold text-2xl py-2">Connect With Us:</p>
+                <div className="mb-5 lg:mb-0">
+                    <p className="font-bold text-xl lg:text-2xl py-2">Connect With Us:</p>
                     <p>Email:
                         <a href="mailto:support@omnicart.com">support@omnicart.com</a>
                     </p>
@@ -80,7 +80,7 @@ const Footer = () => {
                 </div>
 
                 {/* Copyright */}
-                <div>
+                <div className="mb-5 lg:mb-0">
                     <span>&copy; 2026 OmniCart. All rights reserved.</span>
                     <p>Shop Everything. One Cart. One System.</p>
                 </div>

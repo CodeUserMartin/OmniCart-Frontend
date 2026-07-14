@@ -204,7 +204,7 @@ const MyOrderPage = () => {
                             <div className="flex items-center gap-4">
 
                                 {/* Image */}
-                                <div className="w-28 h-28 rounded overflow-hidden">
+                                <div className="lg:w-28 lg:h-28 rounded overflow-hidden">
                                     <img
                                         src={order.img}
                                         alt={order.name}
@@ -215,11 +215,11 @@ const MyOrderPage = () => {
                                 {/* Details */}
                                 <div>
 
-                                    <h2 className="text-xl font-semibold">
+                                    <h2 className="text-sm lg:text-xl font-semibold">
                                         {order.name}
                                     </h2>
 
-                                    <p className="text-gray-500">
+                                    <p className="text-gray-500 text-sm lg:text-lg mt-4">
                                         {order.description}
                                     </p>
 
@@ -227,7 +227,7 @@ const MyOrderPage = () => {
                                         ₹{order.price}
                                     </p>
 
-                                    <p className="text-sm text-gray-600">
+                                    <p className="text-sm lg:text-lg text-gray-600">
                                         Quantity: {order.quantity}
                                     </p>
 
@@ -242,7 +242,7 @@ const MyOrderPage = () => {
 
 
                                 <span
-                                    className={`px-4 py-2 rounded-full font-medium ${getStatusStyle(order.status)}`}
+                                    className={`px-4 py-2 rounded-full font-medium text-sm lg:text-lg ${getStatusStyle(order.status)}`}
                                 >
                                     {order.status}
                                 </span>
@@ -251,7 +251,7 @@ const MyOrderPage = () => {
                                     order.status === "confirmed") && (
                                         <button
                                             onClick={() => handleCancelOrder(order.itemId)}
-                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs"
                                         >
                                             Cancel Order
                                         </button>
@@ -260,14 +260,14 @@ const MyOrderPage = () => {
                                 {order.status === "shipped" && (
                                     <button
                                         onClick={() => handleDeliverOrder(order.itemId)}
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs"
                                     >
                                         Mark As Delivered
                                     </button>
                                 )}
 
                                 <div>
-                                    <span>Ordered on : {formatDate(order.createdAt)}</span>
+                                    <span className="text-xs lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
                                 </div>
 
                             </div>

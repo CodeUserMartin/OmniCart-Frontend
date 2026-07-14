@@ -17,7 +17,8 @@ const OrderSummaryItem = ({
                 <div className="flex items-center  gap-4">
 
                     {/* Item Image */}
-                    <div className="w-24 h-24 rounded-md overflow-hidden">
+                    <div className="lg:w-24 lg:h-24
+                    w-36 h-36 rounded-md overflow-hidden">
                         <img
                             src={image}
                             alt="Product-img"
@@ -28,19 +29,19 @@ const OrderSummaryItem = ({
                     {/* Item Details */}
                     <div className="text-black">
 
-                        <h2 className="text-xl font-semibold">
+                        <h2 className="text-xs lg:text-xl font-semibold">
                             {name}
                         </h2>
 
-                        <p className="text-gray-400">
+                        <p className="text-sm lg:text-lg mt-4 text-gray-400">
                             {description}
                         </p>
 
-                        <p className="text-lg font-bold">
+                        <p className="text-xm lg:text-lg font-bold mt-4">
                             ₹{price}
                         </p>
 
-                        <p className="text-lg font-bold">
+                        <p className="text-xs lg:text-lg font-bold">
                             Quantity: {quantity}
                         </p>
 

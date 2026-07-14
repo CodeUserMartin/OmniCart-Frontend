@@ -127,11 +127,11 @@ const Navbar = () => {
 
     return (
 
-        <nav className="bg-(--secondary-color) text-white p-6 flex items-center justify-between">
+        <nav className="bg-(--secondary-color) text-white p-6 lg:flex lg:items-center lg:justify-between">
 
             {/* Logo */}
-            <div>
-                <Link to="/" className="text-2xl font-bold">OmniCart</Link>
+            <div className='text-center mb-4'>
+                <Link to="/" className="text-4xl font-bold">OmniCart</Link>
             </div>
 
             {/* Search Bar */}
@@ -139,12 +139,12 @@ const Navbar = () => {
 
             <div>
                 <Link to="/seller-page">
-                    <button className='bg-(--accent-color) px-7 py-2 rounded-lg'>Seller Page</button>
+                    <button className='bg-(--accent-color) px-7 py-2 rounded-lg my-4 w-full'>Seller Page</button>
                 </Link>
             </div>
 
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center justify-center gap-6">
 
                 {/* Notification and Cart Icons */}
                 <div className="flex items-center gap-4">

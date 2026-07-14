@@ -24,7 +24,7 @@ const DashboardAnalysis = () => {
             <div className="flex flex-col gap-4 p-4 w-full">
 
                 {/* Seller Info Container */}
-                <div className="flex items-center justify-between gap-2 p-4 rounded shadow w-full bg-(--primary-color)">
+                <div className="flex lg:flex-row flex-col lg:items-center justify-between gap-2 p-4 rounded shadow w-full bg-(--primary-color)">
 
                     {/* Seller Name */}
                     <div>
@@ -49,10 +49,10 @@ const DashboardAnalysis = () => {
                 </div>
 
                 {/* Seller Analysis Data Container */}
-                <div className="flex gap-4 p-4 rounded shadow w-full bg-(--primary-color) ">
+                <div className="flex lg:flex-row flex-col gap-4 p-4 rounded shadow w-full bg-(--primary-color) ">
 
                     {/* Seller Pie Chart & Data */}
-                    <div className="flex  gap-4 p-4 rounded w-3/4">
+                    <div className="flex lg:flex-row flex-col gap-4 p-4 rounded lg:w-3/4">
 
                         {/* Pie Chart Container */}
                         <div className="flex justify-center items-center rounded h-full p-2 shadow-(--box-shadow)">
