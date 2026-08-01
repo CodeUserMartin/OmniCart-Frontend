@@ -78,6 +78,6 @@ export const getSellerCancelledOrders = () => {
 
 export const getSellerDashboard = () => {
   return apiClient.get(
-    "/order/seller/dashboard"
+    "/order/seller/dashboard"     
   );
 };
