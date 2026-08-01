@@ -36,7 +36,7 @@ export default function SellerPieChart({ dashboard }) {
     ];
 
     return (
-        <div className="w-full flex flex-col gap-3 justify-center p-4 rounded shadow bg-gray-800">
+        <div className="w-full flex flex-col gap-3 justify-center items-center p-4 rounded shadow bg-gray-800">
 
             <PieChart width={350} height={350}>
 
@@ -55,7 +55,6 @@ export default function SellerPieChart({ dashboard }) {
                 </Pie>
 
                 <Tooltip />
-                <Legend />
 
             </PieChart>
 

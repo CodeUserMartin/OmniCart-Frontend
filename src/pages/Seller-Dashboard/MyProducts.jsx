@@ -64,7 +64,7 @@ const MyProducts = () => {
             </select>
 
             {/* LIST */}
-            <div className="flex flex-col gap-4 mt-3 overflow-auto h-150">
+            <div className="flex flex-col gap-4 mt-3 overflow-y-scroll scrollbar-none h-115">
 
                 {filteredProducts.length === 0 ? (
                     <p className="text-gray-400 text-center mt-10">

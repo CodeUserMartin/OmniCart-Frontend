@@ -42,9 +42,6 @@ const NewOrder = () => {
             );
 
         } catch (error) {
-
-            console.log(error);
-
             toast.error(
                 error.response?.data?.message ||
                 "Failed to accept order!"
@@ -61,7 +58,7 @@ const NewOrder = () => {
             </h1>
 
             {/* Orders List */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 h-155 overflow-y-scroll scrollbar-none">
 
                 {
                     orders.length === 0 ? (
@@ -112,15 +109,15 @@ const NewOrder = () => {
 
 
                                 </div>
-                                    <button
-                                        onClick={() =>
-                                            handleAcceptOrder(order.itemId)
-                                        }
-                                        className="
-                                                  mt-3 bg-green-600  hover:bg-green-700 text-white px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold "
-                                    >
-                                        Accept Order
-                                    </button>
+                                <button
+                                    onClick={() =>
+                                        handleAcceptOrder(order.itemId)
+                                    }
+                                    className="
+                                                  mt-3 bg-green-600  hover:bg-green-700 text-white px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold hover:cursor-pointer"
+                                >
+                                    Accept Order
+                                </button>
 
                             </div>
 

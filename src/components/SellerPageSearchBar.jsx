@@ -7,7 +7,6 @@ const SellerPageSearchBar = ({
 }) => {
     return (
         <>
-            <Search />
 
             <input
                 type="text"

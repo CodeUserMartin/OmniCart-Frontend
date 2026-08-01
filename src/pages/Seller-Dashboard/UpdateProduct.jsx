@@ -36,9 +36,6 @@ const UpdateProduct = () => {
                 );
 
             } catch (error) {
-
-                console.log(error);
-
                 toast.error(
                     "Failed to fetch products!"
                 );
@@ -167,7 +164,7 @@ const UpdateProduct = () => {
                 {
                     searchTerm && (
 
-                        <div className="bg-white rounded-lg shadow mt-2 max-h-60 overflow-auto">
+                        <div className="bg-white rounded-lg shadow mt-2 max-h-40 overflow-auto ">
 
                             {
                                 filteredProducts.length === 0 ? (
@@ -254,7 +251,7 @@ const UpdateProduct = () => {
 
                             <label
                                 htmlFor="productName"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-bold text-gray-700"
                             >
                                 Product Name
                             </label>
@@ -275,7 +272,7 @@ const UpdateProduct = () => {
 
                             <label
                                 htmlFor="productStock"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-bold text-gray-700"
                             >
                                 Product Stock
                             </label>
@@ -301,7 +298,7 @@ const UpdateProduct = () => {
 
                         <label
                             htmlFor="productDescription"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-bold text-gray-700"
                         >
                             Product Description
                         </label>

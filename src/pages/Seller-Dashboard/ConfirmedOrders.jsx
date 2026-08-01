@@ -10,8 +10,6 @@ const ConfirmedOrders = () => {
         loading
     } = useConfirmedOrders();
 
-    console.log(orders);
-
     if (loading) {
         return (
             <div>
@@ -43,9 +41,6 @@ const ConfirmedOrders = () => {
             );
 
         } catch (error) {
-
-            console.log(error);
-
             toast.error(
                 error.response?.data?.message ||
                 "Failed to ship order!"
@@ -62,7 +57,7 @@ const ConfirmedOrders = () => {
             </h1>
 
             {/* Orders List */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 h-155 overflow-y-scroll scrollbar-none">
 
                 {   
                     orders.length === 0 ? (

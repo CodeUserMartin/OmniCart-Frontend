@@ -22,7 +22,7 @@ const CancelledOrders = () => {
             </h1>
 
             {/* Products */}
-            <div className="flex flex-col gap-4 mt-3 overflow-auto h-140 lg:p-3">
+            <div className="flex flex-col gap-4 mt-3 overflow-auto h-150 scrollbar-none lg:p-3">
 
                 {orders.length === 0 ? (
                     <p className="text-white">

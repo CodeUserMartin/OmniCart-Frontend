@@ -11,7 +11,7 @@ const DashboardAnalysis = () => {
 
     if (loading) {
         return (
-            <div>
+            <div className="text-white font-2xl">
                 Loading Dashboard...
             </div>
         );
@@ -49,7 +49,7 @@ const DashboardAnalysis = () => {
                 </div>
 
                 {/* Seller Analysis Data Container */}
-                <div className="flex lg:flex-row flex-col gap-4 p-4 rounded shadow w-full bg-(--primary-color) ">
+                <div className="flex lg:flex-row flex-col gap-2  rounded shadow w-full bg-(--primary-color) ">
 
                     {/* Seller Pie Chart & Data */}
                     <div className="flex lg:flex-row flex-col gap-4 p-4 rounded lg:w-3/4">
@@ -69,7 +69,7 @@ const DashboardAnalysis = () => {
                         </div>
 
                         {/* Pie Chart Data Container */}
-                        <div className=" flex flex-col items-start p-4 rounded shadow-(--box-shadow)  bg-(--primary-color) text-right">
+                        <div className=" flex  flex-col items-start p-4 rounded shadow-(--box-shadow)  bg-(--primary-color) text-right">
 
                             <p>
                                 🔵 Shipped Orders:

@@ -74,10 +74,7 @@ const AddProduct = () => {
 
 
         } catch (error) {
-
-            console.log(error);
-
-
+            toast.error("Failed to Add Product")
         }
     };
 
@@ -102,6 +99,7 @@ const AddProduct = () => {
                             value={productData.name}
                             onChange={handleInputChange}
                             id="name" name="name"
+                            required
                         />
                     </div>
 
@@ -116,6 +114,7 @@ const AddProduct = () => {
                             value={productData.stock}
                             onChange={handleInputChange}
                             id="stock" name="stock"
+                            required
                         />
                     </div>
                 </div>
@@ -141,6 +140,7 @@ const AddProduct = () => {
                         id="description" name="description" rows="6"
                         value={productData.description}
                         onChange={handleInputChange}
+                        required
                     ></textarea>
                 </div>
 
@@ -155,6 +155,7 @@ const AddProduct = () => {
                             type="number" id="price" name="price"
                             value={productData.price}
                             onChange={handleInputChange}
+                            required
                         />
                     </div>
                     <div>
@@ -164,6 +165,7 @@ const AddProduct = () => {
                         <select
                             className="w-full shadow-(--box-shadow) p-2"
                             id="category" name="category"
+                            required
                             value={productData.category}
                             onChange={handleInputChange}
                         >
@@ -183,6 +185,7 @@ const AddProduct = () => {
                     <input
                         className="w-full shadow-(--box-shadow) p-2"
                         type="file" id="image" name="image"
+                        required
                         onChange={(e) =>
                             setProductData({
                                 ...productData,
@@ -191,9 +194,8 @@ const AddProduct = () => {
                         }
                     />
                 </div>
-
                 <div>
-                    <button className="bg-(--accent-color) text-white w-full px-4 py-2 rounded mt-4">
+                    <button className="bg-(--accent-color) text-white w-full px-4 py-2 rounded mt-4 hover:cursor-pointer hover:bg-red-800">
                         Add Product
                     </button>
                 </div>

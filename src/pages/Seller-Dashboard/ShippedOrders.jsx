@@ -34,7 +34,7 @@ const ShippedOrders = () => {
             </h1>
 
             {/* Orders List */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 h-155 overflow-y-scroll scrollbar-none">
 
                 {
                     orders.length === 0 ? (

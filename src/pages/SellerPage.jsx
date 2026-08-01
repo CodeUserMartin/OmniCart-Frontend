@@ -23,6 +23,7 @@ const SellerPage = () => {
     const [user, setUser] = useState(null);
     const isLoggedIn = !!user;
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
 
     const [SellerFormData, setSellerFormData] = useState({
         storeName: "",
@@ -55,8 +56,6 @@ const SellerPage = () => {
                 const response = await getCurrentUser();
 
                 setUser(response.data.data.user);
-                // console.log("setUser: ", response.data.data.user);
-
             } catch (error) {
 
                 setUser(null);
@@ -69,10 +68,72 @@ const SellerPage = () => {
 
     }, []);
 
+    const validateSellerForm = () => {
+
+        const newErrors = {};
+
+        // Store Name
+        if (!SellerFormData.storeName.trim()) {
+            newErrors.storeName = "Store name is required.";
+        } else if (SellerFormData.storeName.trim().length < 3) {
+            newErrors.storeName = "Store name must be at least 3 characters.";
+        }
+
+        // Contact Number
+        if (!SellerFormData.contactNumber.trim()) {
+            newErrors.contactNumber = "Contact number is required.";
+        } else if (!/^\d{10}$/.test(SellerFormData.contactNumber)) {
+            newErrors.contactNumber =
+                "Enter a valid 10-digit  mobile number.";
+        }
+
+        // Address
+        if (!SellerFormData.addressLine.trim()) {
+            newErrors.addressLine = "Store address is required.";
+        }
+
+        // City
+        if (!SellerFormData.city.trim()) {
+            newErrors.city = "City is required.";
+        }
+
+        // State
+        if (!SellerFormData.state.trim()) {
+            newErrors.state = "State is required.";
+        }
+
+        // Country
+        if (!SellerFormData.country.trim()) {
+            newErrors.country = "Country is required.";
+        }
+
+        // Pin Code
+        if (!SellerFormData.pinCode.trim()) {
+            newErrors.pinCode = "Zip code is required.";
+        } else if (!/^\d{6}$/.test(SellerFormData.pinCode)) {
+            newErrors.pinCode = "Zip code must be exactly 6 digits.";
+        }
+
+        // Address Proof
+        if (!SellerFormData.addressProof) {
+            newErrors.addressProof = "Address proof is required.";
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+
+    }
+
 
     const handleSellerApplication = async (e) => {
 
         e.preventDefault();
+
+        // Stop submission if validation fails
+        if (!validateSellerForm()) {
+            return;
+        }
 
         try {
 
@@ -80,37 +141,37 @@ const SellerPage = () => {
 
             formData.append(
                 "storeName",
-                SellerFormData.storeName
+                SellerFormData.storeName.trim()
             );
 
             formData.append(
                 "contactNumber",
-                SellerFormData.contactNumber
+                SellerFormData.contactNumber.trim()
             );
 
             formData.append(
                 "addressLine",
-                SellerFormData.addressLine
+                SellerFormData.addressLine.trim()
             );
 
             formData.append(
                 "city",
-                SellerFormData.city
+                SellerFormData.city.trim()
             );
 
             formData.append(
                 "state",
-                SellerFormData.state
+                SellerFormData.state.trim()
             );
 
             formData.append(
                 "country",
-                SellerFormData.country
+                SellerFormData.country.trim()
             );
 
             formData.append(
                 "pinCode",
-                SellerFormData.pinCode
+                SellerFormData.pinCode.trim()
             );
 
             formData.append(
@@ -120,8 +181,6 @@ const SellerPage = () => {
 
             const response =
                 await becomeSeller(formData);
-
-            console.log(response.data);
 
             toast.success(
                 response.data.message ||
@@ -206,8 +265,8 @@ const SellerPage = () => {
 
                     {
                         user?.role === "seller" ?
-                        
-                   (
+
+                            (
 
                                 <div className="w-100 lg:w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 text-center">
 
@@ -221,7 +280,7 @@ const SellerPage = () => {
 
                                     <button
                                         type="button"
-                                        onClick={() => navigate("/seller-dashboard")}
+                                        onClick={() => navigate("/seller-dashboard/dashboard")}
                                         className="mt-5 bg-(--accent-color) text-white px-6 py-3 rounded-md"
                                     >
                                         Open Seller Dashboard
@@ -273,10 +332,20 @@ const SellerPage = () => {
                                                         Store Name
                                                     </label>
                                                     <input type="text" name="storeName"
+                                                        required
                                                         value={SellerFormData.storeName}
                                                         onChange={handleInputChange}
-                                                        id="storeName" className="shadow-(--box-shadow) rounded-md p-2" />
+                                                        id="storeName" className="shadow-(--box-shadow) rounded-md p-2"
+                                                    />
+
+                                                    {errors.storeName && (
+                                                        <p className="text-red-500 text-sm">
+                                                            {errors.storeName}
+                                                        </p>
+                                                    )}
                                                 </div>
+
+
 
                                                 {/* Contact Information */}
                                                 <div className="flex flex-col gap-2 mt-5">
@@ -284,9 +353,16 @@ const SellerPage = () => {
                                                         Contact Information
                                                     </label>
                                                     <input type="text" name="contactNumber"
+                                                        required
                                                         value={SellerFormData.contactNumber}
                                                         onChange={handleInputChange}
-                                                        id="contactInfo" className="shadow-(--box-shadow) rounded-md p-2" />
+                                                        id="contactNumber" className="shadow-(--box-shadow) rounded-md p-2" />
+
+                                                    {errors.contactNumber && (
+                                                        <p className="text-red-500 text-sm">
+                                                            {errors.contactNumber}
+                                                        </p>
+                                                    )}
                                                 </div>
 
                                             </div>
@@ -299,6 +375,7 @@ const SellerPage = () => {
                                                         Store Address
                                                     </label>
                                                     <textarea
+                                                        required
                                                         name="addressLine"
                                                         id="addressLine"
                                                         rows="5"
@@ -306,6 +383,12 @@ const SellerPage = () => {
                                                         value={SellerFormData.addressLine}
                                                         onChange={handleInputChange}
                                                     />
+
+                                                    {errors.addressLine && (
+                                                        <p className="text-red-500 text-sm">
+                                                            {errors.addressLine}
+                                                        </p>
+                                                    )}
                                                 </div>
 
                                             </div>
@@ -320,7 +403,13 @@ const SellerPage = () => {
                                                 <label htmlFor="city" className="font-medium">
                                                     City
                                                 </label>
-                                                <input type="text" name="city" id="city" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.city} onChange={handleInputChange} />
+                                                <input required type="text" name="city" id="city" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.city} onChange={handleInputChange} />
+
+                                                {errors.city && (
+                                                    <p className="text-red-500 text-sm">
+                                                        {errors.city}
+                                                    </p>
+                                                )}
                                             </div>
 
                                             {/* State */}
@@ -328,7 +417,13 @@ const SellerPage = () => {
                                                 <label htmlFor="state" className="font-medium">
                                                     State
                                                 </label>
-                                                <input type="text" name="state" id="state" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.state} onChange={handleInputChange} />
+                                                <input required type="text" name="state" id="state" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.state} onChange={handleInputChange} />
+
+                                                {errors.state && (
+                                                    <p className="text-red-500 text-sm">
+                                                        {errors.state}
+                                                    </p>
+                                                )}
                                             </div>
 
                                             {/* Country */}
@@ -336,7 +431,13 @@ const SellerPage = () => {
                                                 <label htmlFor="country" className="font-medium">
                                                     Country
                                                 </label>
-                                                <input type="text" name="country" id="country" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.country} onChange={handleInputChange} />
+                                                <input required type="text" name="country" id="country" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.country} onChange={handleInputChange} />
+
+                                                {errors.country && (
+                                                    <p className="text-red-500 text-sm">
+                                                        {errors.country}
+                                                    </p>
+                                                )}
                                             </div>
 
                                             {/* pin Code */}
@@ -344,7 +445,13 @@ const SellerPage = () => {
                                                 <label htmlFor="pinCode" className="font-medium">
                                                     Zip Code
                                                 </label>
-                                                <input type="text" name="pinCode" id="pinCode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
+                                                <input required type="text" name="pinCode" id="pinCode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
+
+                                                {errors.pinCode && (
+                                                    <p className="text-red-500 text-sm">
+                                                        {errors.pinCode}
+                                                    </p>
+                                                )}
                                             </div>
 
                                         </div>
@@ -354,14 +461,27 @@ const SellerPage = () => {
                                             <label htmlFor="addressProof" className="font-medium">
                                                 Address Proof
                                             </label>
-                                            <input type="file" name="addressProof" id="addressProof" className="shadow-(--box-shadow) rounded-md p-2" onChange={(e) => {
-                                                console.log(e.target.files[0]);
+                                            <input required type="file" name="addressProof" id="addressProof" className="shadow-(--box-shadow) rounded-md p-2" onChange={(e) => {
 
                                                 setSellerFormData({
                                                     ...SellerFormData,
-                                                    addressProof: e.target.files[0]
+                                                    addressProof: e.target.files?.[0] || null
                                                 });
+
+                                                // Clear error when user selects a file
+                                                if (e.target.files?.[0]) {
+                                                    setErrors((prev) => ({
+                                                        ...prev,
+                                                        addressProof: ""
+                                                    }));
+                                                }
                                             }} />
+
+                                            {errors.addressProof && (
+                                                <p className="text-red-500 text-sm">
+                                                    {errors.addressProof}
+                                                </p>
+                                            )}
                                         </div>
 
                                         {/* Submit Button */}

@@ -30,7 +30,7 @@ const DeliveredOrders = () => {
             </h1>
 
             {/* Orders List */}
-            <div className="flex flex-col gap-4 h-150 overflow-y-auto">
+            <div className="flex flex-col gap-4 h-150 overflow-y-scroll scrollbar-none">
 
                 {
                     orders.length === 0 ? (

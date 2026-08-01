@@ -20,6 +20,9 @@ export const useSellerDashboard = () => {
                     res.data.data.dashboard
                 );
 
+                console.log(res.data.data.dashboard);
+                
+
             } catch (error) {
 
                 console.log(error);
