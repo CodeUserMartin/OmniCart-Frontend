@@ -15,14 +15,12 @@ const VerifyEmailPage = () => {
                 );
 
                 toast.success("Email verified successfully!");
-                console.log(res.data);
 
                 setTimeout(() => {
                     navigate("/login");
                 }, 1500);
 
             } catch (error) {
-                console.log(error);
                 toast.error(
                     error.response?.data?.message ||
                     "Verification failed"

@@ -60,9 +60,6 @@ const ResetPasswordPage = () => {
             navigate("/login");
 
         } catch (error) {
-
-            console.log(error);
-
             toast.error(
                 error.response?.data?.message ||
                 "Failed to reset password"

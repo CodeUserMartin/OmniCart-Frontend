@@ -29,11 +29,10 @@ const SignUpPage = () => {
             const response = await signupUser(formData);
 
             toast.success(
-                response.data.message ||
-                "Signup successful! Please verify your email."
+                "Account Successfully Created!"
             );
 
-            setIsRegistered(true); 
+            setIsRegistered(true);
 
         } catch (error) {
             const backendErrors = error.response?.data?.errors || [];
@@ -84,16 +83,18 @@ const SignUpPage = () => {
     }
 
     return (
-        <div className="flex flex-row items-center justify-center lg:h-screen bg-gray-100 p-2">
+        <div className="flex flex-row items-center justify-center lg:h-screen bg-gray-100 p-3">
 
             {/* Sign Up Container */}
-            <div className="lg:flex shadow-(--box-shadow) rounded-lg overflow-hidden lg:w-4xl lg:h-[80vh] w-md">
+            <div className="flex flex-col w-full lg:flex-row shadow-(--box-shadow) rounded-lg overflow-hidden lg:w-4xl lg:h-[80vh]">
 
                 {/* Left-side Banner */}
-                <div className="h-full bg-gray-200">
-                    <img src={AuthBanner} alt="Sign Up Banner" className="
-                    w-full h-120
-                    lg:w-full lg:h-full lg:object-contain" />
+                <div className=" bg-gray-200">
+                    <img src={AuthBanner} alt="Sign Up Banner"
+                        loading="lazy" className="w-full h-110
+                    object-cover
+                    lg:h-full 
+                    lg:object-contain" />
                 </div>
 
                 {/* Right-side Container */}
@@ -181,7 +182,6 @@ const SignUpPage = () => {
                             </div>
                         </form>
                     </div>
-
 
                 </div>
             </div>

@@ -58,19 +58,18 @@ const LoginInPage = () => {
 
 
     return (
-        <div className="flex items-center justify-center lg:h-screen bg-gray-100 p-2">
+        <div className="flex items-center justify-center lg:h-screen bg-gray-100 p-3">
 
             {/* Login Up Container */}
-            <div className="lg:flex items-center justify-center shadow-(--box-shadow) rounded-lg overflow-hidden lg:w-4xl lg:h-[80vh] w-md">
+            <div className="flex flex-col w-full lg:flex-row shadow-(--box-shadow) rounded-lg overflow-hidden lg:w-4xl lg:h-[80vh]">
 
                 {/* Left-side Container */}
-                <div className="p-5 flex flex-col">
+                <div className="p-5 flex flex-col justify-center">
 
                     {/* Login In Form */}
                     <div>
-
                         {/* Heading */}
-                        <h2 className="text-2xl font-bold text-(--accent-color) mb-6">Welcome Back
+                        <h2 className="text-lg lg:text-2xl font-bold text-(--accent-color) mb-6">Welcome Back
                             <br></br>
                             Continue your shopping journey with OmniCart.</h2>
 
@@ -113,10 +112,10 @@ const LoginInPage = () => {
                 </div>
 
                 {/* Right-side Banner */}
-                <div className="h-full bg-gray-200">
+                <div className=" bg-gray-200">
                     <img src={AuthBanner} alt="Login Up Banner" className="
-                    w-full h-120
-                    lg:w-full lg:h-full lg:object-contain" />
+                    w-full h-110 object-cover
+                    lg:h-full lg:object-contain" />
                 </div>
 
             </div>
