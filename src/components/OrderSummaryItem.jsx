@@ -18,7 +18,7 @@ const OrderSummaryItem = ({
 
                     {/* Item Image */}
                     <div className="lg:w-24 lg:h-24
-                    w-36 h-36 rounded-md overflow-hidden">
+                    w-full h-full rounded-md overflow-hidden">
                         <img
                             src={image}
                             alt="Product-img"
@@ -33,7 +33,7 @@ const OrderSummaryItem = ({
                             {name}
                         </h2>
 
-                        <p className="text-sm lg:text-lg mt-4 text-gray-400">
+                        <p className="text-sm lg:text-lg mt-4 text-gray-400 line-clamp-3">
                             {description}
                         </p>
 

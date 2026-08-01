@@ -14,7 +14,7 @@ const Footer = () => {
                     </div>
 
                     {/* Description */}
-                    <div className="mt-4 w-96">
+                    <div className="mt-4 py-2">
                         <p>
                             Your one-stop marketplace for groceries, fashion, electronics, beauty products, and everyday essentials. Shop everything in one place with one cart and one seamless experience.
                         </p>
@@ -26,7 +26,7 @@ const Footer = () => {
                 {/* Links */}
 
                 {/* Wrapper: Links */}
-                <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+                <div className="flex flex-col md:flex-row gap-5 md:gap-16">
 
                     {/* Quick Links */}
                     <div>

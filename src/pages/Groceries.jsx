@@ -23,6 +23,7 @@ import { searchProductByCategoryOrBySearch } from "../api/productApi.js"
 
 // Import Hooks
 import { useAddToCart } from "../hooks/useAddToCart.js"
+import toast from "react-hot-toast"
 
 
 const Groceries = () => {
@@ -33,7 +34,6 @@ const Groceries = () => {
     const [searchParams] = useSearchParams();
 
     const search = searchParams.get("search");
-    // console.log("search: ", search); // first instance after visiong /groceries --> search is NULL
 
     // Maintaing Search state to manage the UI Changes.
     const [searchValue, setSearchValue] = useState(false);
@@ -64,6 +64,7 @@ const Groceries = () => {
     }, [search]);
 
 
+
     // Fetch category based products
     const fetchcategoryProducts = async () => {
 
@@ -75,8 +76,7 @@ const Groceries = () => {
 
 
         } catch (error) {
-            console.log("Failed to load products:", error);
-
+            toast.error("Failed to load products");
         }
     }
 
@@ -94,7 +94,7 @@ const Groceries = () => {
             setProducts(response.data.data.products);
 
         } catch (error) {
-            console.log("Failed to Load Products", error)
+           toast.error("Failed to load products");
         }
 
     };
@@ -129,9 +129,9 @@ const Groceries = () => {
                 ) : (
                     // False Condition
                     <div>
-                        <HeroBanner img={GroceriesBanner} size="23" />
+                        <HeroBanner img={GroceriesBanner} size="55" />
                         <div>
-                            <div className="flex flex-wrap justify-center lg:gap-6 lg:p-3 p-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 lg:gap-6 lg:p-3 p-2">
                                 {categories.map((category, index) => (
                                     <CategoryCard key={index} name={category.name} img={category.img} />
                                 ))}
@@ -141,7 +141,7 @@ const Groceries = () => {
 
                         <div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
                                 {categoryProducts.map((product) => (
                                     <ProductCard key={product._id} product={product}

@@ -3,7 +3,7 @@ const HeroBanner = ({ img, size }) => {
 
     return (
         <div className={`w-full h-${size || '96'}` }>
-            <img src={img} alt="Hero Banner" className="w-full h-full object-cover" />
+            <img src={img} alt="Hero Banner" loading="lazy" className="w-full h-full object-cover" />
         </div>
     )
 }

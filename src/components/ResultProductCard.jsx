@@ -8,10 +8,10 @@ const ResultProductCard = ({
 }) => {
     return (
 
-        <div className="bg-white rounded-lg shadow p-4 flex gap-4">
+        <div className=" rounded-lg shadow p-4 flex items-center gap-5 bg-white">
 
             {/* Product Image */}
-            <div className="w-32 h-32 shrink-0 rounded-lg overflow-hidden bg-gray-100">
+            <div className="w-32 rounded-lg overflow-hidden bg-gray-100">
 
                 <img
                     src={img}
@@ -22,7 +22,7 @@ const ResultProductCard = ({
             </div>
 
             {/* Product Details */}
-            <div className="flex flex-col justify-between flex-1">
+            <div className="flex flex-wrap flex-col justify-between">
 
                 <div>
 
@@ -42,7 +42,7 @@ const ResultProductCard = ({
                         ₹{price}
                     </p>
 
-                    <p className="font-medium text-gray-700">
+                    <p className="text-sm text-gray-700">
                         Stock: {stock}
                     </p>
 

@@ -6,6 +6,7 @@ import { getUserOrders } from "../api/orderApi.js";
 import { deliverOrder } from "../api/orderApi.js";
 import { cancelOrder } from "../api/orderApi.js";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const MyOrderPage = () => {
 
@@ -23,12 +24,10 @@ const MyOrderPage = () => {
                 const response =
                     await getUserOrders(selectedCategory);
 
-                console.log(response.data.data.finalOrder);
                 setOrders(response.data.data.finalOrder);
 
             } catch (error) {
-                console.log("Failed to fetch orders", error);
-
+                // toast.error("Failed to fetch orders")
             } finally {
                 setLoading(false);
             }
@@ -39,32 +38,6 @@ const MyOrderPage = () => {
 
     }, [selectedCategory]);
 
-    // const fetchUserOrders = async () => {
-
-    //     try {
-
-    //         const res = await getUserOrders();
-
-    //         
-
-    //         setOrders(
-    //             res.data.data.finalOrder
-    //         );
-
-    //     } catch (error) {
-
-    //         console.log(
-    //             "Failed to fetch orders",
-    //             error
-    //         );
-
-    //     } finally {
-
-    //         setLoading(false);
-
-    //     }
-
-    // };
 
     const getStatusStyle = (status) => {
 
@@ -102,8 +75,6 @@ const MyOrderPage = () => {
 
         try {
 
-            console.log("CANCEL CLICKED ITEM ID:", itemId);
-
             await cancelOrder(itemId);
 
             // OPTION B (recommended): update status instead of removing
@@ -118,9 +89,6 @@ const MyOrderPage = () => {
             toast.success("Order cancelled successfully!");
 
         } catch (error) {
-
-            console.log("FULL ERROR:", error.response?.data);
-
             toast.error(
                 error.response?.data?.message ||
                 "Failed to cancel order!"
@@ -130,7 +98,6 @@ const MyOrderPage = () => {
 
     const handleDeliverOrder = async (itemId) => {
         try {
-            console.log("DELIVER CLICKED ITEM ID:", itemId);
 
             await deliverOrder(itemId);
 
@@ -144,8 +111,6 @@ const MyOrderPage = () => {
 
             toast.success("Order marked as delivered!");
         } catch (error) {
-            console.log("DELIVER ERROR:", error.response?.data);
-
             toast.error(
                 error.response?.data?.message ||
                 "Failed to mark as delivered!"
@@ -169,113 +134,128 @@ const MyOrderPage = () => {
 
             <div className="max-w-7xl mx-auto p-4">
 
-            <div className="flex justify-between items-center gap-4">
+                <div className="flex justify-between items-center gap-4">
 
-                {/* Title */}
-                <h1 className="text-3xl font-bold mb-4">
-                    My Orders
-                </h1>
+                    {/* Title */}
+                    <h1 className="text-3xl font-bold mb-4">
+                        My Orders
+                    </h1>
 
-                <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="border rounded-lg px-4 py-2 bg-white text-gray-700"
-                >
-                    <option value="">All Products</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="groceries">Groceries</option>
-                </select>
+                    <select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className="border rounded-lg px-4 py-2 bg-white text-gray-700"
+                    >
+                        <option value="">All Products</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="groceries">Groceries</option>
+                    </select>
 
-            </div>
+                </div>
 
 
                 {/* Orders */}
                 <div className="flex flex-col gap-4 shadow">
 
-                    {orders.map((order) => (
+                    {orders.length === 0 ? (
+                        <p className="text-xl text-center font-bold mt-2 p-2">No Orders Found!!</p>
+                    ) : (
+                        orders.map((order) => (
 
-                        <div
-                            key={order.itemId}
-                            className="bg-white rounded-lg shadow-(--box-shadow) p-4 flex items-center justify-between gap-4"
-                        >
+                            <Link to={`/product/${order.productId}`}
+                                key={order.itemId}
+                                className="bg-white rounded-lg shadow-(--box-shadow) p-4 flex items-center justify-between gap-4"
 
-                            {/* Left Side */}
-                            <div className="flex items-center gap-4">
+                            >
 
-                                {/* Image */}
-                                <div className="lg:w-28 lg:h-28 rounded overflow-hidden">
-                                    <img
-                                        src={order.img}
-                                        alt={order.name}
-                                        className="w-full h-full object-cover"
-                                    />
+                                {/* Left Side */}
+                                <div className="flex items-center gap-4">
+
+                                    {/* Image */}
+                                    <div className="lg:w-28 lg:h-28 rounded overflow-hidden">
+                                        <img
+                                            src={order.img}
+                                            alt={order.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+
+                                    {/* Details */}
+                                    <div>
+
+                                        <h2 className="text-sm lg:text-xl font-semibold">
+                                            {order.name}
+                                        </h2>
+
+                                        <p className="text-gray-500 text-sm lg:text-lg mt-4 line-clamp-4">
+                                            {order.description}
+                                        </p>
+
+                                        <p className="font-bold mt-2">
+                                            ₹{order.price}
+                                        </p>
+
+                                        <p className="text-sm lg:text-lg text-gray-600">
+                                            Quantity: {order.quantity}
+                                        </p>
+
+                                    </div>
+
                                 </div>
 
-                                {/* Details */}
-                                <div>
+                                {/* Status */}
 
-                                    <h2 className="text-sm lg:text-xl font-semibold">
-                                        {order.name}
-                                    </h2>
-
-                                    <p className="text-gray-500 text-sm lg:text-lg mt-4">
-                                        {order.description}
-                                    </p>
-
-                                    <p className="font-bold mt-2">
-                                        ₹{order.price}
-                                    </p>
-
-                                    <p className="text-sm lg:text-lg text-gray-600">
-                                        Quantity: {order.quantity}
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                            {/* Status */}
-
-                            <div className="flex flex-col gap-2 items-end">
+                                <div className="flex flex-col gap-2 items-end">
 
 
 
-                                <span
-                                    className={`px-4 py-2 rounded-full font-medium text-sm lg:text-lg ${getStatusStyle(order.status)}`}
-                                >
-                                    {order.status}
-                                </span>
+                                    <span
+                                        className={`px-4 py-2 rounded-full font-medium text-sm lg:text-lg uppercase ${getStatusStyle(order.status)}`}
+                                    >
+                                        {order.status}
+                                    </span>
 
-                                {(order.status === "pending" ||
-                                    order.status === "confirmed") && (
+                                    {(order.status === "pending" ||
+                                        order.status === "confirmed") && (
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    handleCancelOrder(order.itemId);
+                                                }}
+                                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs"
+                                            >
+                                                Cancel Order
+                                            </button>
+                                        )}
+
+                                    {order.status === "shipped" && (
                                         <button
-                                            onClick={() => handleCancelOrder(order.itemId)}
-                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                handleDeliverOrder(order.itemId);
+
+                                            }}
+                                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs"
                                         >
-                                            Cancel Order
+                                            Mark As Delivered
                                         </button>
                                     )}
 
-                                {order.status === "shipped" && (
-                                    <button
-                                        onClick={() => handleDeliverOrder(order.itemId)}
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs"
-                                    >
-                                        Mark As Delivered
-                                    </button>
-                                )}
+                                    <div>
+                                        <span className="text-xs lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
+                                    </div>
 
-                                <div>
-                                    <span className="text-xs lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
                                 </div>
 
-                            </div>
 
+                            </Link>
 
-                        </div>
+                        ))
+                    )}
 
-                    ))}
 
                 </div>
 

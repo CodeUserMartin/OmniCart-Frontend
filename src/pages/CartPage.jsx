@@ -3,11 +3,12 @@ import CartItemCard from "../components/CartItemCard.jsx";
 
 import { useState, useEffect } from "react";
 
-import { getUserCart, deleteCartItem } from "../api/cartApi.js"
+import { getUserCart, deleteCartItem, decreaseCartItem, addToCart } from "../api/cartApi.js"
 
 import { toast } from "react-hot-toast"
 
 import { Link } from "react-router-dom";
+
 
 const CartPage = () => {
 
@@ -23,7 +24,10 @@ const CartPage = () => {
 
       setCartItems(
         response.data.data.finalCartItems
-      );      
+      );
+
+      console.log(cartItems);
+
     };
 
     fetchCart();
@@ -45,7 +49,6 @@ const CartPage = () => {
       toast.success("Item removed from cart");
 
     } catch (error) {
-      console.log(error);
       toast.error("Failed to remove item");
     }
   };
@@ -55,18 +58,39 @@ const CartPage = () => {
   const handleIncreaseQty = async (productId) => {
     try {
 
-      // API call later
+      const currentItem = cartItems.find(
+        (item) => String(item.productId) === String(productId)
+      );
+
+      console.log("current ", currentItem);
+
+      if (!currentItem) {
+        return;
+      }
+
+      // Check if cart quantity has reached available stock
+      if (currentItem.quantity >= currentItem.stock) {
+        toast.error(
+          `Only ${currentItem.stock} items are available in stock.`
+        );
+        return;
+      }
+
+      await addToCart(productId);
 
       setCartItems((prev) =>
         prev.map((item) =>
           item.productId === productId
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+              ...item,
+              quantity: item.quantity + 1
+            }
             : item
         )
       );
 
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to increase quantity");
     }
   };
 
@@ -75,19 +99,40 @@ const CartPage = () => {
   const handleDecreaseQty = async (productId) => {
     try {
 
-      setCartItems((prev) =>
-        prev.map((item) =>
-          item.productId === productId
-            ? {
-              ...item,
-              quantity: Math.max(1, item.quantity - 1)
-            }
-            : item
-        )
+      const item = cartItems.find(
+        item => item.productId === productId
       );
 
+      if (!item) return;
+
+      await decreaseCartItem(productId);
+
+      if (item.quantity === 1) {
+
+        // Backend removes the item
+        setCartItems((prev) =>
+          prev.filter(
+            item => item.productId !== productId
+          )
+        );
+
+      } else {
+
+        setCartItems((prev) =>
+          prev.map((item) =>
+            item.productId === productId
+              ? {
+                ...item,
+                quantity: item.quantity - 1
+              }
+              : item
+          )
+        );
+
+      }
+
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to decrease quantity");
     }
   };
 
@@ -95,6 +140,24 @@ const CartPage = () => {
   const totalAmount = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
+
+  // Handle Checkout
+  const handleCheckout = () => {
+
+    const hasUnavailableItem = cartItems.some(
+      (item) => !item.isActive
+    );
+
+    if (hasUnavailableItem) {
+      toast.error(
+        "Please remove unavailable items before proceeding to checkout."
+      );
+
+      return;
+    }
+
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -149,6 +212,7 @@ const CartPage = () => {
                   price={item.price}
                   quantity={item.quantity}
                   image={item.productImg}
+                  isActive={item.isActive}
                   onIncrease={handleIncreaseQty}
                   onDecrease={handleDecreaseQty}
                   onDelete={handleDeleteItem}
@@ -177,24 +241,17 @@ const CartPage = () => {
             </div>
 
             {/* Checkout Button */}
-            {
-              cartItems.length === 0 ? (
-                <button
-                  disabled
-                  className="bg-gray-400 cursor-not-allowed text-white font-bold uppercase py-6 w-full rounded-md"
-                >
-                  Proceed to Checkout
-                </button>
-              ) : (
-                <Link to="/checkout" className="w-full">
-                  <button
-                    className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md"
-                  >
-                    Proceed to Checkout
-                  </button>
-                </Link>
-              )
-            }
+            <button
+              disabled={cartItems.length === 0}
+              onClick={handleCheckout}
+              className={
+                cartItems.length === 0
+                  ? "bg-gray-400 cursor-not-allowed text-white font-bold uppercase py-6 w-full rounded-md"
+                  : "bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md hover:bg-red-800 hover:cursor-pointer"
+              }
+            >
+              Proceed to Checkout
+            </button>
           </div>
 
         </div>

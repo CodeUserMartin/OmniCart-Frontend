@@ -32,8 +32,6 @@ const CheckoutPage = () => {
             const response =
                 await getUserCart();
 
-            // console.log(response.data.data.finalCartItems);
-
             setCartItems(
                 response.data.data.finalCartItems
             );
@@ -50,8 +48,9 @@ const CheckoutPage = () => {
             try {
                 const res = await getUserAddresses();
                 setAddresses(res.data.data);
+
             } catch (error) {
-                console.log("Failed to fetch addresses", error);
+                toast.error("Failed to load address")
             }
         };
 
@@ -67,12 +66,12 @@ const CheckoutPage = () => {
     const handlePlaceOrder = async () => {
         try {
             if (!selectedAddress) {
-                alert("Please select an address");
+                toast.error("Please select an address");
                 return;
             }
 
             if (!paymentMethod) {
-                alert("Please select a payment method");
+                toast.error("Please select a payment method");
                 return;
             }
 
@@ -92,7 +91,7 @@ const CheckoutPage = () => {
             const payload = {
                 shippingAddress,
                 paymentMethod,
-            };
+            };            
 
             const response = await placeOrder(payload);
             toast.success("Order placed successfully!");
@@ -100,23 +99,20 @@ const CheckoutPage = () => {
             // STEP 1: clear frontend cart immediately
             setCartItems([]);
 
-            // optional (safe cleanup)
+            // (safe cleanup)
             setSelectedAddress(null);
 
-            // optional
+            
             setPaymentMethod("");
 
-            // ✅ STEP 2: redirect user
+            // STEP 2: redirect user
             navigate("/");
 
         } catch (error) {
-            console.log("Order failed:", error);
             toast.error("Order failed. Please try again.");
         }
     };
 
-    console.log(selectedAddress);
-    console.log(addresses);
 
     return (
         <>
@@ -224,7 +220,7 @@ const CheckoutPage = () => {
                     {/* Checkout Button */}
                     <button
                         onClick={handlePlaceOrder}
-                        className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md">Proceed to Checkout</button>
+                        className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md hover:bg-red-800 hover:cursor-pointer">Proceed to Checkout</button>
                 </div>
 
             </div>

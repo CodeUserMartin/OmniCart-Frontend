@@ -13,6 +13,7 @@ import { getProductById } from "../api/productApi";
 import { useBuyNow } from "../hooks/useBuyNow";
 
 import { getCurrentUser } from "../api/authApi.js";
+import { getUserCart, decreaseCartItem } from "../api/cartApi.js";
 
 export default function ViewProduct() {
 
@@ -25,6 +26,7 @@ export default function ViewProduct() {
     const [loading, setLoading] = useState(true);
     const [adding, setAdding] = useState(false);
     const [LoggedInUser, setLoggedInUser] = useState("");
+    const [cartItem, setCartItem] = useState(null);
 
     // Check for Addby Id of the Seller
     const SellerId = product?.addedBy?._id;
@@ -56,16 +58,14 @@ export default function ViewProduct() {
 
                 const res = await getProductById(id);
 
-                setProduct(res.data.data.product); // adjust if backend differs
+                setProduct(res.data.data.product);
 
-<<<<<<< HEAD
-                console.log("product" ,res.data.data.product);
 
-=======
->>>>>>> f60a9dae4b0205d9b21f4b52b5ed467c2cdea66e
+
+
+                await checkProductInCart();
 
             } catch (error) {
-                console.log("Error fetching product:", error);
                 toast.error("Failed to load product");
             } finally {
                 setLoading(false);
@@ -75,6 +75,100 @@ export default function ViewProduct() {
         fetchProduct();
 
     }, [id]);
+
+    const checkProductInCart = async () => {
+        try {
+            const res = await getUserCart();
+
+            const cartItems = res.data.data.finalCartItems;
+
+            const currentCartItem = cartItems.find(
+                (item) => item.productId === id
+            );
+
+            setCartItem(currentCartItem || null);
+
+        } catch (error) {
+            console.error("Error fetching cart:", error);
+        }
+    };
+
+
+    const handleAddToCart = async () => {
+        try {
+            await addToCartHandler(product._id);
+
+            // Fetch updated cart
+            const res = await getUserCart();
+
+            const cartItems = res.data.data.finalCartItems;
+
+            const currentCartItem = cartItems.find(
+                (item) => item.productId === product._id
+            );
+
+            setCartItem(currentCartItem || null);
+
+        } catch (error) {
+            console.error("Error adding product to cart:", error);
+            toast.error("Failed to add product to cart");
+        }
+    };
+
+    const increaseQuantity = async () => {
+        try {
+
+            // Check if current cart quantity has reached available stock
+            if (cartItem && cartItem.quantity >= product.stock) {
+                toast.error(
+                    `Only ${product.stock} items are available in stock.`
+                );
+                return;
+            }
+
+            await addToCartHandler(product._id);
+
+            const res = await getUserCart();
+
+            const cartItems = res.data.data.finalCartItems;
+
+            const currentCartItem = cartItems.find(
+                (item) => String(item.productId) === String(product._id)
+            );
+
+            setCartItem(currentCartItem || null);
+
+        } catch (error) {
+            console.error("Error increasing quantity:", error);
+            toast.error("Failed to increase quantity");
+        }
+    };
+
+    const decreaseQuantity = async () => {
+        try {
+
+            if (cartItem?.quantity === 1) {
+                setCartItem(null);
+                return;
+            }
+
+            await decreaseCartItem(product._id);
+
+            const res = await getUserCart();
+
+            const cartItems = res.data.data.finalCartItems;
+
+            const currentCartItem = cartItems.find(
+                (item) => String(item.productId) === String(product._id)
+            );
+
+            setCartItem(currentCartItem || null);
+
+        } catch (error) {
+            console.error("Error decreasing quantity:", error);
+            toast.error("Failed to decrease quantity");
+        }
+    };
 
     const addToCartHandler = useAddToCart();
 
@@ -87,6 +181,29 @@ export default function ViewProduct() {
 
 
     if (!product) return <p className="p-4 text-gray-500">Product not found</p>;
+
+    if (!product.isActive) {
+        return (
+            <>
+                <Navbar />
+
+                <div className="min-h-[60vh] flex items-center justify-center p-6">
+                    <div className="text-center max-w-md">
+
+                        <h1 className="text-3xl font-bold mb-3">
+                            Product Unavailable
+                        </h1>
+
+                        <p className="text-gray-600">
+                            Sorry, this product is no longer available.
+                            It may have been removed by the seller or is no longer listed.
+                        </p>
+
+                    </div>
+                </div>
+            </>
+        );
+    }
 
 
     return (
@@ -130,13 +247,49 @@ export default function ViewProduct() {
                         </p>
 
 
-                        {!isOwner && (
-                            //  BUTTONS 
-                            <div>
+                        {!isOwner ? (
+
+                            product.stock <= 0 ? (
+
+                                // PRODUCT OUT OF STOCK
+                                <div className="mt-4">
+                                    <p className="text-red-500 font-semibold text-xl">
+                                        Out of Stock
+                                    </p>
+                                </div>
+
+                            ) : cartItem ? (
+
+                                // PRODUCT ALREADY IN CART
+                                <div className="flex items-center gap-4 mt-4">
+
+                                    <button
+                                        onClick={decreaseQuantity}
+                                        className="bg-gray-200 px-4 py-3 rounded-lg"
+                                    >
+                                        −
+                                    </button>
+
+                                    <span className="font-semibold text-lg">
+                                        {cartItem.quantity}
+                                    </span>
+
+                                    <button
+                                        onClick={increaseQuantity}
+                                        className="bg-gray-200 px-4 py-3 rounded-lg"
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                            ) : (
+
+                                // PRODUCT NOT IN CART
                                 <div className="flex gap-4 mt-4">
 
                                     <button
-                                        onClick={() => addToCartHandler(product._id)}
+                                        onClick={handleAddToCart}
                                         className="bg-blue-600 text-white px-6 py-3 rounded-lg"
                                     >
                                         Add to Cart
@@ -150,16 +303,19 @@ export default function ViewProduct() {
                                     </button>
 
                                 </div>
+
+                            )
+
+                        ) : (
+
+                            // OWNER CANNOT PURCHASE
+                            <div>
+                                <p className="text-red-500 font-bold text-2xl">
+                                    Cannot Purchase your own product!
+                                </p>
                             </div>
-                        )
 
-                        }
-
-                        <div>
-                            <p className="text-red-500 bold text-2xl">Cannot Purchase your own product!</p>
-                        </div>
-
-
+                        )}
                     </div>
                 </div>
 

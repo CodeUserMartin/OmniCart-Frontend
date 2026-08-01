@@ -32,7 +32,6 @@ import DeleteProduct from "./pages/seller-dashboard/DeleteProduct.jsx"
 import NewOrders from "./pages/seller-dashboard/NewOrder.jsx"
 import CancelledOrders from "./pages/seller-dashboard/CancelledOrders.jsx"
 import MyProducts from "./pages/seller-dashboard/MyProducts.jsx"
-import ReStockProducts from "./pages/seller-dashboard/ReStockProducts.jsx"
 import ConfirmedOrders from "./pages/Seller-Dashboard/ConfirmedOrders.jsx"
 import ShippedOrders from "./pages/Seller-Dashboard/ShippedOrders.jsx"
 import DeliveredOrders from "./pages/Seller-Dashboard/DeliveredOrders.jsx"
@@ -45,29 +44,47 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+
+          {/* Home Route */}
           <Route path="/" element={<Home />} />
 
+          {/* Category wise Routes */}
+          <Route path="/clothing" element={<Clothing />} />
+          <Route path="/groceries" element={<Groceries />} />
+          <Route path="/electronics" element={<Electronics />} />
+
+          {/* Seller Page Route */}
+          <Route path="/seller-page" element={<SellerPage />} />
+
+          {/* Auth Routes */}
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginInPage />} />
           <Route path="/logout" element={<LoginInPage />} />
 
+          {/* Cart/Orders Route */}
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<MyOrderPage />} />
+
+          {/* Verify-email-token Route */}
           <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
 
+          {/* Forget/Reset password Route */}
           <Route path="/forgot-password" element={<ForgetPasswordPage />} />
           <Route path="/reset-password/:resetToken" element={<ResetPasswordPage />} />
 
+          {/* Product Search Route */}
           <Route path="/search" element={<ProductResultPage />} />
-          {/* <Route path="/notifications" element={<ProductResultPage />} /> */}
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/orders" element={<MyOrderPage />} />
+
+          {/* Checkout Route */}
           <Route path="/checkout" element={<CheckoutPage />} />
 
-          <Route path="/buy-now/:productId" element={<BuyNowPage />} />
-
+          {/* Product Info Route */}
           <Route path="/product/:id" element={<ViewProduct />} />
 
-          <Route path="/seller-page" element={<SellerPage />} />
+          {/* Product Buy now Route */}
+          <Route path="/buy-now/:productId" element={<BuyNowPage />} />
 
+          {/* Seller Dashboard */}
           <Route path="/seller-dashboard" element={<SellerDashboardPage />}>
 
             <Route path="dashboard" element={<DashboardAnalysis />} />
@@ -80,13 +97,8 @@ function App() {
             <Route path="delivered-orders" element={<DeliveredOrders />} />
             <Route path="cancelled-orders" element={<CancelledOrders />} />
             <Route path="my-products" element={<MyProducts />} />
-            <Route path="re-stock-products" element={<ReStockProducts />} />
-
           </Route>
 
-          <Route path="/clothing" element={<Clothing />} />
-          <Route path="/groceries" element={<Groceries />} />
-          <Route path="/electronics" element={<Electronics />} />
         </Routes>
       </BrowserRouter>
     </>

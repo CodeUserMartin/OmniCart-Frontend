@@ -28,6 +28,7 @@ import { addToCart } from "../api/cartApi.js"
 import { useAddToCart } from "../hooks/useAddToCart.js"
 
 import { searchProductByCategoryOrBySearch } from "../api/productApi.js"
+import toast from "react-hot-toast"
 
 const Electronics = () => {
 
@@ -55,11 +56,7 @@ const Electronics = () => {
         if (search) {
             setSearchValue(true);
             fetchProducts();
-        } else {
-            console.log("Hello");
-
         }
-
 
     }, [search]);
 
@@ -76,7 +73,7 @@ const Electronics = () => {
             setProducts(response.data.data.products);
 
         } catch (error) {
-            console.log("Failed to Load Products", error)
+            toast.error("Failed to load products")
         }
 
     };
@@ -91,7 +88,7 @@ const Electronics = () => {
 
 
         } catch (error) {
-            console.log("Failed to load products:", error);
+            toast.error("Failed to load products")
 
         }
     }
@@ -106,7 +103,7 @@ const Electronics = () => {
     return (
         <>
             <Navbar />
-            <HeroBanner img={ElectronicBanner} size="23" />
+            <HeroBanner img={ElectronicBanner} size="55" />
 
             {
                 searchValue ? (
@@ -130,7 +127,7 @@ const Electronics = () => {
                     // False Condition
                     <div>
 
-                        <div className="flex flex-wrap justify-center lg:gap-6 lg:p-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-5 lg:gap-6 lg:p-6">
                             {categories.map((category, index) => (
                                 <CategoryCard key={index} name={category.name} img={category.img} />
                             ))}

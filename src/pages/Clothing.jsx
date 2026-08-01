@@ -55,8 +55,6 @@ const Clothing = () => {
         if (search) {
             setSearchValue(true);
             fetchProducts();
-        } else {
-            console.log("useeffetc search: ", search);
         }
 
     }, [search]);
@@ -67,13 +65,13 @@ const Clothing = () => {
         //     `/product?category=clothing&search=${search || ""}`
         // );
         try {
-            
+
             const response = await searchProductByCategoryOrBySearch(search, category);
 
             setProducts(response.data.data.products);
 
         } catch (error) {
-            console.log("Failed to Load Products", error)
+            toast.error("Failed to load products");
         }
     };
 
@@ -87,7 +85,7 @@ const Clothing = () => {
 
 
         } catch (error) {
-            console.log("Failed to load products:", error);
+            toast.error("Failed to load products");
 
         }
     }
@@ -101,7 +99,7 @@ const Clothing = () => {
     return (
         <>
             <Navbar />
-            <HeroBanner img={ClothingBanner} size="23" />
+            <HeroBanner img={ClothingBanner} size={55} />
 
             {
                 searchValue ? (
@@ -124,7 +122,7 @@ const Clothing = () => {
 
                     <div>
 
-                        <div className="flex flex-wrap justify-center lg:gap-6 lg:p-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-5 lg:gap-6 lg:p-6">
                             {categories.map((category, index) => (
                                 <CategoryCard key={index} name={category.name} img={category.img} />
                             ))}

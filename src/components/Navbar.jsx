@@ -38,7 +38,6 @@ const Navbar = () => {
                 const res = await getCurrentUser();
 
                 setUser(res.data.data.user);
-                // console.log("Current user:", res.data.data.user);
 
             } catch (error) {
 
@@ -78,12 +77,8 @@ const Navbar = () => {
                         res.data.data.notifications
                     );
 
-                    // console.log(res.data.data.notifications)
-
                 } catch (error) {
-
-                    console.log(error);
-
+                    // toast.error("Failed to load Notfication!")
                 }
 
             };
@@ -97,9 +92,6 @@ const Navbar = () => {
             (notification) =>
                 !notification.isRead
         ).length;
-
-    // console.log("Notifications:", notifications);
-    // console.log("Unread Count:", unreadCount);
 
     const handleNotificationClick = async () => {
 
@@ -117,8 +109,7 @@ const Navbar = () => {
             );
 
         } catch (error) {
-
-            console.log(error);
+            // console.log(error);
 
         }
 
@@ -127,27 +118,26 @@ const Navbar = () => {
 
     return (
 
-        <nav className="bg-(--secondary-color) text-white p-6 lg:flex lg:items-center lg:justify-between">
+        <nav className="bg-(--secondary-color) text-white p-6 flex flex-wrap items-center lg:justify-between gap-2 ">
+
 
             {/* Logo */}
-            <div className='text-center mb-4'>
-                <Link to="/" className="text-4xl font-bold">OmniCart</Link>
+            <div className='text-center flex justify-center items-center order-1'>
+                <Link to="/" className="text-3xl font-bold">OmniCart</Link>
             </div>
+
+
 
             {/* Search Bar */}
-            <SearchBar />
-
-            <div>
-                <Link to="/seller-page">
-                    <button className='bg-(--accent-color) px-7 py-2 rounded-lg my-4 w-full'>Seller Page</button>
-                </Link>
+            <div className='order-3 w-full mt-3 lg:order-2 lg:w-auto lg:mt-0'>
+                <SearchBar />
             </div>
 
 
-            <div className="flex items-center justify-center gap-6">
+            <div className="flex items-center justify-center gap-6 order-2 lg:order-3 ml-auto lg:ml-0">
 
                 {/* Notification and Cart Icons */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5">
                     <div className="relative">
 
                         <Bell
@@ -164,12 +154,11 @@ const Navbar = () => {
                             >
                                 {unreadCount}
                             </span>
-
                         )}
                         {
                             showNotifications && (
 
-                                <div className="absolute right-0 top-12 w-96 bg-white shadow-lg rounded-lg border z-50 text-black ">
+                                <div className="absolute w-80 -right-28 lg:w-96 lg:right-2 lg:left-auto top-12 bg-white shadow-lg rounded-lg border z-50 text-black ">
 
                                     <div className="p-3 border-b font-bold">
                                         Notifications
@@ -243,7 +232,7 @@ const Navbar = () => {
 
                     {showUserMenu && (
 
-                        <div className="absolute right-0 top-9 bg-white rounded-lg shadow-lg w-48 p-2 z-50">
+                        <div className="absolute right-0 top-11 bg-white rounded-lg shadow-lg w-52 p-2 z-50">
 
                             {user ? (
 
@@ -262,7 +251,7 @@ const Navbar = () => {
 
                                     <button
                                         onClick={handleLogout}
-                                        className="w-full text-left px-3 py-2  text-black hover:bg-(--accent-color) hover:text-white rounded"
+                                        className="w-full text-left px-3 py-2  text-black hover:bg-(--accent-color) hover:text-white rounded border-b"
                                     >
                                         Logout
                                     </button>
@@ -278,13 +267,19 @@ const Navbar = () => {
                                     </Link>
 
                                     <Link to="/login">
-                                        <button className="w-full text-left px-3 py-2  text-black hover:bg-(--accent-color) hover:text-white rounded">
+                                        <button className="w-full text-left px-3 py-2  text-black hover:bg-(--accent-color) hover:text-white rounded border-b">
                                             Login
                                         </button>
                                     </Link>
                                 </>
 
                             )}
+
+                            <div>
+                                <Link to="/seller-page">
+                                    <button className='w-full text-left px-3 py-2  text-black hover:bg-(--accent-color) hover:text-white rounded'>Seller Page</button>
+                                </Link>
+                            </div>
 
                         </div>
 

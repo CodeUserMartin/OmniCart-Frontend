@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom"
 import { searchProducts } from "../api/productApi.js";
 
 import { useAddToCart } from "../hooks/useAddToCart.js";
+import toast from "react-hot-toast";
 
 
 const ProductResultPage = () => {
@@ -23,6 +24,7 @@ const ProductResultPage = () => {
     useEffect(() => {
 
         if (searchQuery) {
+            setProducts([]); // Clear previous results
             fetchProducts();
         }
 
@@ -36,16 +38,27 @@ const ProductResultPage = () => {
 
             const response = await searchProducts(searchQuery);
 
-            console.log(response.data);
-
             setProducts(response.data.data.products);
 
         } catch (error) {
-
-            console.log(error);
+            // toast.error("Failed to search product");
 
         }
     };
+
+    if (products.length === 0) {
+        return (
+            <div>
+                <Navbar />
+
+                <div>
+                    <p className="col-span-full text-center text-xl text-gray-500 mt-10">
+                        No products found matching your search.
+                    </p>
+                </div>
+            </div>
+        )
+    }
 
 
     return (

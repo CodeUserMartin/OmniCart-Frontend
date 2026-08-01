@@ -1,5 +1,3 @@
-import MilkImg from "../assets/Grociries-category-imgs/milk-img.jfif"
-
 
 const CategoryCard = ({ img, name }) => {
     return (

@@ -16,8 +16,7 @@ const SearchBar = () => {
 
         if (location.pathname === "/") {
             navigate(`/search?search=${encodeURIComponent(searchQuery)}`);
-            console.log("Yes, correct");
-            
+
         } else {
             navigate(
                 `${location.pathname}?search=${encodeURIComponent(searchQuery)}`
@@ -27,7 +26,7 @@ const SearchBar = () => {
     }
 
     return (
-        <div className="flex items-center justify-center gap-2 px-2 rounded-md bg-white w-full max-w-md">
+        <div className="flex items-center justify-center gap-2 px-2 rounded-md bg-white w-full lg:w-2xl">
             <div><Search color='black' size={24} className="cursor-pointer"
                 onClick={handleSearch} /></div>
             <input

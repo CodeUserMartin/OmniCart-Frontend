@@ -16,10 +16,11 @@ const BuyNowPage = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
     const { productId } = useParams();
     const navigate = useNavigate();
 
-    const quantity = 1; // default buy now quantity
+    const [quantity, setQuantity] = useState(1);
 
     // Fetch product
     useEffect(() => {
@@ -28,7 +29,6 @@ const BuyNowPage = () => {
                 const res = await getProductById(productId);
                 setProduct(res.data.data.product);
             } catch (error) {
-                console.log(error);
                 toast.error("Failed to load product");
             } finally {
                 setLoading(false);
@@ -45,7 +45,6 @@ const BuyNowPage = () => {
                 const res = await getUserAddresses();
                 setAddresses(res.data.data);
             } catch (error) {
-                console.log(error);
             }
         };
 
@@ -84,7 +83,6 @@ const BuyNowPage = () => {
             toast.success("Order placed successfully!");
             navigate("/");
         } catch (error) {
-            console.log(error);
             toast.error(
                 error.response?.data?.message || "Buy failed"
             );
@@ -101,12 +99,12 @@ const BuyNowPage = () => {
                 <div className="p-10">Loading...</div>
             ) : (
                 <div className="bg-white rounded-lg shadow p-4 w-full mx-auto mt-6 px-4">
-
                     <h2 className="text-2xl font-bold mb-4">
                         Order Summary
                     </h2>
 
-                    <div className="flex gap-4 p-4">
+
+                    <div className="flex justify-between items-center gap-4 p-4">
                         <img
                             src={product?.images?.[0]}
                             alt={product?.name}
@@ -123,6 +121,34 @@ const BuyNowPage = () => {
                             <p className="text-green-600 font-bold">
                                 ₹{product?.price}
                             </p>
+                        </div>
+                        {/* Quantity */}
+                        <div className="flex items-center gap-4 mt-4">
+
+                            <button
+                                onClick={() =>
+                                    setQuantity((prev) => Math.max(1, prev - 1))
+                                }
+                                className="bg-gray-200 px-4 py-2 rounded-lg text-xl"
+                            >
+                                −
+                            </button>
+
+                            <span className="font-semibold text-lg">
+                                {quantity}
+                            </span>
+
+                            <button
+                                onClick={() =>
+                                    setQuantity((prev) =>
+                                        Math.min(product.stock, prev + 1)
+                                    )
+                                }
+                                className="bg-gray-200 px-4 py-2 rounded-lg text-xl"
+                            >
+                                +
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -189,7 +215,7 @@ const BuyNowPage = () => {
 
                 <button
                     onClick={handleBuyNow}
-                    className="bg-green-600 text-white w-full py-4 mt-2 rounded"
+                    className="bg-(--accent-color) text-white w-full py-4 mt-2 rounded hover:bg-red-800 hover:cursor-pointer"
                 >
                     Buy Now
                 </button>

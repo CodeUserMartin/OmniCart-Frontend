@@ -3,9 +3,10 @@ import { useState } from "react";
 export default function AddressSection({ addresses, selectedAddress, setSelectedAddress, setAddresses }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const [formData, setFormData] = useState({
-        address: "",
+        addressLine: "",
         city: "",
         state: "",
         country: "",
@@ -26,18 +27,62 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
 
     // ADD ADDRESS
     const handleAddAddress = () => {
-        if (!formData.address.trim()) return;
+        const {
+            addressLine,
+            city,
+            state,
+            country,
+            pincode,
+            phone
+        } = formData;
+
+        const newErrors = {};
+
+        if (!addressLine.trim()) {
+            newErrors.addressLine = "Address is required";
+        }
+
+        if (!city.trim()) {
+            newErrors.city = "City is required";
+        }
+
+        if (!state.trim()) {
+            newErrors.state = "State is required";
+        }
+
+        if (!country.trim()) {
+            newErrors.country = "Country is required";
+        }
+
+        if (!/^\d{6}$/.test(pincode)) {
+            newErrors.pincode = "Pincode must be exactly 6 digits";
+        }
+
+        if (!/^\d{10}$/.test(phone)) {
+            newErrors.phone = "Phone number must be exactly 10 digits";
+        }
+
+        // If errors exist, stop here
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
         const newAddress = {
-             _id: crypto.randomUUID(),
-            ...formData
+            _id: crypto.randomUUID(),
+            addressLine: addressLine.trim(),
+            city: city.trim(),
+            state: state.trim(),
+            country: country.trim(),
+            pincode: pincode.trim(),
+            phone: phone.trim()
         };
 
         setAddresses((prev) => [...prev, newAddress]);
         setSelectedAddress(newAddress._id);
 
         setFormData({
-            address: "",
+            addressLine: "",
             city: "",
             state: "",
             country: "",
@@ -45,6 +90,7 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
             phone: ""
         });
 
+        setErrors({});
         setIsModalOpen(false);
     };
 
@@ -100,7 +146,7 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                                     {/* ADDRESS DISPLAY */}
                                     <div className="text-sm text-gray-800">
                                         <p className="font-semibold">
-                                            {addr.address}
+                                            {addr.addressLine}
                                         </p>
                                         <p>
                                             {addr.city}, {addr.state}, {addr.country} - {addr.pincode}
@@ -133,7 +179,7 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
 
                     <div className="text-gray-800">
                         <p className="font-semibold">
-                            {currentAddress.address}
+                            {currentAddress.addressLine}
                         </p>
                         <p>
                             {currentAddress.city}, {currentAddress.state}, {currentAddress.country} - {currentAddress.pincode}
@@ -155,12 +201,18 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
 
                         {/* ADDRESS */}
                         <textarea
-                            name="address"
-                            value={formData.address}
+                            name="addressLine"
+                            value={formData.addressLine}
                             onChange={handleChange}
                             placeholder="Full Address"
                             className="w-full border p-3 rounded-lg mb-4 outline-none"
                         />
+                        {errors.addressLine && (
+                            <p className="text-red-500 text-sm ">
+                                {errors.addressLine}
+                            </p>
+                        )}
+
 
                         {/* GR_id */}
                         <div className="gr_id gr_id-cols-2 gap-3 mb-4">
@@ -172,6 +224,11 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                                 placeholder="City"
                                 className="border p-2 rounded-lg outline-none"
                             />
+                            {errors.city && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.city}
+                                </p>
+                            )}
 
                             <input
                                 name="state"
@@ -180,6 +237,11 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                                 placeholder="State"
                                 className="border p-2 rounded-lg outline-none"
                             />
+                            {errors.state && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.state}
+                                </p>
+                            )}
 
                             <input
                                 name="country"
@@ -188,6 +250,11 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                                 placeholder="Country"
                                 className="border p-2 rounded-lg outline-none"
                             />
+                            {errors.country && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.country}
+                                </p>
+                            )}
 
                             <input
                                 name="pincode"
@@ -196,6 +263,12 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                                 placeholder="Pincode"
                                 className="border p-2 rounded-lg outline-none"
                             />
+
+                            {errors.pincode && (
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.pincode}
+                                </p>
+                            )}
                         </div>
 
                         {/* PHONE */}
@@ -206,6 +279,12 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                             placeholder="Phone Number"
                             className="w-full border p-2 rounded-lg mb-4 outline-none"
                         />
+
+                        {errors.phone && (
+                            <p className="text-red-500 text-sm mb-4">
+                                {errors.phone}
+                            </p>
+                        )}
 
                         {/* BUTTONS */}
                         <div className="flex justify-end gap-3">

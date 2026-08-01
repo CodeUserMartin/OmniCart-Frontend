@@ -15,15 +15,13 @@ const LeftPanel = ({
     const [orderManagementOpen, setOrderManagementOpen] = useState(false);
     const [inventoryManagementOpen, setInventoryManagementOpen] = useState(false);
 
-    // console.log(isSidebarOpen);
-
 
     return (
         <div className={`
         fixed
         top-0
         left-0
-        h-screen
+        h-full
         w-72
         bg-(--secondary-color)
         z-50
@@ -190,12 +188,6 @@ const LeftPanel = ({
                             >
                                 My Products
 
-                            </Link>
-                            <Link
-                                to="/seller-dashboard/re-stock-products"
-                                className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer border-b"
-                            >
-                                Re-Stock Products
                             </Link>
                         </div>
                     )
