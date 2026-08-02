@@ -1,4 +1,4 @@
-import SellerPieChart from "../../components/SellerPieChart";
+import SellerPieChart from "../../components/SellerPieChart.jsx";
 import { useSellerDashboard }
     from "../../hooks/useSellerDashboard.js";
 

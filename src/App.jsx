@@ -23,7 +23,7 @@ import VerifyEmailPage from "./pages/VerifyEmailPage.jsx"
 import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage.jsx"
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage.jsx"
 
-import DashboardAnalysis from "./pages/Seller-Dashboard/DashboardAnalysis.jsx"
+import DashboardAnalysis from "./pages/seller-dashboard/DashboardAnalysis.jsx"
 
 // Seller Dashboard Subpages
 import AddProduct from "./pages/seller-dashboard/AddProduct.jsx"
@@ -32,9 +32,9 @@ import DeleteProduct from "./pages/seller-dashboard/DeleteProduct.jsx"
 import NewOrders from "./pages/seller-dashboard/NewOrder.jsx"
 import CancelledOrders from "./pages/seller-dashboard/CancelledOrders.jsx"
 import MyProducts from "./pages/seller-dashboard/MyProducts.jsx"
-import ConfirmedOrders from "./pages/Seller-Dashboard/ConfirmedOrders.jsx"
-import ShippedOrders from "./pages/Seller-Dashboard/ShippedOrders.jsx"
-import DeliveredOrders from "./pages/Seller-Dashboard/DeliveredOrders.jsx"
+import ConfirmedOrders from "./pages/seller-dashboard/ConfirmedOrders.jsx"
+import ShippedOrders from "./pages/seller-dashboard/ShippedOrders.jsx"
+import DeliveredOrders from "./pages/seller-dashboard/DeliveredOrders.jsx"
 
 function App() {
 
