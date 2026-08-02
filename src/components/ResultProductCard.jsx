@@ -8,10 +8,10 @@ const ResultProductCard = ({
 }) => {
     return (
 
-        <div className=" rounded-lg shadow p-4 flex items-center gap-5 bg-white">
+        <div className=" rounded-lg shadow p-4 flex flex-col md:flex-row lg:flex-row items-center gap-5 bg-white">
 
             {/* Product Image */}
-            <div className="w-32 rounded-lg overflow-hidden bg-gray-100">
+            <div className="w-32 md:w-32 lg:w-32 rounded-lg overflow-hidden bg-gray-100">
 
                 <img
                     src={img}
@@ -47,7 +47,7 @@ const ResultProductCard = ({
                     </p>
 
                     {category && (
-                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium uppercase">
+                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium capitalize">
                             {category}
                         </span>
                     )}

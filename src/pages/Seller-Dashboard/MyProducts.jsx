@@ -38,7 +38,7 @@ const MyProducts = () => {
 
     return (
         <>
-            <h1 className="font-bold text-xl lg:text-3xl lg:m-4 text-white">
+            <h1 className="font-bold text-xl lg:text-3xl lg:m-4 text-white mb-4">
                 My Products
             </h1>
 

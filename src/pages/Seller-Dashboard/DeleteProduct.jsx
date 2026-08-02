@@ -108,14 +108,14 @@ const DeleteProduct = () => {
                     filteredProducts.map((product) => (
                         <div
                             key={product._id}
-                            className="bg-white rounded-lg shadow p-2 flex justify-between items-center "
+                            className="bg-white rounded-lg shadow p-2 flex flex-col justify-between items-center "
                         >
 
                             {/* Left Side */}
                             <div className="flex justify-between items-center gap-4">
 
                                 {/* Image */}
-                                <div className="w-32 bg-gray-100 rounded-md overflow-hidden">
+                                <div className="md:w-32 lg:2-32 bg-gray-100 rounded-md overflow-hidden">
                                     <img
                                         src={product.images?.[0]}
                                         alt={product.name}
@@ -127,11 +127,11 @@ const DeleteProduct = () => {
                                 <div className="flex flex-col">
 
                                     <div>
-                                        <h2 className="lg:text-xl font-bold">
+                                        <h2 className="text-md lg:text-xl font-bold">
                                             {product.name}
                                         </h2>
 
-                                        <p className="text-gray-500 text-xs lg:text-md ">
+                                        <p className="text-gray-500 text-sm mt-2 lg:text-md ">
                                             {product.description}
                                         </p>
                                     </div>
@@ -161,7 +161,7 @@ const DeleteProduct = () => {
 
                             {/* Delete Button */}
                             <button
-                                className="bg-red-600 text-white p-1 py-3 lg:px-4 lg:py-3 uppercase hover:cursor-pointer  hover:bg-red-800 rounded-lg"
+                                className="w-full mt-2 bg-red-600 text-white p-1 py-2 lg:px-4 lg:py-3 uppercase hover:cursor-pointer  hover:bg-red-800 rounded-lg"
                                 onClick={() => {
                                     setSelectedProductId(product._id);
                                     setShowDeleteModal(true);

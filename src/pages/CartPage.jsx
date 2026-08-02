@@ -7,11 +7,12 @@ import { getUserCart, deleteCartItem, decreaseCartItem, addToCart } from "../api
 
 import { toast } from "react-hot-toast"
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const CartPage = () => {
 
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -199,7 +200,7 @@ const CartPage = () => {
             </p>
           )}
 
-          <div className="p-2 m-2 h-110 overflow-y-auto rounded-lg">
+          <div className="p-2 m-2 h-110 overflow-y-auto scrollbar-none rounded-lg">
 
             {
               cartItems.map((item) => (

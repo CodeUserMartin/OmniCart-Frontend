@@ -214,8 +214,8 @@ export default function AddressSection({ addresses, selectedAddress, setSelected
                         )}
 
 
-                        {/* GR_id */}
-                        <div className="gr_id gr_id-cols-2 gap-3 mb-4">
+                        {/* GRID */}
+                        <div className="grid grid-cols-2 gap-3 mb-4">
 
                             <input
                                 name="city"

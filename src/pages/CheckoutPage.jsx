@@ -128,7 +128,7 @@ const CheckoutPage = () => {
                 </div>
 
                 {/* Order Summary Container */}
-                <div className=" shadow-(--box-shadow) p-4 rounded-lg max-h-76 overflow-y-auto">
+                <div className=" shadow-(--box-shadow) p-4 rounded-lg max-h-76 overflow-y-auto scrollbar-none">
                     <h2 className="text-xl font-bold mb-2">Order Summary</h2>
 
                     {/* Order items would go here */}

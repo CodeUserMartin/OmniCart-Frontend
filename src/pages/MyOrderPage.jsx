@@ -25,6 +25,8 @@ const MyOrderPage = () => {
                     await getUserOrders(selectedCategory);
 
                 setOrders(response.data.data.finalOrder);
+                console.log(response.data.data.finalOrder);
+
 
             } catch (error) {
                 // toast.error("Failed to fetch orders")
@@ -170,7 +172,7 @@ const MyOrderPage = () => {
                             >
 
                                 {/* Left Side */}
-                                <div className="flex items-center gap-4">
+                                <div className="flex flex-col md:flex-row lg:flex-row gap-4">
 
                                     {/* Image */}
                                     <div className="lg:w-28 lg:h-28 rounded overflow-hidden">
@@ -188,7 +190,7 @@ const MyOrderPage = () => {
                                             {order.name}
                                         </h2>
 
-                                        <p className="text-gray-500 text-sm lg:text-lg mt-4 line-clamp-4">
+                                        <p className="text-gray-500 text-sm lg:text-lg mt-2 line-clamp-4">
                                             {order.description}
                                         </p>
 
@@ -206,12 +208,12 @@ const MyOrderPage = () => {
 
                                 {/* Status */}
 
-                                <div className="flex flex-col gap-2 items-end">
+                                <div className="flex flex-col gap-2 items-end self-end">
 
 
 
                                     <span
-                                        className={`px-4 py-2 rounded-full font-medium text-sm lg:text-lg uppercase ${getStatusStyle(order.status)}`}
+                                        className={`px-4 py-2 rounded-full font-medium text-sm lg:text-lg capitalize ${getStatusStyle(order.status)}`}
                                     >
                                         {order.status}
                                     </span>
@@ -245,7 +247,7 @@ const MyOrderPage = () => {
                                     )}
 
                                     <div>
-                                        <span className="text-xs lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
+                                        <span className="text-sm lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
                                     </div>
 
                                 </div>

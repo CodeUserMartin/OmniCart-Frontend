@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
                     <div className="flex flex-col gap-2">
                         <h3 className="text-md">{product.name}</h3>
                         <p className="line-clamp-6 max-h-7 ">{product.description}</p>
-                        <p className="text-amber-200">${product.price.toFixed(2)}</p>
+                        <p className="text-amber-200">₹{product.price.toFixed(2)}</p>
                     </div>
 
                     <div>

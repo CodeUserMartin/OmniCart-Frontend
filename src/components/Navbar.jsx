@@ -238,7 +238,7 @@ const Navbar = () => {
 
                                 <>
                                     <div className="px-3 py-2 border-b text-black">
-                                        <p className="font-semibold text-(--accent-color)">
+                                        <p className="font-semibold text-(--accent-color) capitalize">
                                             {user.firstName} {user.lastName}
                                         </p>
                                     </div>
