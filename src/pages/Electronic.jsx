@@ -12,8 +12,8 @@ import ProductCard from "../components/ProductCard.jsx"
 
 // Category Images
 import LaptopImg from "../assets/Electronics-category-imgs/Laptop-img.jfif"
-import SmartphoneImg from "../assets/Electronics-category-imgs/Smartphone-img.jfif"
-import HeadphonesImg from "../assets/Electronics-category-imgs/Headphone-img.jfif"
+import SmartphoneImg from "../assets/Electronics-category-imgs/SmartPhone-img.jfif"
+import HeadphonesImg from "../assets/Electronics-category-imgs/HeadPhone-img.jfif"
 import SmartWatchImg from "../assets/Electronics-category-imgs/SmartWatch-img.jfif"
 import SpeakersImg from "../assets/Electronics-category-imgs/Speaker-img.jfif"
 

@@ -7,7 +7,7 @@ import ProductCard from "../components/ProductCard.jsx"
 
 // Category Images
 import Milk from "../assets/Grociries-category-imgs/Milk-img.jfif"
-import Vegetables from "../assets/Grociries-category-imgs/vegetable-img.jfif"
+import Vegetables from "../assets/Grociries-category-imgs/Vegetable-img.jfif"
 import Fruits from "../assets/Grociries-category-imgs/Fruit-img.jfif"
 import Bread from "../assets/Grociries-category-imgs/Bread-img.jfif"
 import BeautyCare from "../assets/Grociries-category-imgs/Beauty-and-Care-img.jfif"
