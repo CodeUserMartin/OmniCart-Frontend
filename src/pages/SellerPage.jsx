@@ -281,7 +281,7 @@ const SellerPage = () => {
                                     <button
                                         type="button"
                                         onClick={() => navigate("/seller-dashboard/dashboard")}
-                                        className="mt-5 bg-(--accent-color) text-white px-6 py-3 rounded-md"
+                                        className="mt-5 bg-(--accent-color) text-white px-6 py-3 rounded-md hover:cursor-pointer hover:bg-red-800"
                                     >
                                         Open Seller Dashboard
                                     </button>

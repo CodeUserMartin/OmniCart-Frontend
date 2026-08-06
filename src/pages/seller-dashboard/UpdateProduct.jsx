@@ -320,7 +320,7 @@ const UpdateProduct = () => {
                 </div>
 
                 {/* Update Button */}
-                <div className="bg-(--accent-color) text-white p-2 rounded mt-4 text-center uppercase font-bold">
+                <div className="bg-(--accent-color) text-white p-2 rounded mt-4 text-center uppercase font-bold hover:cursor-pointer hover:bg-red-800">
 
                     <button
                         disabled={

@@ -27,7 +27,7 @@ const CartPage = () => {
         response.data.data.finalCartItems
       );
 
-      console.log(cartItems);
+      // console.log(cartItems);
 
     };
 

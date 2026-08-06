@@ -8,10 +8,14 @@ import { signupUser } from "../../api/authApi";
 
 import { Link } from "react-router-dom";
 
+import { Eye, EyeOff } from "lucide-react";
+
 const SignUpPage = () => {
 
     const [isRegistered, setIsRegistered] = useState(false);
     const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -26,6 +30,7 @@ const SignUpPage = () => {
         e.preventDefault();
 
         try {
+            setLoading(true);
             const response = await signupUser(formData);
 
             toast.success(
@@ -45,6 +50,8 @@ const SignUpPage = () => {
             });
 
             setErrors(formattedErrors);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -157,11 +164,19 @@ const SignUpPage = () => {
                             )}
 
                             {/* Password */}
-                            <div className="mb-4">
+                            <div className="mb-4 relative">
                                 <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
                                 <input
                                     required
-                                    type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    className="absolute -right-7 top-3/4 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
                             </div>
                             {errors.password && (
                                 <p className="text-red-500 text-sm mt-1">
@@ -176,8 +191,8 @@ const SignUpPage = () => {
 
                             {/* Sign Up Button */}
                             <div className="mt-6">
-                                <button type="submit" className="bg-(--accent-color) text-white py-2 px-4 rounded-md  focus:outline-none">
-                                    Sign Up
+                                <button disabled={loading} type="submit" className="bg-(--accent-color) text-white py-2 px-4 rounded-md  focus:outline-none hover:cursor-pointer hover:bg-red-800">
+                                    {loading ? "Processing..." : "Sign Up"}
                                 </button>
                             </div>
                         </form>

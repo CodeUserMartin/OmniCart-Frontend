@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { deleteProduct } from "../../api/productApi.js";
 import { useSellerProducts } from "../../hooks/useSellerProducts.js";
 import { useState, useMemo } from "react";
+import Loader from "../../components/Loader.jsx"
 
 const DeleteProduct = () => {
 
@@ -50,7 +51,7 @@ const DeleteProduct = () => {
                 prev.filter((product) => product._id !== productId)
             );
 
-            // CLOSE MODAL (FIXED)
+            // CLOSE MODAL
             setShowDeleteModal(false);
             setSelectedProductId(null);
 
@@ -65,7 +66,11 @@ const DeleteProduct = () => {
     };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
+            </div>
+        )
     }
 
     return (
@@ -108,7 +113,7 @@ const DeleteProduct = () => {
                     filteredProducts.map((product) => (
                         <div
                             key={product._id}
-                            className="bg-white rounded-lg shadow p-2 flex flex-col justify-between items-center "
+                            className="bg-white rounded-lg shadow p-2 flex flex-col md:flex-row lg:flex-row justify-between items-center "
                         >
 
                             {/* Left Side */}
@@ -161,7 +166,7 @@ const DeleteProduct = () => {
 
                             {/* Delete Button */}
                             <button
-                                className="w-full mt-2 bg-red-600 text-white p-1 py-2 lg:px-4 lg:py-3 uppercase hover:cursor-pointer  hover:bg-red-800 rounded-lg"
+                                className="w-full md:w-32 lg:w-32 mt-2 bg-red-600 text-white p-1 py-2 lg:px-4 lg:py-3 uppercase hover:cursor-pointer  hover:bg-red-800 rounded-lg"
                                 onClick={() => {
                                     setSelectedProductId(product._id);
                                     setShowDeleteModal(true);

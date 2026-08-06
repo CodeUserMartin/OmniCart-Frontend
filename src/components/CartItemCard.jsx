@@ -55,7 +55,7 @@ const CartItemCard = ({
                                 e.stopPropagation();
                                 onDecrease(productId)
                             }}
-                            className="bg-gray-200 text-gray-700 lg:px-3 p-2 lg:py-1 rounded-md mr-2"
+                            className="bg-gray-200 text-gray-700 lg:px-3 p-2 lg:py-1 rounded-md mr-2 cursor-pointer hover:bg-gray-300"
                         >
                             -
                         </button>
@@ -73,7 +73,7 @@ const CartItemCard = ({
                                 e.stopPropagation();
                                 onIncrease(productId)
                             }}
-                            className="bg-gray-200 text-gray-700 lg:px-3 p-2 lg:py-1 rounded-md ml-2"
+                            className="bg-gray-200 text-gray-700 lg:px-3 p-2 lg:py-1 rounded-md ml-2 cursor-pointer hover:bg-gray-300"
 
                         >
                             +

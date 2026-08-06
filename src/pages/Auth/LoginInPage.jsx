@@ -6,6 +6,8 @@ import { useState } from "react";
 import { loginUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
 
+import { Eye, EyeOff } from "lucide-react";
+
 const LoginInPage = () => {
 
     const navigate = useNavigate();
@@ -15,11 +17,15 @@ const LoginInPage = () => {
         password: ""
     })
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
 
+            setLoading(true)
             const response = await loginUser(formData);
 
             toast.success(response.data.message || "Login successful");
@@ -45,7 +51,10 @@ const LoginInPage = () => {
                 );
 
             }
+        } finally {
+            setLoading(false);
         }
+
     }
 
     const handleInputChange = (e) => {
@@ -83,9 +92,18 @@ const LoginInPage = () => {
                             </div>
 
                             {/* Password */}
-                            <div className="mb-4">
+                            <div className="mb-4 relative">
                                 <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
-                                <input type="password" id="password" name="password" value={formData.password} onChange={handleInputChange} className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+                                <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleInputChange} className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    className="absolute right-75 top-13 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
                             </div>
 
                             {/* Link to Forgot Password Page */}
@@ -102,8 +120,8 @@ const LoginInPage = () => {
 
                             {/* Login Button */}
                             <div className="mt-6">
-                                <button type="submit" className="bg-(--accent-color) text-white py-2 px-4 rounded-md  focus:outline-none">
-                                    Login
+                                <button type="submit" className="bg-(--accent-color) text-white py-2 px-4 rounded-md hover:cursor-pointer hover:bg-red-800  focus:outline-none">
+                                    {loading ? "Processsing..." : "Login"}
                                 </button>
                             </div>
 

@@ -4,6 +4,8 @@ import { useSellerProducts } from "../../hooks/useSellerProducts.js";
 import SellerSearchBar from "../../components/SellerPageSearchBar.jsx";
 import ResultProductCard from "../../components/ResultProductCard.jsx";
 
+import Loader from "../../components/Loader.jsx"
+
 const MyProducts = () => {
 
     const { products, loading } = useSellerProducts();
@@ -33,7 +35,11 @@ const MyProducts = () => {
     }, [products, searchTerm, selectedCategory]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
+            </div>
+        )
     }
 
     return (

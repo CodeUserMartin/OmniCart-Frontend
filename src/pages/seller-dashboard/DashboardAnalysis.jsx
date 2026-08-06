@@ -2,6 +2,8 @@ import SellerPieChart from "../../components/SellerPieChart.jsx";
 import { useSellerDashboard }
     from "../../hooks/useSellerDashboard.js";
 
+import Loader from "../../components/Loader.jsx"
+
 const DashboardAnalysis = () => {
 
     const {
@@ -11,8 +13,8 @@ const DashboardAnalysis = () => {
 
     if (loading) {
         return (
-            <div className="text-white font-2xl">
-                Loading Dashboard...
+            <div className="h-dvh flex justify-center items-center">
+                <Loader color={'white'} />
             </div>
         );
     }

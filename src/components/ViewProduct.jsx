@@ -14,6 +14,7 @@ import { useBuyNow } from "../hooks/useBuyNow";
 
 import { getCurrentUser } from "../api/authApi.js";
 import { getUserCart, decreaseCartItem } from "../api/cartApi.js";
+import Loader from "./Loader.jsx";
 
 export default function ViewProduct() {
 
@@ -23,10 +24,11 @@ export default function ViewProduct() {
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [adding, setAdding] = useState(false);
     const [LoggedInUser, setLoggedInUser] = useState("");
     const [cartItem, setCartItem] = useState(null);
+    const [addToCart, setAddToCart] = useState(false);
 
     // Check for Addby Id of the Seller
     const SellerId = product?.addedBy?._id;
@@ -59,9 +61,6 @@ export default function ViewProduct() {
                 const res = await getProductById(id);
 
                 setProduct(res.data.data.product);
-
-
-
 
                 await checkProductInCart();
 
@@ -96,6 +95,8 @@ export default function ViewProduct() {
 
     const handleAddToCart = async () => {
         try {
+
+            setAddToCart(true);
             await addToCartHandler(product._id);
 
             // Fetch updated cart
@@ -112,6 +113,8 @@ export default function ViewProduct() {
         } catch (error) {
             console.error("Error adding product to cart:", error);
             toast.error("Failed to add product to cart");
+        } finally {
+            setAddToCart(false);
         }
     };
 
@@ -175,9 +178,13 @@ export default function ViewProduct() {
     currentLoggedInUser();
 
 
-
-
-    if (loading) return <p className="p-4 text-gray-500">Loading product details...</p>;
+    if (loading) {
+        return (
+            <div className="h-dvh flex justify-center items-center">
+                <Loader />
+            </div>
+        )
+    }
 
 
     if (!product) return <p className="p-4 text-gray-500">Product not found</p>;
@@ -265,7 +272,7 @@ export default function ViewProduct() {
 
                                     <button
                                         onClick={decreaseQuantity}
-                                        className="bg-gray-200 px-4 py-3 rounded-lg"
+                                        className="bg-gray-200 px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-300"
                                     >
                                         −
                                     </button>
@@ -276,7 +283,7 @@ export default function ViewProduct() {
 
                                     <button
                                         onClick={increaseQuantity}
-                                        className="bg-gray-200 px-4 py-3 rounded-lg"
+                                        className="bg-gray-200 px-4 py-3 rounded-lg cursor-pointer hover:bg-gray-300"
                                     >
                                         +
                                     </button>
@@ -290,14 +297,14 @@ export default function ViewProduct() {
 
                                     <button
                                         onClick={handleAddToCart}
-                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-blue-800"
                                     >
-                                        Add to Cart
+                                        {addToCart ? 'Adding..' : 'Add to Cart'}
                                     </button>
 
                                     <button
                                         onClick={() => buyNow(product._id)}
-                                        className="bg-green-600 text-white px-6 py-3 rounded-lg"
+                                        className="bg-green-600 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-green-800"
                                     >
                                         Buy Now
                                     </button>

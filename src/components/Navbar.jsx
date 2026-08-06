@@ -224,8 +224,7 @@ const Navbar = () => {
 
                 <div
                     className="relative flex items-center cursor-pointer"
-                    onMouseEnter={() => setShowUserMenu(true)}
-                    onMouseLeave={() => setShowUserMenu(false)}
+                     onClick={() => setShowUserMenu((prev) => !prev)}
                 >
 
                     <CircleUserRound size={34} />

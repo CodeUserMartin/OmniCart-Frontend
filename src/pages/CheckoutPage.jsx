@@ -23,6 +23,8 @@ const CheckoutPage = () => {
 
     const [cartItems, setCartItems] = useState([]);
 
+    const [loadingPlaceOrder, setLoadingPlaceOrder] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -65,6 +67,9 @@ const CheckoutPage = () => {
 
     const handlePlaceOrder = async () => {
         try {
+
+            setLoadingPlaceOrder(true);
+
             if (!selectedAddress) {
                 toast.error("Please select an address");
                 return;
@@ -91,7 +96,7 @@ const CheckoutPage = () => {
             const payload = {
                 shippingAddress,
                 paymentMethod,
-            };            
+            };
 
             const response = await placeOrder(payload);
             toast.success("Order placed successfully!");
@@ -102,14 +107,19 @@ const CheckoutPage = () => {
             // (safe cleanup)
             setSelectedAddress(null);
 
-            
+
             setPaymentMethod("");
 
-            // STEP 2: redirect user
+            // STEP 2: redirect users
             navigate("/");
 
         } catch (error) {
             toast.error("Order failed. Please try again.");
+            console.log(error);
+            
+        } 
+        finally {
+            // setLoadingPlaceOrder(false);
         }
     };
 
@@ -220,7 +230,9 @@ const CheckoutPage = () => {
                     {/* Checkout Button */}
                     <button
                         onClick={handlePlaceOrder}
-                        className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md hover:bg-red-800 hover:cursor-pointer">Proceed to Checkout</button>
+                        className="bg-(--accent-color) text-white font-bold uppercase py-6 w-full rounded-md hover:bg-red-800 hover:cursor-pointer">
+                            {loadingPlaceOrder ?  'Processing...' : 'Place Order'}
+                            </button>
                 </div>
 
             </div>

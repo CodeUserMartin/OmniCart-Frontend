@@ -58,10 +58,10 @@ const LeftPanel = ({
 
             <div className="p-4 rounded shadow flex flex-col w-full h-full">
 
-                <div className="w-full">
+                <div className="w-full hover:bg-gray-800 cursor-pointer py-3 px-2">
                     <Link
                         to="/seller-dashboard/dashboard"
-                        className="pl-4 text-white py-3 px-2 hover:bg-gray-800 cursor-pointer"
+                        className="pl-4 text-white  "
                     >
                         Dashboard
                     </Link>

@@ -7,11 +7,12 @@ import { deliverOrder } from "../api/orderApi.js";
 import { cancelOrder } from "../api/orderApi.js";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader.jsx"
 
 const MyOrderPage = () => {
 
     const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
 
 
@@ -21,12 +22,12 @@ const MyOrderPage = () => {
 
             try {
 
+                setLoading(true);
+
                 const response =
                     await getUserOrders(selectedCategory);
 
                 setOrders(response.data.data.finalOrder);
-                console.log(response.data.data.finalOrder);
-
 
             } catch (error) {
                 // toast.error("Failed to fetch orders")
@@ -62,15 +63,16 @@ const MyOrderPage = () => {
         }
     };
 
+    console.log("loading:", loading);
     if (loading) {
         return (
-            <>
+            <div>
                 <Navbar />
-                <div className="p-10 text-center">
-                    Loading Orders...
+                <div className="h-dvh flex justify-center items-center">
+                    <Loader />
                 </div>
-            </>
-        );
+            </div>
+        )
     }
 
     const handleCancelOrder = async (itemId) => {
