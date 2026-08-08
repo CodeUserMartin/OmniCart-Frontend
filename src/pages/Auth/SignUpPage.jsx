@@ -38,9 +38,12 @@ const SignUpPage = () => {
             );
 
             setIsRegistered(true);
+            navigate("/login");  // Redirect to Login, if email verifcation not working
 
         } catch (error) {
             const backendErrors = error.response?.data?.errors || [];
+
+            toast.error(error.response?.data?.message || "An error occurred during registration.");
 
             const formattedErrors = {};
 
@@ -63,31 +66,32 @@ const SignUpPage = () => {
     }
 
 
-    if (isRegistered) {
-        return (
-            <div className="flex items-center justify-center h-screen bg-gray-100">
-                <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md">
+    // Email Verification Process
+    // if (isRegistered) {
+    //     return (
+    //         <div className="flex items-center justify-center h-screen bg-gray-100">
+    //             <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md">
 
-                    <h2 className="text-2xl font-bold text-green-600">
-                        Account Created Successfully
-                    </h2>
+    //                 <h2 className="text-2xl font-bold text-green-600">
+    //                     Account Created Successfully
+    //                 </h2>
 
-                    <p className="mt-3 text-gray-600">
-                        We have sent a verification email to your inbox.
-                    </p>
+    //                 <p className="mt-3 text-gray-600">
+    //                     We have sent a verification email to your inbox.
+    //                 </p>
 
-                    <p className="mt-2 text-sm text-gray-500">
-                        Please verify your email to continue.
-                    </p>
+    //                 <p className="mt-2 text-sm text-gray-500">
+    //                     Please verify your email to continue.
+    //                 </p>
 
-                    <div className="mt-6 text-blue-600 font-medium">
-                        You can now close this page or check your email 📩
-                    </div>
+    //                 <div className="mt-6 text-blue-600 font-medium">
+    //                     You can now close this page or check your email 📩
+    //                 </div>
 
-                </div>
-            </div>
-        );
-    }
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="flex flex-row items-center justify-center lg:h-screen bg-gray-100 p-3">

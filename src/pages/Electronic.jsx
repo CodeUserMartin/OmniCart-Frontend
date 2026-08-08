@@ -97,7 +97,7 @@ const Electronics = () => {
     {/* Add To Cart Logic */ }
 
     {/* Add To Cart Logic */ }
-    const handleAddToCart = useAddToCart();
+    const { handleAddToCart } = useAddToCart();
 
     fetchcategoryProducts();
     return (

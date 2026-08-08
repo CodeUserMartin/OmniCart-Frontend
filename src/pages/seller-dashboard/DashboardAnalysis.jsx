@@ -13,7 +13,7 @@ const DashboardAnalysis = () => {
 
     if (loading) {
         return (
-            <div className="h-dvh flex justify-center items-center">
+            <div className="h-full flex justify-center items-center">
                 <Loader color={'white'} />
             </div>
         );
