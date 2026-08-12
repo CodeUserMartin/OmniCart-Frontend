@@ -168,7 +168,7 @@ const SignUpPage = () => {
                             )}
 
                             {/* Password */}
-                            <div className="mb-4 relative">
+                            <div className="mb-4 flex flex-col gap-2">
                                 <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
                                 <input
                                     required
@@ -177,9 +177,9 @@ const SignUpPage = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword((prev) => !prev)}
-                                    className="absolute -right-7 top-3/4 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
+                                    className="self-start text-gray-500 hover:text-gray-700 hover:cursor-pointer"
                                 >
-                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    {showPassword ? 'Hide Password' : 'Show Password'}
                                 </button>
                             </div>
                             {errors.password && (

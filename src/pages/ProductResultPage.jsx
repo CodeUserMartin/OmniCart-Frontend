@@ -9,6 +9,7 @@ import { searchProducts } from "../api/productApi.js";
 
 import { useAddToCart } from "../hooks/useAddToCart.js";
 import toast from "react-hot-toast";
+import Loader from "../components/Loader.jsx";
 
 
 const ProductResultPage = () => {
@@ -17,6 +18,7 @@ const ProductResultPage = () => {
     const searchQuery = searchParams.get("search");
 
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const addToCartHandler = useAddToCart();
 
@@ -36,6 +38,7 @@ const ProductResultPage = () => {
 
         try {
 
+            setLoading(true);
             const response = await searchProducts(searchQuery);
 
             setProducts(response.data.data.products);
@@ -43,6 +46,8 @@ const ProductResultPage = () => {
         } catch (error) {
             // toast.error("Failed to search product");
 
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -60,7 +65,6 @@ const ProductResultPage = () => {
         )
     }
 
-
     return (
         <>
             <Navbar />
@@ -76,9 +80,15 @@ const ProductResultPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
                     {/* Product Card */}
-                    {products.map((product) => (
-                        <ProductCard key={product._id} product={product} />
-                    ))}
+                    {
+                        loading ?
+                            <div className="h-full w-full flex justify-center items-center">
+                                <Loader />
+                            </div>
+                            :
+                            products.map((product) => (
+                                <ProductCard key={product._id} product={product} />
+                            ))}
 
                 </div>
 

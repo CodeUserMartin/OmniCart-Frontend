@@ -92,26 +92,29 @@ const LoginInPage = () => {
                             </div>
 
                             {/* Password */}
-                            <div className="mb-4 relative">
+                            <div className="mb-4">
                                 <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
 
-                                <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleInputChange} className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword((prev) => !prev)}
-                                    className="absolute right-75 top-13 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
-                                >
-                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                                </button>
+                                    <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleInputChange} className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    <br></br>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword((prev) => !prev)}
+                                        className=" mt-2 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
+                                    >
+                                        {showPassword ? 'Hide Password' : 'Show Password'}
+                                    </button>
+
                             </div>
 
                             {/* Link to Forgot Password Page */}
-                            <div className="mt-4">
+                            {/* <div className="mt-4">
                                 <Link to="/forgot-password" className="text-gray-500 hover:underline">
                                     Forgot your password?
                                 </Link>
-                            </div>
+                            </div> */}
 
                             {/* Link to Sign Up Page */}
                             <div className="mt-4">

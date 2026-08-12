@@ -14,7 +14,7 @@ const Footer = () => {
                     </div>
 
                     {/* Description */}
-                    <div className="mt-4 py-2">
+                    <div className="mt-4 py-2 max-w-xl">
                         <p>
                             Your one-stop marketplace for groceries, fashion, electronics, beauty products, and everyday essentials. Shop everything in one place with one cart and one seamless experience.
                         </p>

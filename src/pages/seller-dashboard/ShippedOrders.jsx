@@ -1,5 +1,6 @@
 import { useShippedOrders } from "../../hooks/useShippedOrders.js";
 import { toast } from "react-hot-toast";
+import Loader from "../../components/Loader.jsx";
 
 const ShippedOrders = () => {
 
@@ -11,14 +12,8 @@ const ShippedOrders = () => {
 
     if (loading) {
         return (
-            <div>
-                <h1 className="text-3xl font-bold text-white mb-4">
-                    Shipped Orders
-                </h1>
-
-                <p className="text-white">
-                    Loading orders...
-                </p>
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import { useConfirmedOrders } from "../../hooks/useConfirmedOrders.js";
 import { shipOrder } from "../../api/orderApi.js";
 import { toast } from "react-hot-toast";
+import Loader from "../../components/Loader.jsx";
 
 const ConfirmedOrders = () => {
 
@@ -12,14 +13,8 @@ const ConfirmedOrders = () => {
 
     if (loading) {
         return (
-            <div>
-                <h1 className="text-3xl font-bold text-white mb-4">
-                    Confirmed Orders
-                </h1>
-
-                <p className="text-white">
-                    Loading orders...
-                </p>
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
             </div>
         );
     }

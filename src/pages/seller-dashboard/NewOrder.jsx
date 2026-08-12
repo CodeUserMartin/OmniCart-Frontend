@@ -1,6 +1,7 @@
 import { usePendingOrders } from "../../hooks/usePendingOrders.js";
 import { acceptOrder } from "../../api/orderApi.js";
 import { toast } from "react-hot-toast";
+import Loader from "../../components/Loader.jsx"
 
 const NewOrder = () => {
 
@@ -13,14 +14,8 @@ const NewOrder = () => {
 
     if (loading) {
         return (
-            <div>
-                <h1 className="text-3xl font-bold text-white mb-4">
-                    New Orders
-                </h1>
-
-                <p className="text-white">
-                    Loading orders...
-                </p>
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
             </div>
         );
     }

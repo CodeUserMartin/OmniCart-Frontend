@@ -15,6 +15,8 @@ const UpdateProduct = () => {
     const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
+    const [loading, setLoading] = useState(false);
+
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     const [form, setForm] = useState({
@@ -87,6 +89,8 @@ const UpdateProduct = () => {
 
         try {
 
+            setLoading(true);
+
             if (!selectedProduct) {
 
                 toast.error(
@@ -141,6 +145,8 @@ const UpdateProduct = () => {
                 "Failed to update product!"
             );
 
+        } finally {
+            setLoading(false);
         }
 
     };
@@ -330,7 +336,7 @@ const UpdateProduct = () => {
                             handleUpdate
                         }
                     >
-                        Update Product
+                        {loading ? 'Updating..' : 'Update Product'}
                     </button>
 
                 </div>

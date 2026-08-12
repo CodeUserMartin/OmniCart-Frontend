@@ -1,5 +1,6 @@
 import { useCancelledOrders } from "../../hooks/useCancelledOrders.js";
 import ResultProductCard from "../../components/ResultProductCard.jsx";
+import Loader from "../../components/Loader.jsx";
 
 const CancelledOrders = () => {
 
@@ -7,8 +8,8 @@ const CancelledOrders = () => {
 
     if (loading) {
         return (
-            <div className="p-4 text-white">
-                Loading cancelled orders...
+            <div className="h-full flex justify-center items-center">
+                <Loader color={'white'} />
             </div>
         );
     }

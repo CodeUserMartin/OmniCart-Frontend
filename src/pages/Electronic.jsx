@@ -30,6 +30,8 @@ import { useAddToCart } from "../hooks/useAddToCart.js"
 import { searchProductByCategoryOrBySearch } from "../api/productApi.js"
 import toast from "react-hot-toast"
 
+import Loader from "../components/Loader.jsx"
+
 const Electronics = () => {
 
     const category = 'electronics'
@@ -42,6 +44,7 @@ const Electronics = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
 
     const [searchValue, setSearchValue] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const categories = [
         { name: "Laptops", img: LaptopImg },
@@ -82,6 +85,8 @@ const Electronics = () => {
 
         try {
 
+            setLoading(true);
+
             const response = await searchProductByCategoryOrBySearch("", category);
 
             setCategoryProducts(response.data.data.products);
@@ -90,6 +95,9 @@ const Electronics = () => {
         } catch (error) {
             toast.error("Failed to load products")
 
+        } finally {
+
+            setLoading(false);
         }
     }
 
@@ -99,7 +107,10 @@ const Electronics = () => {
     {/* Add To Cart Logic */ }
     const { handleAddToCart } = useAddToCart();
 
-    fetchcategoryProducts();
+    useEffect(() => {
+        fetchcategoryProducts();
+    }, [])
+
     return (
         <>
             <Navbar />
@@ -136,10 +147,16 @@ const Electronics = () => {
                         <div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
-                                {categoryProducts.map((product) => (
-                                    <ProductCard key={product._id} product={product}
-                                        onAddToCart={handleAddToCart} />
-                                ))}
+                                {
+                                    loading ?
+                                        <div className="col-span-full flex justify-center items-center">
+                                            <Loader />
+                                        </div> :
+
+                                        categoryProducts.map((product) => (
+                                            <ProductCard key={product._id} product={product}
+                                                onAddToCart={handleAddToCart} />
+                                        ))}
                             </div>
                         </div>
                     </div>

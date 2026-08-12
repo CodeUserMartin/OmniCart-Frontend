@@ -13,6 +13,8 @@ const AddProduct = () => {
         image: null,
     });
 
+    const [loading, setLoading] = useState(false);
+
     const handleInputChange = (e) => {
         setProductData({
             ...productData,
@@ -57,6 +59,7 @@ const AddProduct = () => {
                 formData.append("images", image);
             });
 
+            setLoading(true);
             const response =
                 await addProduct(formData);
 
@@ -75,6 +78,8 @@ const AddProduct = () => {
 
         } catch (error) {
             toast.error("Failed to Add Product")
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -195,8 +200,9 @@ const AddProduct = () => {
                     />
                 </div>
                 <div>
-                    <button className="bg-(--accent-color) text-white w-full px-4 py-2 rounded mt-4 hover:cursor-pointer hover:bg-red-800">
-                        Add Product
+                    <button disabled={loading}
+                        className="bg-(--accent-color) text-white w-full px-4 py-2 rounded mt-4 hover:cursor-pointer hover:bg-red-800">
+                        {loading ? 'Adding...' : 'Add Product'}
                     </button>
                 </div>
 

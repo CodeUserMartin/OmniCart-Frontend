@@ -24,6 +24,7 @@ const SellerPage = () => {
     const isLoggedIn = !!user;
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const [submitFormLoading, setSubmitFormLoading] = useState(false);
 
     const [SellerFormData, setSellerFormData] = useState({
         storeName: "",
@@ -32,7 +33,7 @@ const SellerPage = () => {
         city: "",
         state: "",
         country: "",
-        pinCode: "",
+        pincode: "",
         addressProof: null
     });
 
@@ -108,10 +109,10 @@ const SellerPage = () => {
         }
 
         // Pin Code
-        if (!SellerFormData.pinCode.trim()) {
-            newErrors.pinCode = "Zip code is required.";
-        } else if (!/^\d{6}$/.test(SellerFormData.pinCode)) {
-            newErrors.pinCode = "Zip code must be exactly 6 digits.";
+        if (!SellerFormData.pincode.trim()) {
+            newErrors.pincode = "Zip code is required.";
+        } else if (!/^\d{6}$/.test(SellerFormData.pincode)) {
+            newErrors.pincode = "Zip code must be exactly 6 digits.";
         }
 
         // Address Proof
@@ -136,6 +137,8 @@ const SellerPage = () => {
         }
 
         try {
+
+            setSubmitFormLoading(true);
 
             const formData = new FormData();
 
@@ -170,8 +173,8 @@ const SellerPage = () => {
             );
 
             formData.append(
-                "pinCode",
-                SellerFormData.pinCode.trim()
+                "pincode",
+                SellerFormData.pincode.trim()
             );
 
             formData.append(
@@ -198,6 +201,8 @@ const SellerPage = () => {
                 "Something went wrong!"
             );
 
+        } finally {
+            setSubmitFormLoading(false);
         }
 
     };
@@ -292,7 +297,7 @@ const SellerPage = () => {
 
                                 <form
                                     onSubmit={handleSellerApplication}
-                                    className="w-xs lg:w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 "
+                                    className="w-lg lg:w-4xl p-7 border rounded-lg shadow-(--box-shadow) mt-5 "
                                 >
 
                                     {!isLoggedIn && (
@@ -320,14 +325,15 @@ const SellerPage = () => {
                                     )}
 
                                     <fieldset disabled={!isLoggedIn}
-                                        className={!isLoggedIn ? "opacity-50" : ""}>
+                                        className={!isLoggedIn ? "opacity-50" : ""}
+                                    >
 
                                         <div className="flex flex-col lg:flex-row gap-5 lg:w-full">
 
                                             <div>
 
                                                 {/* Store Name */}
-                                                <div className="flex flex-col gap-2">
+                                                <div className="flex flex-col gap-2 w-full">
                                                     <label htmlFor="storeName" className="font-medium">
                                                         Store Name
                                                     </label>
@@ -442,14 +448,14 @@ const SellerPage = () => {
 
                                             {/* pin Code */}
                                             <div className="flex flex-col gap-2">
-                                                <label htmlFor="pinCode" className="font-medium">
+                                                <label htmlFor="pincode" className="font-medium">
                                                     Zip Code
                                                 </label>
-                                                <input required type="text" name="pinCode" id="pinCode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
+                                                <input required type="text" name="pincode" id="pincode" className="shadow-(--box-shadow) rounded-md p-2" value={SellerFormData.pinCode} onChange={handleInputChange} />
 
-                                                {errors.pinCode && (
+                                                {errors.pincode && (
                                                     <p className="text-red-500 text-sm">
-                                                        {errors.pinCode}
+                                                        {errors.pincode}
                                                     </p>
                                                 )}
                                             </div>
@@ -488,8 +494,8 @@ const SellerPage = () => {
                                         <div className="mt-5">
                                             <button type="submit"
                                                 disabled={!isLoggedIn}
-                                                className="bg-(--accent-color-2) w-full text-white py-2 px-4 rounded-md">
-                                                Submit Application
+                                                className="bg-(--accent-color-2) w-full text-white py-2 px-4 rounded-md cursor-pointer hover:bg-red-900">
+                                                {submitFormLoading ? 'Processing..' : 'Submit Application'}
                                             </button>
                                         </div>
 

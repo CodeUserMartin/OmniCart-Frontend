@@ -25,6 +25,8 @@ import { searchProductByCategoryOrBySearch } from "../api/productApi.js"
 import { useAddToCart } from "../hooks/useAddToCart.js"
 import toast from "react-hot-toast"
 
+import Loader from "../components/Loader.jsx"
+
 
 const Groceries = () => {
 
@@ -41,6 +43,7 @@ const Groceries = () => {
     // Product state management
     const [products, setProducts] = useState([]);
     const [categoryProducts, setCategoryProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     // Sub-Categories Card
     const categories = [
@@ -54,12 +57,15 @@ const Groceries = () => {
     // Run on first mount
     useEffect(() => {
 
+        fetchcategoryProducts();
+
         if (search) {
             setSearchValue(true);
             fetchProducts();
         } else {
-            console.error("Failed to Search Product!!");
+            console.error("Failed to search for product!");
         }
+
 
     }, [search]);
 
@@ -70,6 +76,7 @@ const Groceries = () => {
 
         try {
 
+            setLoading(true);
             const response = await searchProductByCategoryOrBySearch("", category);
 
             setCategoryProducts(response.data.data.products);
@@ -77,6 +84,8 @@ const Groceries = () => {
 
         } catch (error) {
             toast.error("Failed to load products");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -94,7 +103,7 @@ const Groceries = () => {
             setProducts(response.data.data.products);
 
         } catch (error) {
-           toast.error("Failed to load products");
+            toast.error("Failed to load products");
         }
 
     };
@@ -102,7 +111,9 @@ const Groceries = () => {
     {/* Add To Cart Logic */ }
     const handleAddToCart = useAddToCart();
 
-    fetchcategoryProducts();
+    useEffect(() => {
+        fetchcategoryProducts();
+    }, [])
 
     return (
         <>
@@ -143,10 +154,17 @@ const Groceries = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
-                                {categoryProducts.map((product) => (
-                                    <ProductCard key={product._id} product={product}
-                                        onAddToCart={handleAddToCart} />
-                                ))}
+                                {
+                                    loading ?
+                                        <div className="col-span-full flex justify-center items-center">
+                                            <Loader />
+                                        </div>
+
+                                        :
+                                        categoryProducts.map((product) => (
+                                            <ProductCard key={product._id} product={product}
+                                                onAddToCart={handleAddToCart} />
+                                        ))}
                             </div>
 
                         </div>

@@ -28,6 +28,8 @@ import { useAddToCart } from "../hooks/useAddToCart.js"
 
 import { searchProductByCategoryOrBySearch } from "../api/productApi.js"
 
+import Loader from "../components/Loader.jsx"
+
 const Clothing = () => {
 
     // Default Page Category
@@ -41,6 +43,7 @@ const Clothing = () => {
     const [searchParams] = useSearchParams();
     const search = searchParams.get("search");
     const [searchValue, setSearchValue] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const categories = [
         { name: "T-Shirts", img: TShirtImg },
@@ -55,6 +58,8 @@ const Clothing = () => {
         if (search) {
             setSearchValue(true);
             fetchProducts();
+        } else {
+            setSearchValue(false);
         }
 
     }, [search]);
@@ -79,6 +84,7 @@ const Clothing = () => {
 
         try {
 
+            setLoading(true);
             const response = await searchProductByCategoryOrBySearch("", category);
 
             setCategoryProducts(response.data.data.products);
@@ -87,14 +93,17 @@ const Clothing = () => {
         } catch (error) {
             toast.error("Failed to load products");
 
+        } finally {
+            setLoading(false);
         }
     }
 
     {/* Add To Cart Logic */ }
     const handleAddToCart = useAddToCart();
 
-
-    fetchcategoryProducts();
+    useEffect(() => {
+        fetchcategoryProducts();
+    }, [])
 
     return (
         <>
@@ -131,10 +140,16 @@ const Clothing = () => {
                         <div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-3">
 
-                                {categoryProducts.map((product) => (
-                                    <ProductCard key={product._id} product={product}
-                                        onAddToCart={handleAddToCart} />
-                                ))}
+                                {
+                                    loading ?
+                                        <div className="col-span-full flex justify-center items-center">
+                                            <Loader />
+                                        </div>
+                                        :
+                                        categoryProducts.map((product) => (
+                                            <ProductCard key={product._id} product={product}
+                                                onAddToCart={handleAddToCart} />
+                                        ))}
                             </div>
                         </div>
                     </div>
