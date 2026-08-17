@@ -19,7 +19,7 @@ export const useBuyNow = () => {
             navigate(`/buy-now/${productId}`);
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
 
             toast.error("Please login to continue");
             navigate("/login");

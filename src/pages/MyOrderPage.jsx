@@ -27,7 +27,15 @@ const MyOrderPage = () => {
                 const response =
                     await getUserOrders(selectedCategory);
 
-                setOrders(response.data.data.finalOrder);
+                const orders = response.data.data.finalOrder;
+
+                const sortedOrders = [...orders].sort(
+                    (a, b) =>
+                        new Date(b.createdAt).getTime() -
+                        new Date(a.createdAt).getTime()
+                );
+
+                setOrders(sortedOrders);
 
             } catch (error) {
                 // toast.error("Failed to fetch orders")
@@ -63,7 +71,7 @@ const MyOrderPage = () => {
         }
     };
 
-    console.log("loading:", loading);
+    // console.log("loading:", loading);
     if (loading) {
         return (
             <div>
@@ -228,7 +236,7 @@ const MyOrderPage = () => {
                                                     e.stopPropagation();
                                                     handleCancelOrder(order.itemId);
                                                 }}
-                                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs"
+                                                className="bg-red-600 hover:bg-red-700 text-white px-2 py-2 rounded-lg text-xs"
                                             >
                                                 Cancel Order
                                             </button>
@@ -249,7 +257,7 @@ const MyOrderPage = () => {
                                     )}
 
                                     <div>
-                                        <span className="text-sm lg:text-lg">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
+                                        <span className="text-sm lg:text-md">Ordered on : <br></br> {formatDate(order.createdAt)}</span>
                                     </div>
 
                                 </div>

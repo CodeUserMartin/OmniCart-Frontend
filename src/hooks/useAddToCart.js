@@ -22,7 +22,7 @@ export const useAddToCart = () => {
             toast.success("Added To Cart");
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
 
             // If token expired / unauthorized
             if (error.response?.status === 401) {

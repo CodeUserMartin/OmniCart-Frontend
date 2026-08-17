@@ -28,6 +28,20 @@ const AddProduct = () => {
 
         try {
 
+            // 5 MB file size limit
+            const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+            const oversizedImage = productData.images.find(
+                (image) => image.size > MAX_FILE_SIZE
+            );
+
+            if (oversizedImage) {
+                toast.error(
+                    `Product image must be less than 5 MB`
+                );
+                return;
+            }
+
             const formData = new FormData();
 
             formData.append(
@@ -190,6 +204,7 @@ const AddProduct = () => {
                     <input
                         className="w-full shadow-(--box-shadow) p-2"
                         type="file" id="image" name="image"
+                        accept="image/png,image/jpeg"
                         required
                         onChange={(e) =>
                             setProductData({

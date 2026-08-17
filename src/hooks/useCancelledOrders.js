@@ -15,7 +15,7 @@ export const useCancelledOrders = () => {
                 setOrders(res.data.data.cancelledOrders);
 
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             } finally {
                 setLoading(false);
             }

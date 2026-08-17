@@ -61,7 +61,7 @@ const LeftPanel = ({
                 <div className="w-full hover:bg-gray-800 cursor-pointer py-3 px-2">
                     <Link
                         to="/seller-dashboard/dashboard"
-                        className="pl-4 text-white  "
+                        className="pl-4 text-white font-bold"
                     >
                         Dashboard
                     </Link>

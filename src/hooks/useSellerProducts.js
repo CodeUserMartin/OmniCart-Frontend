@@ -19,11 +19,11 @@ export const useSellerProducts = () => {
                 setProducts(
                     response.data.data.products
                 );
-                console.log(response.data.data.products);
+                // console.log(response.data.data.products);
 
             } catch (error) {
 
-                console.log(error);
+                // console.log(error);
 
             } finally {
 

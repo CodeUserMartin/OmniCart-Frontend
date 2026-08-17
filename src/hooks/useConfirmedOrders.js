@@ -17,7 +17,7 @@ export const useConfirmedOrders = () => {
                 const response =
                     await getSellerConfirmedOrders();
 
-                    console.log(response.data);
+                    // console.log(response.data);
                     
 
                 setOrders(
